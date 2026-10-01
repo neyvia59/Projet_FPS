@@ -156,3 +156,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   _destroyDelay: 5
+  _destroyDelayInAir: 2
