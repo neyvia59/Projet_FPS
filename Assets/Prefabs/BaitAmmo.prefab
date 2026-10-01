@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3948717818930516915}
   - component: {fileID: 2497173806236104692}
   - component: {fileID: 7361908910000361961}
+  - component: {fileID: -7742756209017606977}
   m_Layer: 0
   m_Name: BaitAmmo
   m_TagString: Untagged
@@ -101,7 +102,7 @@ Rigidbody:
   m_GameObject: {fileID: 6972077110535941411}
   serializedVersion: 5
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 0.23
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -126,7 +127,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6972077110535941411}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 1af8687b638a00d43a1042853b718822, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -142,3 +143,16 @@ CapsuleCollider:
   m_Height: 2.9554746
   m_Direction: 1
   m_Center: {x: 0, y: -0.0000004676462, z: 0}
+--- !u!114 &-7742756209017606977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6972077110535941411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d51413fd732a50f4f8d8628339575185, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BaitAmmo
+  _destroyDelay: 4

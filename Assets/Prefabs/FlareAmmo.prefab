@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2476217945509922813}
   - component: {fileID: 7957058208731734840}
   - component: {fileID: -8104900930625763224}
+  - component: {fileID: 584388268957251557}
   m_Layer: 0
   m_Name: FlareAmmo
   m_TagString: Untagged
@@ -142,3 +143,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &584388268957251557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3228087392335792475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ef617d706b19b94b9b27ce09bc4ac66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  _destroyDelay: 5

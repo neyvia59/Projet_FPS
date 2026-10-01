@@ -44,7 +44,6 @@ public class WeaponManager : MonoBehaviour
 		}
 		if (Input.mouseScrollDelta.y < 0)
 		{
-            print("minus");
 			_currentWeaponIndex--;
 			if (_currentWeaponIndex < 0) { _currentWeaponIndex = _weapons.Count-1; }
             ChangeWeapon();

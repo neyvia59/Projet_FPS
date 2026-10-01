@@ -4,6 +4,8 @@ public class WeaponType : MonoBehaviour
 {
     public GameObject _projectilePrefab;
     public float _projectionForce;
+
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

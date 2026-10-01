@@ -127,24 +127,7 @@ public class PlayerMovement : MonoBehaviour
                 
             }
         }
-        rb.useGravity = !OnSlope();
-        if (OnSlope())
-        {
-            if (rb.linearVelocity.magnitude > moveSpeed)
-            {
-                rb.linearVelocity = rb.linearVelocity.normalized * moveSpeed;
-            }
-        }
-        else
-        {
-            Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-
-            if (flatVel.magnitude > moveSpeed)
-            {
-                Vector3 limitVel = flatVel.normalized * moveSpeed;
-                rb.linearVelocity = new Vector3(limitVel.x, rb.linearVelocity.y, limitVel.z);
-            }
-        }
+        
     }
 
     private void FixedUpdate()
@@ -195,36 +178,9 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * vertInput + orientation.right * horizInput;
         if (IsSlowing) { moveSpeed = CrounchSpeed / 2; }
 
-        if (OnSlope() == true)
-        {
-            rb.AddForce(GetSlopeMoveDir().normalized * moveSpeed, ForceMode.Force);
-            print(rb.linearVelocity.y);
-
-            if (rb.linearVelocity.y != 0)
-            {
-                rb.AddForce(Vector3.down * 50f * Mathf.Abs(rb.linearVelocity.y), ForceMode.Force);
-            }
-        }
-        else
-        {
+ 
             rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
-        }
+        
             
-    }
-
-    private bool OnSlope()
-    {
-        if (Physics.Raycast(transform.position, Vector3.down, out Slopehit, PlayerHeight * 0.5f + 0.3f))
-        {
-            float angle = Vector3.Angle(Vector3.up, Slopehit.normal);
-            return angle< MaxSlopeAngle && angle !=0;
-        }
-
-        return false;
-    }
-
-    private Vector3 GetSlopeMoveDir()
-    {
-        return Vector3.ProjectOnPlane(moveDirection, Slopehit.normal);
     }
 }

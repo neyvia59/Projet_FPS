@@ -504,6 +504,7 @@ GameObject:
   - component: {fileID: 598968506}
   - component: {fileID: 598968505}
   - component: {fileID: 598968504}
+  - component: {fileID: 598968508}
   m_Layer: 3
   m_Name: wall (1)
   m_TagString: Untagged
@@ -604,6 +605,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -84.205, z: 0}
+--- !u!114 &598968508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598968503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b347662a770c1724fbb0864aab93ef64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Wall
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -935,6 +948,7 @@ GameObject:
   - component: {fileID: 1019541330}
   - component: {fileID: 1019541329}
   - component: {fileID: 1019541328}
+  - component: {fileID: 1019541332}
   m_Layer: 3
   m_Name: floor
   m_TagString: Untagged
@@ -1035,6 +1049,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1019541332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1019541327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8632f667c0c33c948897e52aa84aa8c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Floor
 --- !u!1 &1071125889
 GameObject:
   m_ObjectHideFlags: 0
@@ -1606,6 +1632,7 @@ GameObject:
   - component: {fileID: 2100316458}
   - component: {fileID: 2100316457}
   - component: {fileID: 2100316456}
+  - component: {fileID: 2100316460}
   m_Layer: 3
   m_Name: wall
   m_TagString: Untagged
@@ -1706,6 +1733,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2100316460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100316455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b347662a770c1724fbb0864aab93ef64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Wall
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
