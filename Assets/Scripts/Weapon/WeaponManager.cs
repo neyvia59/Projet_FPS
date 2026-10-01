@@ -14,13 +14,18 @@ public class WeaponManager : MonoBehaviour
 
     [SerializeField] private WeaponType _currentWeapon;
 
+    [SerializeField] private float _aimingFOV;
+    [SerializeField] private float _aimingSpeed;
+    private bool _isAiming = false;
+    private float _baseFOV;
+
     private int _currentWeaponIndex = 0;
     
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
     {
         ChangeWeapon();
-
+        _baseFOV = Camera.main.fieldOfView;
 	}
 
     // Update is called once per frame
@@ -50,7 +55,21 @@ public class WeaponManager : MonoBehaviour
 		}
 
 
-	}
+        if (Input.GetMouseButton(1))
+        {
+            _isAiming = true;
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            _isAiming = false;
+        }
+
+        if (_isAiming)
+        {
+            Aim();
+        }
+        else if (_isAiming == false && Camera.main.fieldOfView < _baseFOV) { Unaim(); }
+    }
 
     private void ChangeWeapon() 
     { 
@@ -63,5 +82,22 @@ public class WeaponManager : MonoBehaviour
     {
         GameObject go = Instantiate(_currentWeapon._projectilePrefab, _SpawnPosition.position, Quaternion.identity);
         go.GetComponent<Rigidbody>().AddForce(_SpawnPosition.forward.normalized * _currentWeapon._projectionForce, ForceMode.Impulse);
+    }
+
+    private void Aim()
+    {
+        if(Camera.main.fieldOfView > _aimingFOV)
+        {
+            Camera.main.fieldOfView -= _aimingSpeed;
+        }
+    }
+
+    private void Unaim()
+    {
+        if (Camera.main.fieldOfView < _baseFOV)
+        {
+            Camera.main.fieldOfView += _aimingSpeed;
+        }
+
     }
 }

@@ -710,8 +710,8 @@ GameObject:
   - component: {fileID: 862360711}
   - component: {fileID: 862360710}
   - component: {fileID: 862360709}
-  - component: {fileID: 862360714}
   - component: {fileID: 862360715}
+  - component: {fileID: 862360716}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -731,21 +731,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4819c00f2ad4647837f9e698ca33ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveSpeed: 15
-  BaseSpeed: 15
-  CrounchSpeed: 5
-  SprintSpeed: 25
-  orientation: {fileID: 842874456}
-  MaxStamina: 10
-  volumeProfile: {fileID: 11400000, guid: 10fc4df2da32a41aaa32d77bc913491c, type: 2}
-  BlurSprint: 0
-  PlayerHeight: 2
-  Ground:
-    serializedVersion: 2
-    m_Bits: 0
-  groundDrag: 0
-  IsCrounched: 0
-  MaxSlopeAngle: 0
+  _cameraTransform: {fileID: 330585546}
+  _crouchSize: {x: 1, y: 0.7, z: 1}
+  _walkSpeed: 6
+  _sprintSpeed: 11
+  _crouchSpeed: 4
+  _acceleration: 35
+  _deceleration: 25
+  _jumpForce: 9
+  _gravity: 28
+  _maxFallSpeed: 40
 --- !u!136 &862360710
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -843,33 +838,6 @@ Transform:
   - {fileID: 1863914126}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &862360714
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 862360708}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 1.06
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &862360715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -890,6 +858,33 @@ MonoBehaviour:
   - {fileID: 17211284}
   - {fileID: 1502075932}
   _currentWeapon: {fileID: 0}
+  _aimingFOV: 35
+  _aimingSpeed: 1.67
+--- !u!143 &862360716
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862360708}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &989955815
 GameObject:
   m_ObjectHideFlags: 0
