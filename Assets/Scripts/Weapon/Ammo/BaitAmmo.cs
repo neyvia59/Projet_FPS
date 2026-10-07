@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BaitAmmo : Ammo
 {
-	private bool _isPlanted = false;
+	public bool _isPlanted = false;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
