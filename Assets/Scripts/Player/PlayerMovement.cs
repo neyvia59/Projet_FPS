@@ -4,23 +4,54 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private Transform _cameraTransform;
-    [SerializeField] private Vector3 _crouchSize;
-    private Vector3 _baseSize;
+    [Header("References")]
+    [SerializeField] private Transform cameraTransform;
+
+    [SerializeField] private Transform visualRoot;
 
     [Header("Ground Movement")]
-    [SerializeField] private float _walkSpeed = 6f;
-    [SerializeField] private float _sprintSpeed = 11f;
-    [SerializeField] private float _crouchSpeed = 4f;
+    [SerializeField] private float walkSpeed = 6f;
+    [SerializeField] private float sprintSpeed = 11f;
 
-    [SerializeField] private float _acceleration = 35f;
-    [SerializeField] private float _deceleration = 25f;
+    [SerializeField] private float acceleration = 35f;
+    [SerializeField] private float deceleration = 25f;
 
     [Header("Jump")]
-    [SerializeField] private float _jumpForce = 9f;
+    [SerializeField] private float jumpForce = 9f;
 
-    [SerializeField] private float _gravity = 28f;
-    [SerializeField] private float _maxFallSpeed = 40f;
+    [SerializeField] private float gravity = 28f;
+    [SerializeField] private float maxFallSpeed = 40f;
+
+
+    [Header("Ground Slide")]
+    [SerializeField] private float slideSpeed = 14f;
+    [SerializeField] private float slideSlowSpeed = 1.5f;
+
+    [SerializeField] private float slideAcceleration = 25f;
+
+    [SerializeField] private float slideDuration = 2f;
+    [SerializeField] private float slideSlowdownStart = 1.8f;
+
+    [SerializeField] private float slideStartSpeed = 3f;
+
+    [Header("Ground Slide Steering")]
+    [SerializeField] private float slideTurnSpeed = 8f;
+
+    [Tooltip("Vitesse conservée quand Ctrl est relâché.")]
+    [Range(0f, 1f)]
+    [SerializeField] private float slideReleaseVelocityMultiplier = 0f;
+
+    private bool isSliding;
+    private bool didSlide;
+    private float slideTimer;
+
+    private Vector3 slideDirection;
+
+    [Header("Slide Visual Feedback")]
+    [SerializeField] private float slideVisualHeight = 0.55f;
+    [SerializeField] private float slideVisualSmooth = 14f;
+
+    private Vector3 visualNormalScale;
 
     private Vector3 horizontalVelocity;
     private float verticalVelocity;
@@ -30,6 +61,7 @@ public class PlayerController : MonoBehaviour
     private bool sprintHeld;
     private bool crouchHeld;
     private bool jumpPressed;
+    private bool aimHeld;
 
     private CharacterController controller;
 
@@ -38,10 +70,14 @@ public class PlayerController : MonoBehaviour
         controller =
             GetComponent<CharacterController>();
 
-        _baseSize = gameObject.transform.localScale;
+        didSlide =
+            false;
 
-     
-
+        if (visualRoot != null)
+        {
+            visualNormalScale =
+                visualRoot.localScale;
+        }
     }
 
     private void Update()
@@ -50,14 +86,19 @@ public class PlayerController : MonoBehaviour
 
         HandleGroundState();
 
+        HandleSlideInputReset();
+
         HandleMovement();
 
         HandleJump();
+
+        HandleSlide();
 
         HandleGravity();
 
         ApplyMovement();
 
+        UpdateVisualFeedback();
     }
 
 
@@ -91,14 +132,24 @@ public class PlayerController : MonoBehaviour
 
         crouchHeld =
             Keyboard.current.leftCtrlKey.isPressed;
-        if(crouchHeld) { HandleCrouch(); }
-
-        if (Input.GetKeyUp(KeyCode.LeftControl)) { HandleStand(); }
 
         jumpPressed =
             Keyboard.current.spaceKey.wasPressedThisFrame;
+
+        aimHeld =
+            Mouse.current != null &&
+            Mouse.current.rightButton.isPressed;
     }
 
+
+    private void HandleSlideInputReset()
+    {
+
+        if (!crouchHeld)
+        {
+            didSlide = false;
+        }
+    }
 
     private void HandleGroundState()
     {
@@ -112,15 +163,18 @@ public class PlayerController : MonoBehaviour
     }
     private void HandleMovement()
     {
+        if (isSliding)
+            return;
 
         Vector3 desiredDirection =
             GetMoveDirection();
 
         if (controller.isGrounded)
         {
-            float targetSpeed =sprintHeld? _sprintSpeed: _walkSpeed;
-
-            targetSpeed = crouchHeld ? _crouchSpeed : _walkSpeed;
+            float targetSpeed =
+                sprintHeld
+                    ? sprintSpeed
+                    : walkSpeed;
 
             Vector3 targetVelocity =
                 desiredDirection *
@@ -130,7 +184,7 @@ public class PlayerController : MonoBehaviour
                 Vector3.MoveTowards(
                     horizontalVelocity,
                     targetVelocity,
-                    _acceleration *
+                    acceleration *
                     Time.deltaTime
                 );
 
@@ -140,7 +194,7 @@ public class PlayerController : MonoBehaviour
                     Vector3.MoveTowards(
                         horizontalVelocity,
                         Vector3.zero,
-                        _deceleration *
+                        deceleration *
                         Time.deltaTime
                     );
             }
@@ -187,14 +241,14 @@ public class PlayerController : MonoBehaviour
     }
     private Vector3 GetMoveDirection()
     {
-        if (_cameraTransform == null)
+        if (cameraTransform == null)
             return Vector3.zero;
 
         Vector3 forward =
-            _cameraTransform.forward;
+            cameraTransform.forward;
 
         Vector3 right =
-            _cameraTransform.right;
+            cameraTransform.right;
 
         forward.y = 0f;
         right.y = 0f;
@@ -222,26 +276,187 @@ public class PlayerController : MonoBehaviour
         if (controller.isGrounded)
         {
             verticalVelocity =
-                _jumpForce;
+                jumpForce;
 
             return;
         }
 
     }
 
+    private void HandleSlide()
+    {
+
+      
+
+        if (crouchHeld &&
+            !isSliding &&
+            !didSlide &&
+            horizontalVelocity.magnitude >=
+            slideStartSpeed)
+        {
+            StartSlide();
+        }
+
+        if (!isSliding)
+            return;
+
+        if (!crouchHeld)
+        {
+            StopSlide(
+                reduceVelocity: true
+            );
+
+            return;
+        }
+
+        slideTimer +=
+            Time.deltaTime;
+
+        Vector3 desiredDirection =
+            GetMoveDirection();
+
+        if (desiredDirection.sqrMagnitude > 0.01f)
+        {
+            Quaternion targetRotation =
+                Quaternion.LookRotation(
+                    desiredDirection
+                );
+
+            Quaternion slideRotation =
+                Quaternion.LookRotation(
+                    slideDirection
+                );
+
+            Quaternion steeredRotation =
+                Quaternion.RotateTowards(
+                    slideRotation,
+                    targetRotation,
+                    slideTurnSpeed *
+                    Time.deltaTime *
+                    60f
+                );
+
+            slideDirection =
+                steeredRotation *
+                Vector3.forward;
+
+            slideDirection.y = 0f;
+
+            slideDirection.Normalize();
+        }
+
+        float slowFactor =
+            GetSlowdownFactor(
+                slideTimer,
+                slideSlowdownStart,
+                slideDuration
+            );
+
+        float targetSpeed =
+            Mathf.Lerp(
+                slideSpeed,
+                slideSlowSpeed,
+                slowFactor
+            );
+
+        horizontalVelocity =
+            Vector3.MoveTowards(
+                horizontalVelocity,
+                slideDirection *
+                targetSpeed,
+                slideAcceleration *
+                Time.deltaTime
+            );
+
+        if (slideTimer >=
+            slideDuration)
+        {
+            StopSlide(
+                reduceVelocity: true
+            );
+        }
+    }
+
+    private void StartSlide()
+    {
+        isSliding = true;
+
+        // IMPORTANT :
+        // Dès qu'on entre dans le slide,
+        // cette tentative est consommée.
+        didSlide = true;
+
+        slideTimer = 0f;
+
+        slideDirection =
+            horizontalVelocity.normalized;
+
+        if (slideDirection.sqrMagnitude <
+            0.01f)
+        {
+            slideDirection =
+                transform.forward;
+        }
+    }
+
+    private void StopSlide(
+        bool reduceVelocity
+    )
+    {
+        isSliding = false;
+
+        slideTimer = 0f;
+
+        if (reduceVelocity)
+        {
+            horizontalVelocity *=
+                slideReleaseVelocityMultiplier;
+        }
+    }
+
+    
+
+    
+
+    private float GetSlowdownFactor(
+        float timer,
+        float slowdownStart,
+        float duration
+    )
+    {
+        if (timer <= slowdownStart)
+            return 0f;
+
+        float remaining =
+            duration -
+            slowdownStart;
+
+        if (remaining <= 0f)
+            return 1f;
+
+        return Mathf.Clamp01(
+            (timer - slowdownStart) /
+            remaining
+        );
+    }
+
+   
+
+
     private void HandleGravity()
     {
         if (controller.isGrounded)
             return;
 
+
         verticalVelocity -=
-            _gravity *
+            gravity *
             Time.deltaTime;
 
         verticalVelocity =
             Mathf.Max(
                 verticalVelocity,
-                -_maxFallSpeed
+                -maxFallSpeed
             );
     }
 
@@ -266,13 +481,33 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void HandleCrouch()
+    private void UpdateVisualFeedback()
     {
-        gameObject.transform.localScale = _crouchSize;
-    }
+        if (visualRoot == null)
+            return;
 
-    private void HandleStand()
-    {
-        gameObject.transform.localScale =_baseSize;
+
+        bool shouldBeLow =
+            crouchHeld &&
+            isSliding ;
+
+        float targetHeight =
+            shouldBeLow
+                ? slideVisualHeight
+                : 1f;
+
+        Vector3 targetScale =
+            visualNormalScale;
+
+        targetScale.y *=
+            targetHeight;
+
+        visualRoot.localScale =
+            Vector3.Lerp(
+                visualRoot.localScale,
+                targetScale,
+                slideVisualSmooth *
+                Time.deltaTime
+            );
     }
 }

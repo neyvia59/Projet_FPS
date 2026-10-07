@@ -731,16 +731,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4819c00f2ad4647837f9e698ca33ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  _cameraTransform: {fileID: 330585546}
-  _crouchSize: {x: 1, y: 0.7, z: 1}
-  _walkSpeed: 6
-  _sprintSpeed: 11
-  _crouchSpeed: 4
-  _acceleration: 35
-  _deceleration: 25
-  _jumpForce: 9
-  _gravity: 28
-  _maxFallSpeed: 40
+  cameraTransform: {fileID: 330585546}
+  visualRoot: {fileID: 862360713}
+  walkSpeed: 6
+  sprintSpeed: 11
+  acceleration: 35
+  deceleration: 25
+  jumpForce: 9
+  gravity: 28
+  maxFallSpeed: 40
+  slideSpeed: 14
+  slideSlowSpeed: 1.5
+  slideAcceleration: 25
+  slideDuration: 2
+  slideSlowdownStart: 1.8
+  slideStartSpeed: 3
+  slideTurnSpeed: 8
+  slideReleaseVelocityMultiplier: 0.314
+  slideVisualHeight: 0.55
+  slideVisualSmooth: 14
 --- !u!136 &862360710
 CapsuleCollider:
   m_ObjectHideFlags: 0
