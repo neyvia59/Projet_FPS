@@ -22,6 +22,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravity = 28f;
     [SerializeField] private float maxFallSpeed = 40f;
 
+    [Header("Wall Ride")]
+    [SerializeField] private float wallCheckDistance = 0.8f;
+    [SerializeField] private float wallCheckHeight = 1.0f;
+    [SerializeField] private float wallMinNormalY = 0.2f;
+    [SerializeField] private float wallRunSpeed = 10f;
+    [SerializeField] private float wallRunGravity = 4f;
+    [SerializeField] private float wallRunDuration = 1.5f;
+    [SerializeField] private float wallJumpForce = 10f;
+    [SerializeField] private float wallJumpAwayForce = 8f;
+    [SerializeField] private float wallJumpForwardForce = 5f;
+
+    private bool isWallRunning;
+    private Vector3 wallNormal;
+    private float wallRunTimer;
+
 
     [Header("Ground Slide")]
     [SerializeField] private float slideSpeed = 14f;
@@ -87,6 +102,8 @@ public class PlayerController : MonoBehaviour
         HandleGroundState();
 
         HandleSlideInputReset();
+
+        HandleWallRun();
 
         HandleMovement();
 
@@ -163,7 +180,7 @@ public class PlayerController : MonoBehaviour
     }
     private void HandleMovement()
     {
-        if (isSliding)
+        if (isSliding || isWallRunning)
             return;
 
         Vector3 desiredDirection =
@@ -273,6 +290,12 @@ public class PlayerController : MonoBehaviour
         if (!jumpPressed)
             return;
 
+        if (isWallRunning)
+        {
+            WallJump();
+            return;
+        }
+
         if (controller.isGrounded)
         {
             verticalVelocity =
@@ -285,8 +308,8 @@ public class PlayerController : MonoBehaviour
 
     private void HandleSlide()
     {
-
-      
+        if (isWallRunning)
+            return;
 
         if (crouchHeld &&
             !isSliding &&
@@ -414,9 +437,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
 
-    
+
+
 
     private float GetSlowdownFactor(
         float timer,
@@ -440,14 +463,177 @@ public class PlayerController : MonoBehaviour
         );
     }
 
-   
 
+
+
+    private void HandleWallRun()
+    {
+
+        if (controller.isGrounded)
+        {
+            print("grounded");
+            StopWallRun();
+            return;
+        }
+
+        Vector3 origin = transform.position + Vector3.up * wallCheckHeight;
+
+        bool foundWall = false;
+        RaycastHit hit;
+
+        // Check the wall on the left.
+        if (Physics.Raycast(
+            origin,
+            -transform.right,
+            out hit,
+            wallCheckDistance))
+        {
+            if (IsValidWall(hit.normal))
+            {
+                wallNormal = hit.normal;
+                foundWall = true;
+            }
+        }
+
+        // Check the wall on the right if the left side was not valid.
+        if (!foundWall &&
+            Physics.Raycast(
+                origin,
+                transform.right,
+                out hit,
+                wallCheckDistance))
+        {
+            if (IsValidWall(hit.normal))
+            {
+                wallNormal = hit.normal;
+                foundWall = true;
+            }
+        }
+
+        if (!foundWall)
+        {
+            StopWallRun();
+            return;
+        }
+
+
+        // Do not start a wall run when moving away from the wall.
+        if (!isWallRunning)
+        {
+            if (Vector3.Dot(horizontalVelocity, -wallNormal) < -0.1f)
+            {
+                StopWallRun();
+                return;
+            }
+
+            isWallRunning = true;
+            wallRunTimer = 0f;
+
+            // Keep the current speed, but make sure we have enough speed for the wall ride.
+            float currentSpeed = horizontalVelocity.magnitude;
+            float targetSpeed = Mathf.Max(currentSpeed, wallRunSpeed);
+
+            Vector3 wallDirection = GetWallRunDirection(wallNormal);
+            horizontalVelocity = wallDirection * targetSpeed;
+            verticalVelocity = Mathf.Max(verticalVelocity, -2f);
+        }
+        else
+        {
+            wallRunTimer += Time.deltaTime;
+
+            if (wallRunTimer >= wallRunDuration)
+            {
+                StopWallRun();
+                return;
+            }
+
+            Vector3 wallDirection = GetWallRunDirection(wallNormal);
+            float speed = Mathf.Max(horizontalVelocity.magnitude, wallRunSpeed);
+
+            horizontalVelocity =
+                Vector3.MoveTowards(
+                    horizontalVelocity,
+                    wallDirection * speed,
+                    acceleration * Time.deltaTime
+                );
+        }
+    }
+
+    private bool IsValidWall(Vector3 normal)
+    {
+        // A valid wall should be mostly vertical.
+        return Mathf.Abs(normal.y) <= wallMinNormalY;
+    }
+
+    private Vector3 GetWallRunDirection(Vector3 normal)
+    {
+        // Project forward movement onto the wall plane.
+        Vector3 direction =
+            Vector3.ProjectOnPlane(transform.forward, normal);
+
+        if (direction.sqrMagnitude < 0.01f)
+            direction = Vector3.ProjectOnPlane(cameraTransform.forward, normal);
+
+        direction.y = 0f;
+
+        if (direction.sqrMagnitude < 0.01f)
+            return transform.forward;
+
+        direction.Normalize();
+
+        // Keep the current direction instead of suddenly reversing it.
+        if (Vector3.Dot(direction, horizontalVelocity) < 0f)
+            direction = -direction;
+
+        return direction;
+    }
+
+    private void WallJump()
+    {
+        isWallRunning = false;
+        wallRunTimer = 0f;
+
+        // Push away from the wall, upward, and slightly forward.
+        Vector3 jumpDirection =
+            wallNormal * wallJumpAwayForce +
+            Vector3.up * wallJumpForce +
+            GetWallRunDirection(wallNormal) * wallJumpForwardForce;
+
+        horizontalVelocity =
+            Vector3.ProjectOnPlane(
+                jumpDirection,
+                Vector3.up
+            );
+
+        verticalVelocity = jumpDirection.y;
+    }
+
+    private void StopWallRun()
+    {
+
+        isWallRunning = false;
+        wallRunTimer = 0f;
+    }
 
     private void HandleGravity()
     {
         if (controller.isGrounded)
             return;
 
+        if (isWallRunning)
+        {
+            verticalVelocity -=
+                wallRunGravity *
+                Time.deltaTime;
+
+            verticalVelocity =
+                Mathf.Max(
+                    verticalVelocity,
+                    -wallRunSpeed
+                );
+
+            return;
+        }
 
         verticalVelocity -=
             gravity *
@@ -489,7 +675,7 @@ public class PlayerController : MonoBehaviour
 
         bool shouldBeLow =
             crouchHeld &&
-            isSliding ;
+            isSliding;
 
         float targetHeight =
             shouldBeLow
@@ -509,5 +695,12 @@ public class PlayerController : MonoBehaviour
                 slideVisualSmooth *
                 Time.deltaTime
             );
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawCube(transform.position, new Vector3(wallCheckDistance, wallCheckHeight, wallCheckDistance));
     }
 }
