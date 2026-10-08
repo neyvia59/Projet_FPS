@@ -5,93 +5,98 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Transform cameraTransform;
+    [SerializeField] private Transform _cameraTransform;
 
-    [SerializeField] private Transform visualRoot;
+    [SerializeField] private Transform _playerTransform;
 
     [Header("Ground Movement")]
-    [SerializeField] private float walkSpeed = 6f;
-    [SerializeField] private float sprintSpeed = 11f;
+    [SerializeField] private float _walkSpeed = 6f;
+    [SerializeField] private float _sprintSpeed = 11f;
 
-    [SerializeField] private float acceleration = 35f;
-    [SerializeField] private float deceleration = 25f;
+    [SerializeField] private float _acceleration = 35f;
+    [SerializeField] private float _deceleration = 25f;
 
     [Header("Jump")]
-    [SerializeField] private float jumpForce = 9f;
+    [SerializeField] private float _jumpForce = 9f;
 
-    [SerializeField] private float gravity = 28f;
-    [SerializeField] private float maxFallSpeed = 40f;
+    [SerializeField] private float _gravity = 28f;
+    [SerializeField] private float _maxFallSpeed = 40f;
+
+    [SerializeField] private float _coyotteTimeDuration = 0.5f;
+    private bool _canCoyotte;
+    public bool _isInCoyotte;
+    private float _coyotteTimer;
 
     [Header("Wall Ride")]
-    [SerializeField] private float wallCheckDistance = 0.8f;
-    [SerializeField] private float wallCheckHeight = 1.0f;
-    [SerializeField] private float wallMinNormalY = 0.2f;
-    [SerializeField] private float wallRunSpeed = 10f;
-    [SerializeField] private float wallRunGravity = 4f;
-    [SerializeField] private float wallRunDuration = 1.5f;
-    [SerializeField] private float wallJumpForce = 10f;
-    [SerializeField] private float wallJumpAwayForce = 8f;
-    [SerializeField] private float wallJumpForwardForce = 5f;
+    [SerializeField] private float _wallCheckDistance = 0.8f;
+    [SerializeField] private float _wallCheckHeight = 1.0f;
+    [SerializeField] private float _wallMinNormalY = 0.2f;
+    [SerializeField] private float _wallRunSpeed = 10f;
+    [SerializeField] private float _wallRunGravity = 4f;
+    [SerializeField] private float _wallRunDuration = 1.5f;
+    [SerializeField] private float _wallJumpForce = 10f;
+    [SerializeField] private float _wallJumpAwayForce = 8f;
+    [SerializeField] private float _wallJumpForwardForce = 5f;
 
-    private bool isWallRunning;
-    private Vector3 wallNormal;
-    private float wallRunTimer;
+    private bool _isWallRunning;
+    private Vector3 _wallNormal;
+    private float _wallRunTimer;
 
 
     [Header("Ground Slide")]
-    [SerializeField] private float slideSpeed = 14f;
-    [SerializeField] private float slideSlowSpeed = 1.5f;
+    [SerializeField] private float _slideSpeed = 14f;
+    [SerializeField] private float _slideSlowSpeed = 1.5f;
 
-    [SerializeField] private float slideAcceleration = 25f;
+    [SerializeField] private float _slideAcceleration = 25f;
 
-    [SerializeField] private float slideDuration = 2f;
-    [SerializeField] private float slideSlowdownStart = 1.8f;
+    [SerializeField] private float _slideDuration = 2f;
+    [SerializeField] private float _slideSlowdownStart = 1.8f;
 
-    [SerializeField] private float slideStartSpeed = 3f;
+    [SerializeField] private float _slideStartSpeed = 3f;
 
     [Header("Ground Slide Steering")]
-    [SerializeField] private float slideTurnSpeed = 8f;
+    [SerializeField] private float _slideTurnSpeed = 8f;
 
     [Tooltip("Vitesse conservée quand Ctrl est relâché.")]
     [Range(0f, 1f)]
-    [SerializeField] private float slideReleaseVelocityMultiplier = 0f;
+    [SerializeField] private float _slideReleaseVelocityMultiplier = 0f;
 
-    private bool isSliding;
-    private bool didSlide;
-    private float slideTimer;
+    private bool _isSliding;
+    private bool _didSlide;
+    private float _slideTimer;
 
-    private Vector3 slideDirection;
+    private Vector3 _slideDirection;
 
     [Header("Slide Visual Feedback")]
-    [SerializeField] private float slideVisualHeight = 0.55f;
-    [SerializeField] private float slideVisualSmooth = 14f;
+    [SerializeField] private float _slideVisualHeight = 0.55f;
+    [SerializeField] private float _slideVisualSmooth = 14f;
 
-    private Vector3 visualNormalScale;
+    private Vector3 _visualNormalScale;
 
-    private Vector3 horizontalVelocity;
-    private float verticalVelocity;
+    private Vector3 _horizontalVelocity;
+    private float _verticalVelocity;
 
-    private Vector2 moveInput;
+    private Vector2 _moveInput;
 
-    private bool sprintHeld;
-    private bool crouchHeld;
-    private bool jumpPressed;
-    private bool aimHeld;
+    private bool _sprintHeld;
+    private bool _crouchHeld;
+    private bool _jumpPressed;
 
-    private CharacterController controller;
+
+    private CharacterController _controller;
 
     private void Awake()
     {
-        controller =
+        _controller =
             GetComponent<CharacterController>();
 
-        didSlide =
+        _didSlide =
             false;
 
-        if (visualRoot != null)
+        if (_playerTransform != null)
         {
-            visualNormalScale =
-                visualRoot.localScale;
+            _visualNormalScale =
+                _playerTransform.localScale;
         }
     }
 
@@ -106,6 +111,8 @@ public class PlayerController : MonoBehaviour
         HandleWallRun();
 
         HandleMovement();
+
+        HandleCoyotte();
 
         HandleJump();
 
@@ -124,94 +131,91 @@ public class PlayerController : MonoBehaviour
         if (Keyboard.current == null)
             return;
 
-        moveInput = Vector2.zero;
+        _moveInput = Vector2.zero;
 
         if (Keyboard.current.wKey.isPressed)
-            moveInput.y += 1f;
+            _moveInput.y += 1f;
 
         if (Keyboard.current.sKey.isPressed)
-            moveInput.y -= 1f;
+            _moveInput.y -= 1f;
 
         if (Keyboard.current.aKey.isPressed)
-            moveInput.x -= 1f;
+            _moveInput.x -= 1f;
 
         if (Keyboard.current.dKey.isPressed)
-            moveInput.x += 1f;
+            _moveInput.x += 1f;
 
-        moveInput =
+        _moveInput =
             Vector2.ClampMagnitude(
-                moveInput,
+                _moveInput,
                 1f
             );
 
-        sprintHeld =
+        _sprintHeld =
             Keyboard.current.leftShiftKey.isPressed;
 
-        crouchHeld =
+        _crouchHeld =
             Keyboard.current.leftCtrlKey.isPressed;
 
-        jumpPressed =
+        _jumpPressed =
             Keyboard.current.spaceKey.wasPressedThisFrame;
 
-        aimHeld =
-            Mouse.current != null &&
-            Mouse.current.rightButton.isPressed;
     }
 
 
     private void HandleSlideInputReset()
     {
 
-        if (!crouchHeld)
+        if (!_crouchHeld)
         {
-            didSlide = false;
+            _didSlide = false;
         }
     }
 
     private void HandleGroundState()
     {
-        if (!controller.isGrounded)
+        if (!_controller.isGrounded)
             return;
 
-        if (verticalVelocity < 0f)
+        if (_verticalVelocity < 0f)
         {
-            verticalVelocity = -2f;
+            _verticalVelocity = -2f;
         }
     }
     private void HandleMovement()
     {
-        if (isSliding || isWallRunning)
+        if (_isSliding || _isWallRunning)
             return;
 
         Vector3 desiredDirection =
             GetMoveDirection();
 
-        if (controller.isGrounded)
+        if (_controller.isGrounded)
         {
             float targetSpeed =
-                sprintHeld
-                    ? sprintSpeed
-                    : walkSpeed;
+                _sprintHeld
+                    ? _sprintSpeed
+                    : _walkSpeed;
 
             Vector3 targetVelocity =
                 desiredDirection *
                 targetSpeed;
 
-            horizontalVelocity =
+            _horizontalVelocity =
                 Vector3.MoveTowards(
-                    horizontalVelocity,
+                    _horizontalVelocity,
                     targetVelocity,
-                    acceleration *
+                    _acceleration *
                     Time.deltaTime
                 );
 
             if (desiredDirection.sqrMagnitude < 0.01f)
             {
-                horizontalVelocity =
+                _horizontalVelocity =
                     Vector3.MoveTowards(
-                        horizontalVelocity,
+                        _horizontalVelocity,
                         Vector3.zero,
-                        deceleration *
+                        _deceleration *
                         Time.deltaTime
                     );
             }
@@ -248,9 +252,9 @@ public class PlayerController : MonoBehaviour
             desiredDirection *
             14f;
 
-        horizontalVelocity =
+        _horizontalVelocity =
             Vector3.MoveTowards(
-                horizontalVelocity,
+                _horizontalVelocity,
                 targetVelocity,
                 12f *
                 Time.deltaTime
@@ -258,14 +262,14 @@ public class PlayerController : MonoBehaviour
     }
     private Vector3 GetMoveDirection()
     {
-        if (cameraTransform == null)
+        if (_cameraTransform == null)
             return Vector3.zero;
 
         Vector3 forward =
-            cameraTransform.forward;
+            _cameraTransform.forward;
 
         Vector3 right =
-            cameraTransform.right;
+            _cameraTransform.right;
 
         forward.y = 0f;
         right.y = 0f;
@@ -275,32 +279,60 @@ public class PlayerController : MonoBehaviour
 
         Vector3 direction =
             forward *
-            moveInput.y
+            _moveInput.y
             +
             right *
-            moveInput.x;
+            _moveInput.x;
 
         return Vector3.ClampMagnitude(
             direction,
             1f
         );
     }
+
+
+    private void HandleCoyotte()
+    {
+        if(_controller.isGrounded == false && _canCoyotte)
+        {
+            
+            if (_coyotteTimer <= _coyotteTimeDuration)
+            {
+                _isInCoyotte = true;
+                _coyotteTimer += Time.deltaTime;
+            }
+            else
+            {
+                _isInCoyotte = false;
+                _canCoyotte = false;
+                _coyotteTimer = 0f;
+            }
+        }
+
+        if (_controller.isGrounded)
+        {
+            _canCoyotte = true;
+        }
+    }
+
     private void HandleJump()
     {
-        if (!jumpPressed)
+        if (!_jumpPressed)
             return;
 
-        if (isWallRunning)
+        if (_isWallRunning)
         {
             WallJump();
             return;
         }
 
-        if (controller.isGrounded)
+        if (_controller.isGrounded || _isInCoyotte)
         {
-            verticalVelocity =
-                jumpForce;
-
+            _verticalVelocity =
+                _jumpForce;
+            _isInCoyotte = false;
+            _canCoyotte = false;
+            _coyotteTimer = 0f;
             return;
         }
 
@@ -308,22 +340,22 @@ public class PlayerController : MonoBehaviour
 
     private void HandleSlide()
     {
-        if (isWallRunning)
+        if (_isWallRunning)
             return;
 
-        if (crouchHeld &&
-            !isSliding &&
-            !didSlide &&
-            horizontalVelocity.magnitude >=
-            slideStartSpeed)
+        if (_crouchHeld &&
+            !_isSliding &&
+            !_didSlide &&
+            _horizontalVelocity.magnitude >=
+            _slideStartSpeed)
         {
             StartSlide();
         }
 
-        if (!isSliding)
+        if (!_isSliding)
             return;
 
-        if (!crouchHeld)
+        if (!_crouchHeld)
         {
             StopSlide(
                 reduceVelocity: true
@@ -332,7 +364,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        slideTimer +=
+        _slideTimer +=
             Time.deltaTime;
 
         Vector3 desiredDirection =
@@ -347,52 +379,52 @@ public class PlayerController : MonoBehaviour
 
             Quaternion slideRotation =
                 Quaternion.LookRotation(
-                    slideDirection
+                    _slideDirection
                 );
 
             Quaternion steeredRotation =
                 Quaternion.RotateTowards(
                     slideRotation,
                     targetRotation,
-                    slideTurnSpeed *
+                    _slideTurnSpeed *
                     Time.deltaTime *
                     60f
                 );
 
-            slideDirection =
+            _slideDirection =
                 steeredRotation *
                 Vector3.forward;
 
-            slideDirection.y = 0f;
+            _slideDirection.y = 0f;
 
-            slideDirection.Normalize();
+            _slideDirection.Normalize();
         }
 
         float slowFactor =
             GetSlowdownFactor(
-                slideTimer,
-                slideSlowdownStart,
-                slideDuration
+                _slideTimer,
+                _slideSlowdownStart,
+                _slideDuration
             );
 
         float targetSpeed =
             Mathf.Lerp(
-                slideSpeed,
-                slideSlowSpeed,
+                _slideSpeed,
+                _slideSlowSpeed,
                 slowFactor
             );
 
-        horizontalVelocity =
+        _horizontalVelocity =
             Vector3.MoveTowards(
-                horizontalVelocity,
-                slideDirection *
+                _horizontalVelocity,
+                _slideDirection *
                 targetSpeed,
-                slideAcceleration *
+                _slideAcceleration *
                 Time.deltaTime
             );
 
-        if (slideTimer >=
-            slideDuration)
+        if (_slideTimer >=
+            _slideDuration)
         {
             StopSlide(
                 reduceVelocity: true
@@ -402,22 +434,19 @@ public class PlayerController : MonoBehaviour
 
     private void StartSlide()
     {
-        isSliding = true;
+        _isSliding = true;
 
-        // IMPORTANT :
-        // Dès qu'on entre dans le slide,
-        // cette tentative est consommée.
-        didSlide = true;
+        _didSlide = true;
 
-        slideTimer = 0f;
+        _slideTimer = 0f;
 
-        slideDirection =
-            horizontalVelocity.normalized;
+        _slideDirection =
+            _horizontalVelocity.normalized;
 
-        if (slideDirection.sqrMagnitude <
+        if (_slideDirection.sqrMagnitude <
             0.01f)
         {
-            slideDirection =
+            _slideDirection =
                 transform.forward;
         }
     }
@@ -426,14 +455,14 @@ public class PlayerController : MonoBehaviour
         bool reduceVelocity
     )
     {
-        isSliding = false;
+        _isSliding = false;
 
-        slideTimer = 0f;
+        _slideTimer = 0f;
 
         if (reduceVelocity)
         {
-            horizontalVelocity *=
-                slideReleaseVelocityMultiplier;
+            _horizontalVelocity *=
+                _slideReleaseVelocityMultiplier;
         }
     }
 
@@ -469,43 +498,40 @@ public class PlayerController : MonoBehaviour
     private void HandleWallRun()
     {
 
-        if (controller.isGrounded)
+        if (_controller.isGrounded)
         {
-            print("grounded");
             StopWallRun();
             return;
         }
 
-        Vector3 origin = transform.position + Vector3.up * wallCheckHeight;
+        Vector3 origin = transform.position + Vector3.up * _wallCheckHeight;
 
         bool foundWall = false;
         RaycastHit hit;
 
-        // Check the wall on the left.
         if (Physics.Raycast(
             origin,
             -transform.right,
             out hit,
-            wallCheckDistance))
+            _wallCheckDistance))
         {
             if (IsValidWall(hit.normal))
             {
-                wallNormal = hit.normal;
+                _wallNormal = hit.normal;
                 foundWall = true;
             }
         }
 
-        // Check the wall on the right if the left side was not valid.
         if (!foundWall &&
             Physics.Raycast(
                 origin,
                 transform.right,
                 out hit,
-                wallCheckDistance))
+                _wallCheckDistance))
         {
             if (IsValidWall(hit.normal))
             {
-                wallNormal = hit.normal;
+                _wallNormal = hit.normal;
                 foundWall = true;
             }
         }
@@ -516,63 +542,58 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-
-        // Do not start a wall run when moving away from the wall.
-        if (!isWallRunning)
+        if (!_isWallRunning)
         {
-            if (Vector3.Dot(horizontalVelocity, -wallNormal) < -0.1f)
+            if (Vector3.Dot(_horizontalVelocity, -_wallNormal) < -0.1f)
             {
                 StopWallRun();
                 return;
             }
 
-            isWallRunning = true;
-            wallRunTimer = 0f;
+            _isWallRunning = true;
+            _wallRunTimer = 0f;
 
-            // Keep the current speed, but make sure we have enough speed for the wall ride.
-            float currentSpeed = horizontalVelocity.magnitude;
-            float targetSpeed = Mathf.Max(currentSpeed, wallRunSpeed);
+            float currentSpeed = _horizontalVelocity.magnitude;
+            float targetSpeed = Mathf.Max(currentSpeed, _wallRunSpeed);
 
-            Vector3 wallDirection = GetWallRunDirection(wallNormal);
-            horizontalVelocity = wallDirection * targetSpeed;
-            verticalVelocity = Mathf.Max(verticalVelocity, -2f);
+            Vector3 wallDirection = GetWallRunDirection(_wallNormal);
+            _horizontalVelocity = wallDirection * targetSpeed;
+            _verticalVelocity = Mathf.Max(_verticalVelocity, -2f);
         }
         else
         {
-            wallRunTimer += Time.deltaTime;
+            _wallRunTimer += Time.deltaTime;
 
-            if (wallRunTimer >= wallRunDuration)
+            if (_wallRunTimer >= _wallRunDuration)
             {
                 StopWallRun();
                 return;
             }
 
-            Vector3 wallDirection = GetWallRunDirection(wallNormal);
-            float speed = Mathf.Max(horizontalVelocity.magnitude, wallRunSpeed);
+            Vector3 wallDirection = GetWallRunDirection(_wallNormal);
+            float speed = Mathf.Max(_horizontalVelocity.magnitude, _wallRunSpeed);
 
-            horizontalVelocity =
+            _horizontalVelocity =
                 Vector3.MoveTowards(
-                    horizontalVelocity,
+                    _horizontalVelocity,
                     wallDirection * speed,
-                    acceleration * Time.deltaTime
+                    _acceleration * Time.deltaTime
                 );
         }
     }
 
     private bool IsValidWall(Vector3 normal)
     {
-        // A valid wall should be mostly vertical.
-        return Mathf.Abs(normal.y) <= wallMinNormalY;
+        return Mathf.Abs(normal.y) <= _wallMinNormalY;
     }
 
     private Vector3 GetWallRunDirection(Vector3 normal)
     {
-        // Project forward movement onto the wall plane.
         Vector3 direction =
             Vector3.ProjectOnPlane(transform.forward, normal);
 
         if (direction.sqrMagnitude < 0.01f)
-            direction = Vector3.ProjectOnPlane(cameraTransform.forward, normal);
+            direction = Vector3.ProjectOnPlane(_cameraTransform.forward, normal);
 
         direction.y = 0f;
 
@@ -581,8 +602,7 @@ public class PlayerController : MonoBehaviour
 
         direction.Normalize();
 
-        // Keep the current direction instead of suddenly reversing it.
-        if (Vector3.Dot(direction, horizontalVelocity) < 0f)
+        if (Vector3.Dot(direction, _horizontalVelocity) < 0f)
             direction = -direction;
 
         return direction;
@@ -590,109 +610,108 @@ public class PlayerController : MonoBehaviour
 
     private void WallJump()
     {
-        isWallRunning = false;
-        wallRunTimer = 0f;
+        _isWallRunning = false;
+        _wallRunTimer = 0f;
 
-        // Push away from the wall, upward, and slightly forward.
         Vector3 jumpDirection =
-            wallNormal * wallJumpAwayForce +
-            Vector3.up * wallJumpForce +
-            GetWallRunDirection(wallNormal) * wallJumpForwardForce;
+            _wallNormal * _wallJumpAwayForce +
+            Vector3.up * _wallJumpForce +
+            GetWallRunDirection(_wallNormal) * _wallJumpForwardForce;
 
-        horizontalVelocity =
+        _horizontalVelocity =
             Vector3.ProjectOnPlane(
                 jumpDirection,
                 Vector3.up
             );
 
-        verticalVelocity = jumpDirection.y;
+        _verticalVelocity = jumpDirection.y;
     }
 
     private void StopWallRun()
     {
 
-        isWallRunning = false;
-        wallRunTimer = 0f;
+        _isWallRunning = false;
+        _wallRunTimer = 0f;
     }
 
     private void HandleGravity()
     {
-        if (controller.isGrounded)
+        if (_controller.isGrounded)
             return;
 
-        if (isWallRunning)
+        if (_isWallRunning)
         {
-            verticalVelocity -=
-                wallRunGravity *
+            _verticalVelocity -=
+                _wallRunGravity *
                 Time.deltaTime;
 
-            verticalVelocity =
+            _verticalVelocity =
                 Mathf.Max(
-                    verticalVelocity,
-                    -wallRunSpeed
+                    _verticalVelocity,
+                    -_wallRunSpeed
                 );
 
             return;
         }
 
-        verticalVelocity -=
-            gravity *
+        _verticalVelocity -=
+            _gravity *
             Time.deltaTime;
 
-        verticalVelocity =
+        _verticalVelocity =
             Mathf.Max(
-                verticalVelocity,
-                -maxFallSpeed
+                _verticalVelocity,
+                -_maxFallSpeed
             );
     }
 
     private void ApplyMovement()
     {
         Vector3 velocity =
-            horizontalVelocity +
+            _horizontalVelocity +
             Vector3.up *
-            verticalVelocity;
+            _verticalVelocity;
 
         CollisionFlags flags =
-            controller.Move(
+            _controller.Move(
                 velocity *
                 Time.deltaTime
             );
 
         if ((flags & CollisionFlags.Above) != 0 &&
-            verticalVelocity > 0f)
+            _verticalVelocity > 0f)
         {
-            verticalVelocity =
+            _verticalVelocity =
                 0f;
         }
     }
 
     private void UpdateVisualFeedback()
     {
-        if (visualRoot == null)
+        if (_playerTransform == null)
             return;
 
 
         bool shouldBeLow =
-            crouchHeld &&
-            isSliding;
+            _crouchHeld &&
+            _isSliding;
 
         float targetHeight =
             shouldBeLow
-                ? slideVisualHeight
+                ? _slideVisualHeight
                 : 1f;
 
         Vector3 targetScale =
-            visualNormalScale;
+            _visualNormalScale;
 
         targetScale.y *=
             targetHeight;
 
-        visualRoot.localScale =
+        _playerTransform.localScale =
             Vector3.Lerp(
-                visualRoot.localScale,
+                _playerTransform.localScale,
                 targetScale,
-                slideVisualSmooth *
+                _slideVisualSmooth *
                 Time.deltaTime
             );
     }
@@ -701,6 +720,6 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawCube(transform.position, new Vector3(wallCheckDistance, wallCheckHeight, wallCheckDistance));
+        Gizmos.DrawCube(transform.position, new Vector3(_wallCheckDistance, _wallCheckHeight, _wallCheckDistance));
     }
 }
