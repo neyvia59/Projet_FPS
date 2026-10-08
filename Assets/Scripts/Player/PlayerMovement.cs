@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.UI.Image;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -24,8 +25,12 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float _coyotteTimeDuration = 0.5f;
     private bool _canCoyotte;
-    public bool _isInCoyotte;
+    private bool _isInCoyotte;
     private float _coyotteTimer;
+
+    [SerializeField] private float _jumpBufferDistance;
+    private bool _canJumpBuff;
+    [SerializeField] private float _jumpBuffForce = 9f;
 
     [Header("Wall Ride")]
     [SerializeField] private float _wallCheckDistance = 0.8f;
@@ -115,6 +120,8 @@ public class PlayerController : MonoBehaviour
         HandleCoyotte();
 
         HandleJump();
+
+        HandleJumpBuffer();
 
         HandleSlide();
 
@@ -315,6 +322,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void HandleJumpBuffer()
+    {
+
+        if (Physics.Raycast(
+            transform.position,
+            -transform.up,
+            _jumpBufferDistance) && _controller.isGrounded == false)
+        {
+            _canJumpBuff = true;
+
+
+        }
+        else
+        {
+            _canJumpBuff = false;
+        }
+    }
+
     private void HandleJump()
     {
         if (!_jumpPressed)
@@ -326,17 +351,30 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (_controller.isGrounded || _isInCoyotte)
+        if (_controller.isGrounded || _isInCoyotte || _canJumpBuff)
         {
-            _verticalVelocity =
-                _jumpForce;
+            if (_canJumpBuff)
+            {
+                _verticalVelocity =
+                    _jumpBuffForce;
+            }
+            else
+            {
+                _verticalVelocity =
+                    _jumpForce;
+            }
+                
             _isInCoyotte = false;
             _canCoyotte = false;
             _coyotteTimer = 0f;
             return;
         }
 
+
+
     }
+
+    
 
     private void HandleSlide()
     {

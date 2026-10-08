@@ -865,8 +865,10 @@ MonoBehaviour:
   _jumpForce: 9
   _gravity: 28
   _maxFallSpeed: 40
-  _coyotteTimeDuration: 0
+  _coyotteTimeDuration: 1
   _isInCoyotte: 0
+  _jumpBufferDistance: 1.86
+  _jumpBuffForce: 9
   _wallCheckDistance: 0.8
   _wallCheckHeight: 1
   _wallMinNormalY: 0.2
