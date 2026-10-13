@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR;
 using static UnityEngine.UI.Image;
 
 [RequireComponent(typeof(CharacterController))]
@@ -87,6 +88,8 @@ public class PlayerController : MonoBehaviour
     private bool _crouchHeld;
     private bool _jumpPressed;
 
+    private float boostTimer = 0f;
+    private Vector3 boostVelocity = Vector3.zero;
 
     private CharacterController _controller;
 
@@ -374,7 +377,17 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    
+    public void ApplyJumpPadBoost(float upwardForce, Vector3 horizontalForce, float duration)
+    {
+        // Reset vertical velocity before applying boost
+        _verticalVelocity = upwardForce;
+        boostVelocity = horizontalForce;
+        boostTimer = duration;
+    }
+
+
+
+
 
     private void HandleSlide()
     {
@@ -709,19 +722,28 @@ public class PlayerController : MonoBehaviour
             _horizontalVelocity +
             Vector3.up *
             _verticalVelocity;
-
-        CollisionFlags flags =
+        if (boostTimer > 0)
+        {
+            _controller.Move(boostVelocity * Time.deltaTime);
+            boostTimer -= Time.deltaTime;
+        }
+        else
+        {
+            CollisionFlags flags =
             _controller.Move(
                 velocity *
                 Time.deltaTime
             );
-
-        if ((flags & CollisionFlags.Above) != 0 &&
+            if ((flags & CollisionFlags.Above) != 0 &&
             _verticalVelocity > 0f)
-        {
-            _verticalVelocity =
-                0f;
+            {
+                _verticalVelocity =
+                    0f;
+            }
         }
+        
+
+        
     }
 
     private void UpdateVisualFeedback()

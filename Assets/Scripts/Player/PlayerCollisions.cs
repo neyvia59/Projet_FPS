@@ -39,6 +39,14 @@ public class PlayerCollisions : MonoBehaviour
                 print("safe");
             }
         }
+        if (other.gameObject.GetComponent<JumpPad>() != null)
+        {
+            gameObject.GetComponent<PlayerController>().ApplyJumpPadBoost(other.gameObject.GetComponent<JumpPad>().Force, other.gameObject.GetComponent<JumpPad>().HorizontalBoost, other.gameObject.GetComponent<JumpPad>().BoostDuration);
+        }
+    }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        
     }
 }
