@@ -618,8 +618,8 @@ public class PlayerMovement : MonoBehaviour
             float currentSpeed = _horizontalVelocity.magnitude;
             float targetSpeed = Mathf.Max(currentSpeed, _wallRunSpeed);
 
-            Vector3 wallDirection = GetWallRunDirection(_wallNormal);
-            _horizontalVelocity = wallDirection * targetSpeed;
+            //Vector3 wallDirection = GetWallRunDirection(_wallNormal);
+            //_horizontalVelocity = wallDirection * targetSpeed;
             
         }
         else
