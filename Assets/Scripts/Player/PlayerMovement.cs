@@ -79,6 +79,8 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 _visualNormalScale;
 
+
+
     private Vector3 _horizontalVelocity;
     private float _verticalVelocity;
 
@@ -303,9 +305,9 @@ public class PlayerController : MonoBehaviour
 
     private void HandleCoyotte()
     {
-        if(_controller.isGrounded == false && _canCoyotte)
+        if (_controller.isGrounded == false && _canCoyotte)
         {
-            
+
             if (_coyotteTimer <= _coyotteTimeDuration)
             {
                 _isInCoyotte = true;
@@ -366,7 +368,7 @@ public class PlayerController : MonoBehaviour
                 _verticalVelocity =
                     _jumpForce;
             }
-                
+
             _isInCoyotte = false;
             _canCoyotte = false;
             _coyotteTimer = 0f;
@@ -377,12 +379,20 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void ApplyJumpPadBoost(float upwardForce, Vector3 horizontalForce, float duration)
+    public void Launch(float Force, Vector3 target)
     {
-        // Reset vertical velocity before applying boost
-        _verticalVelocity = upwardForce;
-        boostVelocity = horizontalForce;
-        boostTimer = duration;
+        Vector3 launchVelocity = target.normalized * Force;
+
+        _horizontalVelocity = new Vector3(
+            launchVelocity.x,
+            0f,
+            launchVelocity.z
+        );
+
+        _verticalVelocity = launchVelocity.y;
+
+        _isWallRunning = false;
+        _isSliding = false;
     }
 
 
@@ -722,28 +732,23 @@ public class PlayerController : MonoBehaviour
             _horizontalVelocity +
             Vector3.up *
             _verticalVelocity;
-        if (boostTimer > 0)
-        {
-            _controller.Move(boostVelocity * Time.deltaTime);
-            boostTimer -= Time.deltaTime;
-        }
-        else
-        {
-            CollisionFlags flags =
-            _controller.Move(
-                velocity *
-                Time.deltaTime
-            );
-            if ((flags & CollisionFlags.Above) != 0 &&
-            _verticalVelocity > 0f)
-            {
-                _verticalVelocity =
-                    0f;
-            }
-        }
-        
 
-        
+
+        CollisionFlags flags =
+        _controller.Move(
+            velocity *
+            Time.deltaTime
+        );
+        if ((flags & CollisionFlags.Above) != 0 &&
+        _verticalVelocity > 0f)
+        {
+            _verticalVelocity =
+                0f;
+        }
+
+
+
+
     }
 
     private void UpdateVisualFeedback()

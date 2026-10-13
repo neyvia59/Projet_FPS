@@ -1620,9 +1620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JumpPad
   _isEnlightened: 0
-  Force: 13.2
-  BoostDuration: 1
-  HorizontalBoost: {x: 4.21, y: 2.77, z: 1.11}
+  Force: 21
 --- !u!23 &1751108172
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2399,9 +2397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JumpPad
   _isEnlightened: 0
-  Force: 0
-  BoostDuration: 0
-  HorizontalBoost: {x: 0, y: 0, z: 0}
+  Force: 19
 --- !u!64 &6049921529897291607
 MeshCollider:
   m_ObjectHideFlags: 0
