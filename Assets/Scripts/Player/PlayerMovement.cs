@@ -4,7 +4,7 @@ using UnityEngine.InputSystem.XR;
 using static UnityEngine.UI.Image;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerController : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform _cameraTransform;

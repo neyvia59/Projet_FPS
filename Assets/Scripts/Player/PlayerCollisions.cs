@@ -41,7 +41,7 @@ public class PlayerCollisions : MonoBehaviour
         }
         if (other.gameObject.GetComponent<JumpPad>() != null)
         {
-            gameObject.GetComponent<PlayerController>().Launch(other.gameObject.GetComponent<JumpPad>().Force, other.gameObject.transform.forward);
+            gameObject.GetComponent<PlayerMovement>().Launch(other.gameObject.GetComponent<JumpPad>().Force, other.gameObject.transform.forward);
         }
     }
 
