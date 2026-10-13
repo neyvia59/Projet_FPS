@@ -27,5 +27,18 @@ public class PlayerCollisions : MonoBehaviour
         {
             _currentCheckpoint = other.transform;
         }
+
+        if (other.GetComponent<Plant>() != null) 
+        { 
+            if(other.GetComponent<Plant>()._isEnlightened == false)
+            {
+                print("attacked");
+            }
+            else
+            {
+                print("safe");
+            }
+        }
+
     }
 }
