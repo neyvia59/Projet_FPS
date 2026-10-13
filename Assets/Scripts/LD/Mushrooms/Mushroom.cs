@@ -27,7 +27,7 @@ public class Mushroom : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((IsAmmo(other) || other.name == "Player") && !_colliders.Contains(other))
+        if ((IsAmmo(other) || other.gameObject.GetComponent<PlayerStats>() != null) && !_colliders.Contains(other))
         {
             _colliders.Add(other);
             _isEnlightened = true;
