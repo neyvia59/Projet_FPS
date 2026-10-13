@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
@@ -18,6 +19,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _acceleration = 35f;
     [SerializeField] private float _deceleration = 25f;
 
+    [SerializeField] private float _landingSpeedMult = 0.9f;
+    private float _velocityMult = 1;
+    [SerializeField] private float _landingSlowDuration = 0.7f;
+
     [Header("Air Movement")]
     [SerializeField] private float _airAcceleration = 2.5f;
     [SerializeField] private float _airControlSpeed = 10f;
@@ -32,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _canCoyotte;
     private bool _isInCoyotte;
     private float _coyotteTimer;
+    private bool _isInJump;
 
     [SerializeField] private float _jumpBufferDistance;
     private bool _canJumpBuff;
@@ -197,6 +203,14 @@ public class PlayerMovement : MonoBehaviour
         {
             _verticalVelocity = -2f;
         }
+
+        if (_isInJump)
+        {
+            StartCoroutine(LandingSlowDown());
+            _velocityMult = _landingSpeedMult;
+            _isInJump = false;
+        }
+
     }
     private void HandleMovement()
     {
@@ -373,7 +387,7 @@ public class PlayerMovement : MonoBehaviour
                 _verticalVelocity =
                     _jumpForce;
             }
-
+            _isInJump = true;
             _isInCoyotte = false;
             _canCoyotte = false;
             _coyotteTimer = 0f;
@@ -738,12 +752,13 @@ public class PlayerMovement : MonoBehaviour
             Vector3.up *
             _verticalVelocity;
 
+        
 
         CollisionFlags flags =
-        _controller.Move(
-            velocity *
-            Time.deltaTime
-        );
+            _controller.Move(
+                velocity *
+                Time.deltaTime * _velocityMult
+            );
         if ((flags & CollisionFlags.Above) != 0 &&
         _verticalVelocity > 0f)
         {
@@ -751,9 +766,12 @@ public class PlayerMovement : MonoBehaviour
                 0f;
         }
 
+    }
 
-
-
+    private IEnumerator LandingSlowDown()
+    {
+        yield return new WaitForSeconds(_landingSlowDuration);
+        _velocityMult = 1f;
     }
 
     private void UpdateVisualFeedback()

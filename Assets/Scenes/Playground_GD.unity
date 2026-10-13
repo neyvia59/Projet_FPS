@@ -1012,6 +1012,8 @@ MonoBehaviour:
   _sprintSpeed: 11
   _acceleration: 35
   _deceleration: 70
+  _landingSpeedMult: 0.9
+  _landingSlowDuration: 0.7
   _airAcceleration: 10
   _airControlSpeed: 5
   _jumpForce: 12
@@ -1020,8 +1022,8 @@ MonoBehaviour:
   _coyotteTimeDuration: 0.3
   _jumpBufferDistance: 0.8
   _jumpBuffForce: 50
-  _wallCheckDistance: 0.8
-  _wallCheckHeight: 1
+  _wallCheckDistance: 1.86
+  _wallCheckHeight: 1.81
   _wallMinNormalY: 0.2
   _wallRunSpeed: 10
   _wallRunGravity: 4
