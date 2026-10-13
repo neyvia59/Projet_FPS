@@ -18,6 +18,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _acceleration = 35f;
     [SerializeField] private float _deceleration = 25f;
 
+    [Header("Air Movement")]
+    [SerializeField] private float _airAcceleration = 2.5f;
+    [SerializeField] private float _airControlSpeed = 10f;
+
     [Header("Jump")]
     [SerializeField] private float _jumpForce = 9f;
 
@@ -199,78 +203,79 @@ public class PlayerMovement : MonoBehaviour
         if (_isSliding || _isWallRunning)
             return;
 
-        Vector3 desiredDirection =
-            GetMoveDirection();
+        Vector3 desiredDirection = GetMoveDirection();
 
         if (_controller.isGrounded)
         {
-            float targetSpeed =
-                _sprintHeld
-                    ? _sprintSpeed
-                    : _walkSpeed;
+            float targetSpeed = _sprintHeld
+                ? _sprintSpeed
+                : _walkSpeed;
 
             Vector3 targetVelocity =
-                desiredDirection *
-                targetSpeed;
+                desiredDirection * targetSpeed;
 
-            _horizontalVelocity =
-                Vector3.MoveTowards(
-                    _horizontalVelocity,
-                    targetVelocity,
-                    _acceleration *
-                    Time.deltaTime
-                );
+            _horizontalVelocity = Vector3.MoveTowards(
+                _horizontalVelocity,
+                targetVelocity,
+                _acceleration * Time.deltaTime
+            );
 
             if (desiredDirection.sqrMagnitude < 0.01f)
             {
-                _horizontalVelocity =
-                    Vector3.MoveTowards(
-                        _horizontalVelocity,
-                        Vector3.zero,
-                        _deceleration *
-                        Time.deltaTime
-                    );
+                _horizontalVelocity = Vector3.MoveTowards(
+                    _horizontalVelocity,
+                    Vector3.zero,
+                    _deceleration * Time.deltaTime
+                );
             }
         }
-
         else
         {
-            HandleAirMovement(
-                desiredDirection
-            );
+            HandleAirMovement(desiredDirection);
         }
 
         if (desiredDirection.sqrMagnitude > 0.01f)
         {
             Quaternion targetRotation =
-                Quaternion.LookRotation(
-                    desiredDirection
-                );
+                Quaternion.LookRotation(desiredDirection);
 
-            transform.rotation =
-                Quaternion.Slerp(
-                    transform.rotation,
-                    targetRotation,
-                    15f *
-                    Time.deltaTime
-                );
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRotation,
+                15f * Time.deltaTime
+            );
         }
     }
-    private void HandleAirMovement(
-        Vector3 desiredDirection
-    )
+    private void HandleAirMovement(Vector3 desiredDirection)
     {
-        Vector3 targetVelocity =
-            desiredDirection *
-            14f;
+        if (desiredDirection.sqrMagnitude < 0.01f)
+            return;
 
-        _horizontalVelocity =
-            Vector3.MoveTowards(
-                _horizontalVelocity,
-                targetVelocity,
-                12f *
-                Time.deltaTime
-            );
+        desiredDirection.Normalize();
+
+        float currentSpeed = Vector3.Dot(
+            _horizontalVelocity,
+            desiredDirection
+        );
+
+        float addSpeed = _airControlSpeed - currentSpeed;
+
+        if (addSpeed <= 0f)
+            return;
+
+ 
+        float accelerationSpeed =
+            _airAcceleration *
+            _airControlSpeed *
+            Time.deltaTime;
+
+        accelerationSpeed = Mathf.Min(
+            accelerationSpeed,
+            addSpeed
+        );
+
+        _horizontalVelocity +=
+            desiredDirection * accelerationSpeed;
     }
     private Vector3 GetMoveDirection()
     {
