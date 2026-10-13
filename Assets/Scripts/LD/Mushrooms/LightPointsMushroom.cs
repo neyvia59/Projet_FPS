@@ -40,7 +40,6 @@ public class LightPointsMushroom : Mushroom
         
         if (_counter < _prefabsList.Count-1)
         {
-            print(_counter);
             _prefabsList[_counter].gameObject.SetActive(false);
             _prefabsList[_counter+1].gameObject.SetActive(true);
             _counter++;
@@ -49,7 +48,6 @@ public class LightPointsMushroom : Mushroom
         }
         else
         {
-            print("max");
             _prefabsList[_prefabsList.Count - 1].gameObject.SetActive(true);
             _prefabsList[_prefabsList.Count - 2].gameObject.SetActive(false);
             _isChanging = false;
@@ -62,7 +60,6 @@ public class LightPointsMushroom : Mushroom
         
         if (_counter > 0)
         {
-            print(_counter);
             
             _prefabsList[_counter].gameObject.SetActive(false);
             _prefabsList[_counter -1 ].gameObject.SetActive(true);
@@ -72,7 +69,6 @@ public class LightPointsMushroom : Mushroom
         }
         else
         {
-            print("min");
             _prefabsList[0].gameObject.SetActive(true);
             _prefabsList[1].gameObject.SetActive(false);
             _isChanging = false;
