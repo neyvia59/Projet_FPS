@@ -1052,7 +1052,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 842874456}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: orientation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1089,7 +1089,7 @@ GameObject:
   - component: {fileID: 862360709}
   - component: {fileID: 862360715}
   - component: {fileID: 862360716}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1109,15 +1109,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   _cameraTransform: {fileID: 330585546}
-  _crouchSize: {x: 1, y: 0.7, z: 1}
+  _playerTransform: {fileID: 0}
   _walkSpeed: 6
   _sprintSpeed: 11
-  _crouchSpeed: 4
   _acceleration: 35
   _deceleration: 25
   _jumpForce: 9
   _gravity: 28
   _maxFallSpeed: 40
+  _coyotteTimeDuration: 0.5
+  _jumpBufferDistance: 0
+  _jumpBuffForce: 9
+  _wallCheckDistance: 0.8
+  _wallCheckHeight: 1
+  _wallMinNormalY: 0.2
+  _wallRunSpeed: 10
+  _wallRunGravity: 4
+  _wallRunDuration: 1.5
+  _wallJumpForce: 10
+  _wallJumpAwayForce: 8
+  _wallJumpForwardForce: 5
+  _slideSpeed: 14
+  _slideSlowSpeed: 1.5
+  _slideAcceleration: 25
+  _slideDuration: 2
+  _slideSlowdownStart: 1.8
+  _slideStartSpeed: 3
+  _slideTurnSpeed: 8
+  _slideReleaseVelocityMultiplier: 0
+  _slideVisualHeight: 0.55
+  _slideVisualSmooth: 14
 --- !u!136 &862360710
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1907,7 +1928,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1863914126}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CameraPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2242,6 +2263,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b347662a770c1724fbb0864aab93ef64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wall
+--- !u!1001 &2324644554996157806
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4110458486038093445, guid: 40262f5eaa27f7e449913d938eaadd90, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4110458486038093445, guid: 40262f5eaa27f7e449913d938eaadd90, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 4110458486038093445, guid: 40262f5eaa27f7e449913d938eaadd90, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -12.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 4110458486038093445, guid: 40262f5eaa27f7e449913d938eaadd90, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4110458486038093445, guid: 40262f5eaa27f7e449913d938eaadd90, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4110458486038093445, guid: 40262f5eaa27f7e449913d938eaadd90, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4110458486038093445, guid: 40262f5eaa27f7e449913d938eaadd90, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4110458486038093445, guid: 40262f5eaa27f7e449913d938eaadd90, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4110458486038093445, guid: 40262f5eaa27f7e449913d938eaadd90, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4110458486038093445, guid: 40262f5eaa27f7e449913d938eaadd90, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8138490738693431200, guid: 40262f5eaa27f7e449913d938eaadd90, type: 3}
+      propertyPath: m_Name
+      value: Mushroom
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 40262f5eaa27f7e449913d938eaadd90, type: 3}
 --- !u!1001 &8857284059327969328
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2324,3 +2402,4 @@ SceneRoots:
   - {fileID: 1502075933}
   - {fileID: 8857284059327969328}
   - {fileID: 17301516}
+  - {fileID: 2324644554996157806}
