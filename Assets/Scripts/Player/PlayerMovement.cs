@@ -87,6 +87,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _slideVisualHeight = 0.55f;
     [SerializeField] private float _slideVisualSmooth = 14f;
 
+
+
     private Vector3 _visualNormalScale;
 
 
@@ -145,6 +147,8 @@ public class PlayerMovement : MonoBehaviour
         ApplyMovement();
 
         UpdateVisualFeedback();
+
+
     }
 
 
@@ -277,7 +281,7 @@ public class PlayerMovement : MonoBehaviour
         if (addSpeed <= 0f)
             return;
 
- 
+
         float accelerationSpeed =
             _airAcceleration *
             _airControlSpeed *
@@ -640,7 +644,7 @@ public class PlayerMovement : MonoBehaviour
 
             //Vector3 wallDirection = GetWallRunDirection(_wallNormal);
             //_horizontalVelocity = wallDirection * targetSpeed;
-            
+
         }
         else
         {
@@ -753,7 +757,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3.up *
             _verticalVelocity;
 
-        
+
 
         CollisionFlags flags =
             _controller.Move(
@@ -804,6 +808,8 @@ public class PlayerMovement : MonoBehaviour
                 Time.deltaTime
             );
     }
+
+
 
 
     private void OnDrawGizmos()
