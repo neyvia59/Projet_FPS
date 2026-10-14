@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
+using UnityEngineInternal;
 using static UnityEngine.UI.Image;
 
 [RequireComponent(typeof(CharacterController))]
@@ -54,9 +55,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _wallJumpAwayForce = 8f;
     [SerializeField] private float _wallJumpForwardForce = 5f;
 
-    private bool _isWallRunning;
+    [SerializeField] private float _maxCamRotationOffset = 5f;
+
+    public bool _isWallRunning;
+
+    public bool _canWallRun;
     private Vector3 _wallNormal;
-    private float _wallRunTimer;
+    public float _wallRunTimer;
 
 
     [Header("Ground Slide")]
@@ -148,6 +153,7 @@ public class PlayerMovement : MonoBehaviour
 
         UpdateVisualFeedback();
 
+        UpdateRotation();
 
     }
 
@@ -181,7 +187,7 @@ public class PlayerMovement : MonoBehaviour
             Keyboard.current.leftShiftKey.isPressed;
 
         _crouchHeld =
-            Keyboard.current.leftCtrlKey.isPressed;
+            Keyboard.current.cKey.isPressed;
 
         _jumpPressed =
             Keyboard.current.spaceKey.wasPressedThisFrame;
@@ -202,6 +208,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_controller.isGrounded)
             return;
+
+        _canWallRun = true;
 
         if (_verticalVelocity < 0f)
         {
@@ -431,7 +439,7 @@ public class PlayerMovement : MonoBehaviour
             !_isSliding &&
             !_didSlide &&
             _horizontalVelocity.magnitude >=
-            _slideStartSpeed && _controller.isGrounded)
+            _slideStartSpeed && _controller.isGrounded && _sprintHeld)
         {
             StartSlide();
         }
@@ -602,7 +610,7 @@ public class PlayerMovement : MonoBehaviour
             if (IsValidWall(hit.normal))
             {
                 _wallNormal = hit.normal;
-                
+                print("left");
                 foundWall = true;
             }
         }
@@ -617,24 +625,28 @@ public class PlayerMovement : MonoBehaviour
             if (IsValidWall(hit.normal))
             {
                 _wallNormal = hit.normal;
-                
+                print("right");
+
                 foundWall = true;
             }
         }
 
         if (!foundWall)
         {
+            print("nowall");
             StopWallRun();
             return;
         }
 
-        if (!_isWallRunning)
+        if (!_isWallRunning && _canWallRun == true)
         {
             if (Vector3.Dot(_horizontalVelocity, -_wallNormal) < -0.1f)
             {
                 StopWallRun();
                 return;
             }
+
+            _canWallRun = false;
             _isWallRunning = true;
             _wallRunTimer = 0f;
 
@@ -648,15 +660,17 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            //print(Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up));
             _wallRunTimer += Time.deltaTime;
-            if (_wallRunTimer >= _wallRunDuration)
+            if (_wallRunTimer >= _wallRunDuration || Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up) > -90 - _maxCamRotationOffset && Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up) < -90 + _maxCamRotationOffset)
             {
+                
                 StopWallRun();
                 return;
             }
 
             Vector3 wallDirection = GetWallRunDirection(_wallNormal);
-            print(wallDirection);
+            
 
             float speed = Mathf.Max(_horizontalVelocity.magnitude, _wallRunSpeed);
 
@@ -698,6 +712,7 @@ public class PlayerMovement : MonoBehaviour
     private void WallJump()
     {
         _isWallRunning = false;
+        _canWallRun = true;
         _wallRunTimer = 0f;
 
         Vector3 jumpDirection =
@@ -811,7 +826,10 @@ public class PlayerMovement : MonoBehaviour
             );
     }
 
-
+    private void UpdateRotation()
+    {
+        transform.rotation = Quaternion.Euler(0,_cameraTransform.rotation.eulerAngles.y, 0);
+    }
 
 
     private void OnDrawGizmos()
