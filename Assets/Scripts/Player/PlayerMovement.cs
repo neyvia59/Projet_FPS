@@ -671,7 +671,11 @@ public class PlayerMovement : MonoBehaviour
             if (IsValidWall(hit.normal))
             {
                 _wallNormal = hit.normal;
-                foundWall = true;
+                if(hit.transform.gameObject.GetComponent<RunnableWall>() != null)
+                {
+                    foundWall = true;
+                }
+                
             }
         }
 
@@ -685,8 +689,10 @@ public class PlayerMovement : MonoBehaviour
             if (IsValidWall(hit.normal))
             {
                 _wallNormal = hit.normal;
-
-                foundWall = true;
+                if (hit.transform.gameObject.GetComponent<RunnableWall>() != null)
+                {
+                    foundWall = true;
+                }
             }
         }
 

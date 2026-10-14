@@ -1130,6 +1130,7 @@ GameObject:
   - component: {fileID: 598968505}
   - component: {fileID: 598968504}
   - component: {fileID: 598968508}
+  - component: {fileID: 598968509}
   m_Layer: 3
   m_Name: wall (1)
   m_TagString: Untagged
@@ -1242,6 +1243,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b347662a770c1724fbb0864aab93ef64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wall
+--- !u!114 &598968509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598968503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b22528c295b6847b0aab927446b9f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnableWall
 --- !u!1 &604508799
 GameObject:
   m_ObjectHideFlags: 0
