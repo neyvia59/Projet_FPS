@@ -905,7 +905,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateShootBool()
     {
-        if(_sprintHeld || _isSprintingInJump)
+        if(_sprintHeld && _isSliding == false && _isWallRunning == false || _isSprintingInJump)
         {
             gameObject.GetComponent<WeaponManager>()._canShoot = false;
         }

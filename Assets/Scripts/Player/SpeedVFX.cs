@@ -52,7 +52,7 @@ public class SpeedVFX : MonoBehaviour
         if(_currentSpeed<=0) return;
         //_speedVFXContrast.SetFloat("_TextureContrast", _currentSpeed / _vfxIntensityDivider);
         _speedVFXContrast.SetFloat("_TextureContrast", Mathf.Lerp(_speedVFXContrast.GetFloat("_TextureContrast"), _currentSpeed / _vfxIntensityDivider, _vfxUpTransitionSpeed));
-        print(_currentSpeed);
+       
         //_speedVFXFadeContrast.SetFloat("_FadeConstrast", _vfxFadeContrastMult / _currentSpeed);
         _speedVFXFadeContrast.SetFloat("_FadeConstrast", Mathf.Lerp(_speedVFXContrast.GetFloat("_FadeConstrast"), _vfxFadeContrastMult / _currentSpeed, _vfxUpTransitionSpeed));
 

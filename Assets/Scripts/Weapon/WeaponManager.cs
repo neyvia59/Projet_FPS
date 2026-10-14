@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -19,7 +20,7 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private float _aimingSpeed;
 
 
-
+    [SerializeField] private float _animSpeed;
 
     [SerializeField] private Vector3 _basePosition;
     [SerializeField] private Vector3 _baseRotation;
@@ -29,6 +30,8 @@ public class WeaponManager : MonoBehaviour
 
     [SerializeField] private Vector3 _aimingPosition;
     [SerializeField] private Vector3 _aimingRotation;
+
+    private string _state = "base";
 
     private bool _isAiming = false;
     private float _baseFOV;
@@ -72,7 +75,7 @@ public class WeaponManager : MonoBehaviour
         }
 
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) && _canShoot)
         {
             _isAiming = true;
         }
@@ -125,23 +128,31 @@ public class WeaponManager : MonoBehaviour
 
     private void UpdateWeaponPos()
     {
-        if (_canShoot == false)
+        if (_canShoot == false && _state != "shoot")
         {
-            _gunGo.transform.localPosition = _runningPosition;
-            _gunGo.transform.rotation = Quaternion.Euler(_runningRotation);
+            _state = "shoot";
+            print("shoot");
+            _gunGo.transform.DOLocalMove(_runningPosition, _animSpeed);
+            _gunGo.transform.DOLocalRotate(_runningRotation, _animSpeed);
+            //_gunGo.transform.localRotation = Quaternion.Euler(_runningRotation);
 
-            return;
         }
 
-        if (_isAiming)
+        if (_isAiming && _state != "aim")
         {
-            _gunGo.transform.localPosition = _aimingPosition;
-            _gunGo.transform.rotation = Quaternion.Euler(_aimingRotation);
+            _state = "aim";
+            _gunGo.transform.DOLocalMove(_aimingPosition, _animSpeed);
+            _gunGo.transform.DOLocalRotate(_aimingRotation, _animSpeed);
+            //_gunGo.transform.localPosition = _aimingPosition;
+            //_gunGo.transform.localRotation = Quaternion.Euler(_aimingRotation);
         }
-        else
+        else if(_state != "base" && _canShoot)
         {
-            _gunGo.transform.localPosition = _basePosition;
-            _gunGo.transform.rotation = Quaternion.Euler(_baseRotation);
+            _state = "base";
+            _gunGo.transform.DOLocalMove(_basePosition, _animSpeed);
+            _gunGo.transform.DOLocalRotate(_baseRotation, _animSpeed);
+            //_gunGo.transform.localPosition = _basePosition;
+            //_gunGo.transform.localRotation = Quaternion.Euler(_baseRotation);
         }
     }
 }
