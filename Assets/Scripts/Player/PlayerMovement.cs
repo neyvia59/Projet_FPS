@@ -295,14 +295,11 @@ public class PlayerMovement : MonoBehaviour
             addSpeed
         );
 
-        // Conserver la vitesse existante comme référence.
         float speedBeforeAcceleration = _horizontalVelocity.magnitude;
 
         _horizontalVelocity +=
             desiredDirection * accelerationSpeed;
 
-        // Ne pas permettre au strafe d'augmenter
-        // la vitesse totale au-delà de la vitesse autorisée.
         float allowedSpeed = Mathf.Max(
             _maxAirStrafeSpeed,
             speedBeforeAcceleration
