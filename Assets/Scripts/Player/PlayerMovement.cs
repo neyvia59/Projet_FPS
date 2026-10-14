@@ -24,10 +24,18 @@ public class PlayerMovement : MonoBehaviour
     private float _velocityMult = 1;
     [SerializeField] private float _landingSlowDuration = 0.7f;
 
+    [SerializeField] private float _directionChangeSpeed = 200f;
+    [SerializeField] private float _directionCHangeSmoothness = 8f;
+
+    private float _currentAcceleration;
+
+
     [Header("Air Movement")]
     [SerializeField] private float _airAcceleration = 2.5f;
     [SerializeField] private float _airControlSpeed = 10f;
     [SerializeField] private float _maxAirStrafeSpeed = 10;
+    [Range(0f, 1f)]
+    [SerializeField] private float _dirChangeSpeedAirMult = 0.9f;
 
     [Header("Jump")]
     [SerializeField] private float _jumpForce = 9f;
@@ -184,6 +192,8 @@ public class PlayerMovement : MonoBehaviour
                 1f
             );
 
+        
+
         _sprintHeld =
             Keyboard.current.leftShiftKey.isPressed;
 
@@ -238,23 +248,35 @@ public class PlayerMovement : MonoBehaviour
                 ? _sprintSpeed
                 : _walkSpeed;
 
-            Vector3 targetVelocity =
-                desiredDirection * targetSpeed;
+
+            Vector3 targetVelocity = desiredDirection * targetSpeed;
+
+            float acceleration = _acceleration;
+
+            if (desiredDirection.sqrMagnitude > 0.01f &&
+                _horizontalVelocity.sqrMagnitude > 0.01f)
+            {
+                float directionDot = Vector3.Dot(
+                    _horizontalVelocity.normalized,
+                    desiredDirection.normalized
+                );
+
+                float directionChange = 1f - directionDot;
+
+
+                acceleration = Mathf.Lerp(
+                    _acceleration,
+                    _directionChangeSpeed,
+                    directionChange
+                );
+            }
 
             _horizontalVelocity = Vector3.MoveTowards(
                 _horizontalVelocity,
                 targetVelocity,
-                _acceleration * Time.deltaTime
+                acceleration * Time.deltaTime
             );
 
-            if (desiredDirection.sqrMagnitude < 0.01f)
-            {
-                _horizontalVelocity = Vector3.MoveTowards(
-                    _horizontalVelocity,
-                    Vector3.zero,
-                    _deceleration * Time.deltaTime
-                );
-            }
         }
         else
         {
@@ -275,42 +297,63 @@ public class PlayerMovement : MonoBehaviour
     }
     private void HandleAirMovement(Vector3 desiredDirection)
     {
+
         if (desiredDirection.sqrMagnitude < 0.01f)
             return;
 
         desiredDirection.Normalize();
 
-        float speedInDirection = Vector3.Dot(
-            _horizontalVelocity,
-            desiredDirection
-        );
+        float directionChangeSpeed =
+            _directionChangeSpeed * _dirChangeSpeedAirMult;
 
-        float addSpeed = _airControlSpeed - speedInDirection;
-
-        if (addSpeed <= 0f)
-            return;
-
-        float accelerationSpeed = Mathf.Min(
-            _airAcceleration * _airControlSpeed * Time.deltaTime,
-            addSpeed
-        );
-
-        float speedBeforeAcceleration = _horizontalVelocity.magnitude;
-
-        _horizontalVelocity +=
-            desiredDirection * accelerationSpeed;
-
-        float allowedSpeed = Mathf.Max(
-            _maxAirStrafeSpeed,
-            speedBeforeAcceleration
-        );
-
-        if (_horizontalVelocity.sqrMagnitude >
-            allowedSpeed * allowedSpeed)
+        if (_horizontalVelocity.sqrMagnitude > 0.01f)
         {
-            _horizontalVelocity =
-                _horizontalVelocity.normalized * allowedSpeed;
+            float directionDot = Vector3.Dot(
+                _horizontalVelocity.normalized,
+                desiredDirection
+            );
+
+            float directionChange = 1f - directionDot;
+
+            float acceleration = Mathf.Lerp(
+                _airAcceleration,
+                directionChangeSpeed,
+                directionChange
+            );
+
+            float speedInDirection = Vector3.Dot(
+                _horizontalVelocity,
+                desiredDirection
+            );
+
+            float addSpeed = _airControlSpeed - speedInDirection;
+
+            if (addSpeed <= 0f)
+                return;
+
+            float accelerationSpeed = Mathf.Min(
+                acceleration * _airControlSpeed * Time.deltaTime,
+                addSpeed
+            );
+
+            float speedBeforeAcceleration = _horizontalVelocity.magnitude;
+
+            _horizontalVelocity +=
+                desiredDirection * accelerationSpeed;
+
+            float allowedSpeed = Mathf.Max(
+                _maxAirStrafeSpeed,
+                speedBeforeAcceleration
+            );
+
+            if (_horizontalVelocity.sqrMagnitude >
+                allowedSpeed * allowedSpeed)
+            {
+                _horizontalVelocity =
+                    _horizontalVelocity.normalized * allowedSpeed;
+            }
         }
+
     }
     private Vector3 GetMoveDirection()
     {
@@ -619,7 +662,6 @@ public class PlayerMovement : MonoBehaviour
             if (IsValidWall(hit.normal))
             {
                 _wallNormal = hit.normal;
-                print("left");
                 foundWall = true;
             }
         }
@@ -634,7 +676,6 @@ public class PlayerMovement : MonoBehaviour
             if (IsValidWall(hit.normal))
             {
                 _wallNormal = hit.normal;
-                print("right");
 
                 foundWall = true;
             }
@@ -642,7 +683,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (!foundWall)
         {
-            print("nowall");
             StopWallRun();
             return;
         }
