@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Air Movement")]
     [SerializeField] private float _airAcceleration = 2.5f;
     [SerializeField] private float _airControlSpeed = 10f;
+    [SerializeField] private float _maxAirStrafeSpeed = 10;
 
     [Header("Jump")]
     [SerializeField] private float _jumpForce = 9f;
@@ -279,29 +280,40 @@ public class PlayerMovement : MonoBehaviour
 
         desiredDirection.Normalize();
 
-        float currentSpeed = Vector3.Dot(
+        float speedInDirection = Vector3.Dot(
             _horizontalVelocity,
             desiredDirection
         );
 
-        float addSpeed = _airControlSpeed - currentSpeed;
+        float addSpeed = _airControlSpeed - speedInDirection;
 
         if (addSpeed <= 0f)
             return;
 
-
-        float accelerationSpeed =
-            _airAcceleration *
-            _airControlSpeed *
-            Time.deltaTime;
-
-        accelerationSpeed = Mathf.Min(
-            accelerationSpeed,
+        float accelerationSpeed = Mathf.Min(
+            _airAcceleration * _airControlSpeed * Time.deltaTime,
             addSpeed
         );
 
+        // Conserver la vitesse existante comme référence.
+        float speedBeforeAcceleration = _horizontalVelocity.magnitude;
+
         _horizontalVelocity +=
             desiredDirection * accelerationSpeed;
+
+        // Ne pas permettre au strafe d'augmenter
+        // la vitesse totale au-delà de la vitesse autorisée.
+        float allowedSpeed = Mathf.Max(
+            _maxAirStrafeSpeed,
+            speedBeforeAcceleration
+        );
+
+        if (_horizontalVelocity.sqrMagnitude >
+            allowedSpeed * allowedSpeed)
+        {
+            _horizontalVelocity =
+                _horizontalVelocity.normalized * allowedSpeed;
+        }
     }
     private Vector3 GetMoveDirection()
     {
