@@ -14,7 +14,7 @@ public class Mushroom : MonoBehaviour
         GetComponent<SphereCollider>().radius = _detectionZoneRadius;
     }
 
-    private void Update()
+    protected void Update()
     {
         for (int i = _colliders.Count - 1; i >= 0; i--)
         {

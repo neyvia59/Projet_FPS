@@ -22,6 +22,7 @@ public class LightPointsMushroom : Mushroom
     // Update is called once per frame
     void Update()
     {
+        base.Update();
         if (_isEnlightened && _counter < _prefabsList.Count && _isChanging == false)
         {
             StartCoroutine(LightenUp());
