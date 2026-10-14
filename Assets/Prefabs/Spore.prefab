@@ -4784,7 +4784,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
+  - {fileID: 2100000, guid: 38a83eaf504b4f14fabecf8192efddb2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4871,3 +4871,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 814c9fc449933a147ae3cf4ae9ffaba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spore
+  _sporeContamination: 0.001
