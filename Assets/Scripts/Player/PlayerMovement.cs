@@ -181,7 +181,7 @@ public class PlayerMovement : MonoBehaviour
             Keyboard.current.leftShiftKey.isPressed;
 
         _crouchHeld =
-            Keyboard.current.leftCtrlKey.isPressed && _controller.isGrounded;
+            Keyboard.current.leftCtrlKey.isPressed;
 
         _jumpPressed =
             Keyboard.current.spaceKey.wasPressedThisFrame;
@@ -431,7 +431,7 @@ public class PlayerMovement : MonoBehaviour
             !_isSliding &&
             !_didSlide &&
             _horizontalVelocity.magnitude >=
-            _slideStartSpeed)
+            _slideStartSpeed && _controller.isGrounded)
         {
             StartSlide();
         }
