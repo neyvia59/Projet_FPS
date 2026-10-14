@@ -181,7 +181,7 @@ public class PlayerMovement : MonoBehaviour
             Keyboard.current.leftShiftKey.isPressed;
 
         _crouchHeld =
-            Keyboard.current.leftCtrlKey.isPressed;
+            Keyboard.current.leftCtrlKey.isPressed && _controller.isGrounded;
 
         _jumpPressed =
             Keyboard.current.spaceKey.wasPressedThisFrame;
