@@ -602,7 +602,7 @@ public class PlayerMovement : MonoBehaviour
             if (IsValidWall(hit.normal))
             {
                 _wallNormal = hit.normal;
-                print("left");
+                
                 foundWall = true;
             }
         }
@@ -617,7 +617,7 @@ public class PlayerMovement : MonoBehaviour
             if (IsValidWall(hit.normal))
             {
                 _wallNormal = hit.normal;
-                print("right");
+                
                 foundWall = true;
             }
         }
@@ -656,6 +656,8 @@ public class PlayerMovement : MonoBehaviour
             }
 
             Vector3 wallDirection = GetWallRunDirection(_wallNormal);
+            print(wallDirection);
+
             float speed = Mathf.Max(_horizontalVelocity.magnitude, _wallRunSpeed);
 
             _horizontalVelocity =
