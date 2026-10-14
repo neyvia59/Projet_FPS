@@ -167,6 +167,8 @@ public class PlayerMovement : MonoBehaviour
 
         UpdateSpeedVFX();
 
+        UpdateShootBool();
+
     }
 
 
@@ -898,6 +900,18 @@ public class PlayerMovement : MonoBehaviour
         {
             _speedVFXManager.ResetWindVFX();
             _resettedWindVFX = true;
+        }
+    }
+
+    private void UpdateShootBool()
+    {
+        if(_sprintHeld || _isSprintingInJump)
+        {
+            gameObject.GetComponent<WeaponManager>()._canShoot = false;
+        }
+        else
+        {
+            gameObject.GetComponent<WeaponManager>()._canShoot = true;
         }
     }
 
