@@ -1397,6 +1397,7 @@ MonoBehaviour:
   _slideStartSpeed: 3
   _slideTurnSpeed: 8
   _slideReleaseVelocityMultiplier: 1
+  _isSliding: 0
   _slideVisualHeight: 0.55
   _slideVisualSmooth: 14
 --- !u!136 &862360710
@@ -1567,12 +1568,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03be7cdef1f7f94089aa1766b6ac1ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Headbob
-  berjalanFrequency: 14
-  berjalanAmplitude: 0.08
+  _movingFrequency: 14
+  _movingAmplitude: 0.08
   idleFrequency: 1
   idleAmplitude: 0.02
   controller: {fileID: 862360716}
-  cameraHolder: {fileID: 330585546}
+  _camTransform: {fileID: 330585546}
 --- !u!1 &869112296
 GameObject:
   m_ObjectHideFlags: 0

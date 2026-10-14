@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] private float _slideReleaseVelocityMultiplier = 0f;
 
-    private bool _isSliding;
+    public bool _isSliding;
     private bool _didSlide;
     private float _slideTimer;
 
