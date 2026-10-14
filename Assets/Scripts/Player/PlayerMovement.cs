@@ -13,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private Transform _playerTransform;
 
+    [SerializeField] private SpeedVFX _speedVFXManager;
+    private bool _resettedWindVFX;
+
     [Header("Ground Movement")]
     [SerializeField] private float _walkSpeed = 6f;
     [SerializeField] private float _sprintSpeed = 11f;
@@ -47,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _isInCoyotte;
     private float _coyotteTimer;
     private bool _isInJump;
+    private bool _isSprintingInJump;
 
     [SerializeField] private float _jumpBufferDistance;
     private bool _canJumpBuff;
@@ -141,8 +145,6 @@ public class PlayerMovement : MonoBehaviour
 
         HandleGroundState();
 
-        HandleSlideInputReset();
-
         HandleWallRun();
 
         HandleMovement();
@@ -162,6 +164,8 @@ public class PlayerMovement : MonoBehaviour
         UpdateVisualFeedback();
 
         UpdateRotation();
+
+        UpdateSpeedVFX();
 
     }
 
@@ -196,8 +200,19 @@ public class PlayerMovement : MonoBehaviour
         _sprintHeld =
             Keyboard.current.leftShiftKey.isPressed;
 
+        if(_sprintHeld == false)
+        {
+            _isSprintingInJump = false;
+        }
+
         _crouchHeld =
             Keyboard.current.cKey.isPressed;
+
+        if (!_crouchHeld)
+        {
+            _didSlide = false;
+        }
+
 
         _jumpPressed =
             Keyboard.current.spaceKey.wasPressedThisFrame;
@@ -205,21 +220,13 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private void HandleSlideInputReset()
-    {
-
-        if (!_crouchHeld)
-        {
-            _didSlide = false;
-        }
-    }
-
     private void HandleGroundState()
     {
         if (!_controller.isGrounded)
             return;
 
         _canWallRun = true;
+        _isSprintingInJump = false;
 
         if (_verticalVelocity < 0f)
         {
@@ -440,6 +447,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (_controller.isGrounded || _isInCoyotte || _canJumpBuff)
         {
+            if(_sprintHeld) _isSprintingInJump = true;
             if (_canJumpBuff)
             {
                 _verticalVelocity =
@@ -577,6 +585,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void StartSlide()
     {
+        _speedVFXManager.MoveToSlidingFOV();
+
         _isSliding = true;
 
         _didSlide = true;
@@ -594,12 +604,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void StopSlide(
-        bool reduceVelocity
-    )
+    private void StopSlide( bool reduceVelocity )
     {
         _isSliding = false;
-
+        _speedVFXManager.ResetFOV();
         _slideTimer = 0f;
 
         if (reduceVelocity)
@@ -877,6 +885,20 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateRotation()
     {
         transform.rotation = Quaternion.Euler(0,_cameraTransform.rotation.eulerAngles.y, 0);
+    }
+
+    private void UpdateSpeedVFX()
+    {
+        if(_isSliding || _sprintHeld && _controller.isGrounded || _sprintHeld && _isSprintingInJump)
+        {
+            _speedVFXManager.UpdateWindVFX(Mathf.Abs(_controller.velocity.x) + Mathf.Abs(  _controller.velocity.y) + Mathf.Abs( _controller.velocity.z));
+            _resettedWindVFX = false;
+        }
+        else// if(_resettedWindVFX == false)
+        {
+            _speedVFXManager.ResetWindVFX();
+            _resettedWindVFX = true;
+        }
     }
 
 
