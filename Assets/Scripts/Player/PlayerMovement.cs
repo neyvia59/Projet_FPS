@@ -25,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _landingSlowDuration = 0.7f;
 
     [SerializeField] private float _directionChangeSpeed = 200f;
-    [SerializeField] private float _directionCHangeSmoothness = 8f;
 
     private float _currentAcceleration;
 
