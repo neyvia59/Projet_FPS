@@ -728,16 +728,13 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            //print(Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up));
             _wallRunTimer += Time.deltaTime;
             
-            //print(Mathf.Abs(Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up)) > 90 + _maxCamRotationOffset && _side == "left");
-            //print(Mathf.Abs(Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up)) < 90 - _maxCamRotationOffset && _side == "right");
+
             if (_wallRunTimer >= _wallRunDuration || 
                 Mathf.Abs( Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up)) < 90 + _maxCamRotationOffset && _side == "left" ||
                 Mathf.Abs( Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up)) > 90 - _maxCamRotationOffset && _side == "right")
             {
-                print("stop");
                 StopWallRun();
                 return;
             }
