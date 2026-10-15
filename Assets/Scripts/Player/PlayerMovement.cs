@@ -69,6 +69,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float _maxCamRotationOffset = 5f;
 
+    private string _side;
+
     public bool _isWallRunning;
 
     public bool _canWallRun;
@@ -673,6 +675,7 @@ public class PlayerMovement : MonoBehaviour
                 _wallNormal = hit.normal;
                 if(hit.transform.gameObject.GetComponent<RunnableWall>() != null)
                 {
+                    _side = "left";
                     foundWall = true;
                 }
                 
@@ -691,6 +694,7 @@ public class PlayerMovement : MonoBehaviour
                 _wallNormal = hit.normal;
                 if (hit.transform.gameObject.GetComponent<RunnableWall>() != null)
                 {
+                    _side = "right";
                     foundWall = true;
                 }
             }
@@ -726,9 +730,14 @@ public class PlayerMovement : MonoBehaviour
         {
             //print(Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up));
             _wallRunTimer += Time.deltaTime;
-            if (_wallRunTimer >= _wallRunDuration || Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up) > -90 - _maxCamRotationOffset && Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up) < -90 + _maxCamRotationOffset)
+            
+            //print(Mathf.Abs(Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up)) > 90 + _maxCamRotationOffset && _side == "left");
+            //print(Mathf.Abs(Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up)) < 90 - _maxCamRotationOffset && _side == "right");
+            if (_wallRunTimer >= _wallRunDuration || 
+                Mathf.Abs( Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up)) < 90 + _maxCamRotationOffset && _side == "left" ||
+                Mathf.Abs( Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up)) > 90 - _maxCamRotationOffset && _side == "right")
             {
-                
+                print("stop");
                 StopWallRun();
                 return;
             }

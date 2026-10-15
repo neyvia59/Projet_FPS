@@ -32,8 +32,7 @@ public class SpeedVFX : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(Mathf.Lerp(_speedVFXContrast.GetFloat("_FadeConstrast"), _speedVFXFadeContrastDefault, _vfxDownTransitionSpeed));
-
+      
     }
 
     public void MoveToSlidingFOV()
@@ -50,8 +49,6 @@ public class SpeedVFX : MonoBehaviour
     public void UpdateWindVFX(float _currentSpeed)
     {
         if(_currentSpeed<=0) return;
-
-        print("up");
         //_speedVFXContrast.SetFloat("_TextureContrast", _currentSpeed / _vfxIntensityDivider);
         _speedVFXContrast.SetFloat("_TextureContrast", Mathf.Lerp(_speedVFXContrast.GetFloat("_TextureContrast"), _currentSpeed / _vfxIntensityDivider, _vfxUpTransitionSpeed));
        
