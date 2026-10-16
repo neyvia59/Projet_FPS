@@ -875,8 +875,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7efb56d551f656942b85441d32e501e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCam
-  sensiX: 400
-  sensiY: 400
+  sensiMouseX: 5
+  sensiMouseY: 5
+  sensiGamePadX: 400
+  sensiGamePadY: 400
   Orientation: {fileID: 842874456}
 --- !u!1 &410087039
 GameObject:
@@ -6815,6 +6817,10 @@ PrefabInstance:
       propertyPath: _SpawnPosition
       value: 
       objectReference: {fileID: 1071125890}
+    - target: {fileID: 2026137334786976272, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
+      propertyPath: _shootingDelay
+      value: 0.77
+      objectReference: {fileID: 0}
     - target: {fileID: 2026137334786976272, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
       propertyPath: '_weapons.Array.data[0]'
       value: 
