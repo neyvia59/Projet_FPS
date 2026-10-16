@@ -1,8 +1,10 @@
 using DG.Tweening;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class WeaponManager : MonoBehaviour
 
     [SerializeField] private WeaponType _currentWeapon;
 
+    [SerializeField] private float _shootingDelay;
     [SerializeField] private float _aimingFOV;
     [SerializeField] private float _aimingSpeed;
 
@@ -38,6 +41,8 @@ public class WeaponManager : MonoBehaviour
 
     private int _currentWeaponIndex = 0;
     public bool _canShoot = true;
+    private bool _inShootCD = false;
+    private bool _hasSwitched = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -56,30 +61,38 @@ public class WeaponManager : MonoBehaviour
 
     private void CheckInputs()
     {
-        if (Input.GetMouseButtonDown(0))
+
+        if (Input.GetMouseButtonDown(0) || Gamepad.current.rightTrigger.isPressed)
         {
             Shoot();
         }
-        if (Input.mouseScrollDelta.y > 0)
+        if (Input.mouseScrollDelta.y > 0 || Gamepad.current.rightShoulder.isPressed && _hasSwitched == false)
         {
             _currentWeaponIndex++;
+            _hasSwitched = true;
             if (_currentWeaponIndex >= _weapons.Count) { _currentWeaponIndex = 0; }
             ChangeWeapon();
 
         }
-        if (Input.mouseScrollDelta.y < 0)
+        if (Input.mouseScrollDelta.y < 0 || Gamepad.current.leftShoulder.isPressed && _hasSwitched == false)
         {
             _currentWeaponIndex--;
+            _hasSwitched = true;
             if (_currentWeaponIndex < 0) { _currentWeaponIndex = _weapons.Count - 1; }
             ChangeWeapon();
         }
 
+        if(Gamepad.current.rightShoulder.isPressed == false && Gamepad.current.leftShoulder.isPressed == false && _hasSwitched == true)
+        {
+            _hasSwitched = false;
+        }
 
-        if (Input.GetMouseButton(1) && _canShoot)
+
+        if (Input.GetMouseButton(1) && _canShoot || Gamepad.current.leftTrigger.isPressed && _canShoot)
         {
             _isAiming = true;
         }
-        if (Input.GetMouseButtonUp(1))
+        if (Input.GetMouseButtonUp(1) || Gamepad.current.leftTrigger.isPressed == false)
         {
             _isAiming = false;
         }
@@ -96,14 +109,23 @@ public class WeaponManager : MonoBehaviour
         _currentWeapon = _weapons[_currentWeaponIndex];
     }
 
+    private IEnumerator ShootingCooldown()
+    {
+        yield return new WaitForSeconds(_shootingDelay);
+        _inShootCD = false;
+    }
+
 
 
     private void Shoot()
     {
-        if (_canShoot == false) return;
+        if (_canShoot == false || _inShootCD == true) return;
 
         GameObject go = Instantiate(_currentWeapon._projectilePrefab, _SpawnPosition.position, Quaternion.identity);
         go.GetComponent<Rigidbody>().AddForce(_SpawnPosition.forward.normalized * _currentWeapon._projectionForce, ForceMode.Impulse);
+
+        _inShootCD = true;
+        StartCoroutine(ShootingCooldown());
     }
 
     private void Aim()
@@ -128,10 +150,9 @@ public class WeaponManager : MonoBehaviour
 
     private void UpdateWeaponPos()
     {
-        if (_canShoot == false && _state != "shoot")
+        if (_canShoot == false && gameObject.GetComponent<PlayerMovement>()._isSprinting && _state != "run")
         {
-            _state = "shoot";
-            print("shoot");
+            _state = "run";
             _gunGo.transform.DOLocalMove(_runningPosition, _animSpeed);
             _gunGo.transform.DOLocalRotate(_runningRotation, _animSpeed);
             //_gunGo.transform.localRotation = Quaternion.Euler(_runningRotation);
@@ -141,6 +162,7 @@ public class WeaponManager : MonoBehaviour
         if (_isAiming && _state != "aim")
         {
             _state = "aim";
+
             _gunGo.transform.DOLocalMove(_aimingPosition, _animSpeed);
             _gunGo.transform.DOLocalRotate(_aimingRotation, _animSpeed);
             //_gunGo.transform.localPosition = _aimingPosition;

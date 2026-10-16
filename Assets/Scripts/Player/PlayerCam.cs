@@ -1,9 +1,13 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerCam : MonoBehaviour
 {
-    public float sensiX;
-    public float sensiY;
+    public float sensiMouseX;
+    public float sensiMouseY;
+
+    public float sensiGamePadX;
+    public float sensiGamePadY;
 
     public Transform Orientation;
 
@@ -18,15 +22,34 @@ public class PlayerCam : MonoBehaviour
 
     private void Update()
     {
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensiX;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensiY;
 
-        yrot += mouseX;
+        var keyboard = Keyboard.current;
+        var gamepad = Gamepad.current;
 
-        xrot -= mouseY;
+        if (keyboard != null)
+        {
+            float mouseX = Input.GetAxisRaw("Mouse X") * sensiMouseX;
+            float mouseY = Input.GetAxisRaw("Mouse Y") * sensiMouseY;
+
+            yrot += mouseX;
+            xrot -= mouseY;
+        }
+
+        if (gamepad != null)
+        {
+            Vector2 stickInput = gamepad.rightStick.ReadValue();
+
+            float stickX = stickInput.x * sensiGamePadX * Time.deltaTime;
+            float stickY = stickInput.y * sensiGamePadY * Time.deltaTime;
+
+            yrot += stickX;
+            xrot -= stickY;
+        }
+
         xrot = Mathf.Clamp(xrot, -90f, 90f);
-        
+
         transform.rotation = Quaternion.Euler(xrot, yrot, 0);
         Orientation.rotation = Quaternion.Euler(0, yrot, 0);
+
     }
 }

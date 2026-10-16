@@ -14,14 +14,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform _playerTransform;
 
     [SerializeField] private SpeedVFX _speedVFXManager;
-    private bool _resettedWindVFX;
 
     [Header("Ground Movement")]
     [SerializeField] private float _walkSpeed = 6f;
     [SerializeField] private float _sprintSpeed = 11f;
 
     [SerializeField] private float _acceleration = 35f;
-    [SerializeField] private float _deceleration = 25f;
 
     [SerializeField] private float _landingSpeedMult = 0.9f;
     private float _velocityMult = 1;
@@ -120,9 +118,9 @@ public class PlayerMovement : MonoBehaviour
     private bool _sprintHeld;
     private bool _crouchHeld;
     private bool _jumpPressed;
+    public bool _isSprinting;
 
-    private float boostTimer = 0f;
-    private Vector3 boostVelocity = Vector3.zero;
+
 
     private CharacterController _controller;
 
@@ -174,54 +172,62 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
+
     private void ReadInput()
     {
-        if (Keyboard.current == null)
-            return;
+
+        var keyboard = Keyboard.current;
+        var gamepad = Gamepad.current;
 
         _moveInput = Vector2.zero;
+        _sprintHeld = false;
+        _crouchHeld = false;
+        _jumpPressed = false;
 
-        if (Keyboard.current.wKey.isPressed)
-            _moveInput.y += 1f;
 
-        if (Keyboard.current.sKey.isPressed)
-            _moveInput.y -= 1f;
-
-        if (Keyboard.current.aKey.isPressed)
-            _moveInput.x -= 1f;
-
-        if (Keyboard.current.dKey.isPressed)
-            _moveInput.x += 1f;
-
-        _moveInput =
-            Vector2.ClampMagnitude(
-                _moveInput,
-                1f
-            );
-
-        
-
-        _sprintHeld =
-            Keyboard.current.leftShiftKey.isPressed;
-
-        if(_sprintHeld == false)
+        if (keyboard != null)
         {
-            _isSprintingInJump = false;
+            if (keyboard.wKey.isPressed)
+                _moveInput.y += 1f;
+
+            if (keyboard.sKey.isPressed)
+                _moveInput.y -= 1f;
+
+            if (keyboard.aKey.isPressed)
+                _moveInput.x -= 1f;
+
+            if (keyboard.dKey.isPressed)
+                _moveInput.x += 1f;
+
+            _sprintHeld |= keyboard.leftShiftKey.isPressed;
+            _crouchHeld |= keyboard.cKey.isPressed;
+            _jumpPressed |= keyboard.spaceKey.wasPressedThisFrame;
         }
 
-        _crouchHeld =
-            Keyboard.current.cKey.isPressed;
+        if (gamepad != null)
+        {
+ 
+            Vector2 stickInput = gamepad.leftStick.ReadValue();
+
+            _moveInput += stickInput;
+
+            _sprintHeld |= gamepad.leftStickButton.isPressed;
+
+            _crouchHeld |= gamepad.buttonEast.isPressed;
+
+          
+            _jumpPressed |= gamepad.buttonSouth.wasPressedThisFrame;
+        }
+
+        _moveInput = Vector2.ClampMagnitude(_moveInput, 1f);
+
+        if (!_sprintHeld)
+            _isSprintingInJump = false;
 
         if (!_crouchHeld)
-        {
             _didSlide = false;
-        }
-
-
-        _jumpPressed =
-            Keyboard.current.spaceKey.wasPressedThisFrame;
-
     }
+
 
 
     private void HandleGroundState()
@@ -258,8 +264,11 @@ public class PlayerMovement : MonoBehaviour
                 ? _sprintSpeed
                 : _walkSpeed;
 
+            if (_sprintHeld) _isSprinting = true;
+            else _isSprinting = false;
 
-            Vector3 targetVelocity = desiredDirection * targetSpeed;
+
+                Vector3 targetVelocity = desiredDirection * targetSpeed;
 
             float acceleration = _acceleration;
 
@@ -906,12 +915,11 @@ public class PlayerMovement : MonoBehaviour
         if(_isSliding || _sprintHeld && _controller.isGrounded || _sprintHeld && _isSprintingInJump)
         {
             _speedVFXManager.UpdateWindVFX(Mathf.Abs(_controller.velocity.x) + Mathf.Abs(  _controller.velocity.y) + Mathf.Abs( _controller.velocity.z));
-            _resettedWindVFX = false;
+
         }
-        else// if(_resettedWindVFX == false)
+        else
         {
             _speedVFXManager.ResetWindVFX();
-            _resettedWindVFX = true;
         }
     }
 
