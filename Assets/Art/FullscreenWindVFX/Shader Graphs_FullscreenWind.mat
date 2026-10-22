@@ -39,7 +39,7 @@ Material:
     m_Floats:
     - _FadeConstrast: 3.9999998
     - _Speed: 0.05
-    - _TextureContrast: 0.16138767
+    - _TextureContrast: 0.38773245
     - _TransitionValue: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 0.62352943}

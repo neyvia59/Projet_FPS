@@ -3,11 +3,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerCam : MonoBehaviour
 {
-    public float sensiMouseX;
-    public float sensiMouseY;
+    public float sensiMouseX =5;
+    public float sensiMouseY =5;
 
-    public float sensiGamePadX;
-    public float sensiGamePadY;
+    public float sensiGamePadX =400;
+    public float sensiGamePadY =400;
 
     public Transform Orientation;
 
