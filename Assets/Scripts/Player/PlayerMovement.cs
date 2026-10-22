@@ -325,11 +325,9 @@ public class PlayerMovement : MonoBehaviour
         float directionChangeSpeed =
             _directionChangeSpeed * _dirChangeSpeedAirMult;
 
-        print(desiredDirection);
-        print(_directionChangeSpeed);
 
-        if (_horizontalVelocity.sqrMagnitude > 0.01f)
-        {
+        //if (_horizontalVelocity.sqrMagnitude > 0.01f)
+        //{
             float directionDot = Vector3.Dot(
                 _horizontalVelocity.normalized,
                 desiredDirection
@@ -349,10 +347,8 @@ public class PlayerMovement : MonoBehaviour
             );
 
             float addSpeed = _airControlSpeed - speedInDirection;
-
             if (addSpeed <= 0f)
                 return;
-
             float accelerationSpeed = Mathf.Min(
                 acceleration * _airControlSpeed * Time.deltaTime,
                 addSpeed
@@ -363,6 +359,7 @@ public class PlayerMovement : MonoBehaviour
             _horizontalVelocity +=
                 desiredDirection * accelerationSpeed;
 
+            
             float allowedSpeed = Mathf.Max(
                 _maxAirStrafeSpeed,
                 speedBeforeAcceleration
@@ -374,7 +371,7 @@ public class PlayerMovement : MonoBehaviour
                 _horizontalVelocity =
                     _horizontalVelocity.normalized * allowedSpeed;
             }
-        }
+       // }
 
     }
     private Vector3 GetMoveDirection()
@@ -474,6 +471,8 @@ public class PlayerMovement : MonoBehaviour
                 _verticalVelocity =
                     _jumpForce;
             }
+            Vector3 desiredDirection = GetMoveDirection();
+            HandleAirMovement(desiredDirection);
             _isInJump = true;
             _isInCoyotte = false;
             _canCoyotte = false;
