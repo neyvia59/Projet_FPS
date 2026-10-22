@@ -438,7 +438,7 @@ public class PlayerMovement : MonoBehaviour
         if (Physics.Raycast(
             transform.position,
             -transform.up,
-            _jumpBufferDistance) && _controller.isGrounded == false)
+            _jumpBufferDistance) && _controller.isGrounded == false && _isSliding == false)
         {
             _canJumpBuff = true;
 
