@@ -62,46 +62,83 @@ public class WeaponManager : MonoBehaviour
     private void CheckInputs()
     {
 
-        if (Input.GetMouseButtonDown(0) || Gamepad.current.rightTrigger.isPressed)
+        if (Gamepad.current != null)
         {
-            Shoot();
-        }
-        if (Input.mouseScrollDelta.y > 0 || Gamepad.current.rightShoulder.isPressed && _hasSwitched == false)
-        {
-            _currentWeaponIndex++;
-            _hasSwitched = true;
-            if (_currentWeaponIndex >= _weapons.Count) { _currentWeaponIndex = 0; }
-            ChangeWeapon();
+            if (Input.GetMouseButtonDown(0) || Gamepad.current.rightTrigger.isPressed)
+            {
+                Shoot();
+            }
+            if (Input.mouseScrollDelta.y > 0 || Gamepad.current.rightShoulder.isPressed && _hasSwitched == false)
+            {
+                _currentWeaponIndex++;
+                _hasSwitched = true;
+                if (_currentWeaponIndex >= _weapons.Count) { _currentWeaponIndex = 0; }
+                ChangeWeapon();
+
+            }
+            if (Input.mouseScrollDelta.y < 0 || Gamepad.current.leftShoulder.isPressed && _hasSwitched == false)
+            {
+                _currentWeaponIndex--;
+                _hasSwitched = true;
+                if (_currentWeaponIndex < 0) { _currentWeaponIndex = _weapons.Count - 1; }
+                ChangeWeapon();
+            }
+
+            if (Gamepad.current.rightShoulder.isPressed == false && Gamepad.current.leftShoulder.isPressed == false && _hasSwitched == true)
+            {
+                _hasSwitched = false;
+            }
+
+
+            if (Input.GetMouseButton(1) && _canShoot || Gamepad.current.leftTrigger.isPressed && _canShoot)
+            {
+                _isAiming = true;
+            }
+            if (Input.GetMouseButtonUp(1) || Gamepad.current.leftTrigger.isPressed == false)
+            {
+                _isAiming = false;
+            }
 
         }
-        if (Input.mouseScrollDelta.y < 0 || Gamepad.current.leftShoulder.isPressed && _hasSwitched == false)
+        else
         {
-            _currentWeaponIndex--;
-            _hasSwitched = true;
-            if (_currentWeaponIndex < 0) { _currentWeaponIndex = _weapons.Count - 1; }
-            ChangeWeapon();
-        }
+            if (Input.GetMouseButtonDown(0))
+            {
+                Shoot();
+            }
+            if (Input.mouseScrollDelta.y > 0)
+            {
+                _currentWeaponIndex++;
+                _hasSwitched = true;
+                if (_currentWeaponIndex >= _weapons.Count) { _currentWeaponIndex = 0; }
+                ChangeWeapon();
 
-        if(Gamepad.current.rightShoulder.isPressed == false && Gamepad.current.leftShoulder.isPressed == false && _hasSwitched == true)
-        {
-            _hasSwitched = false;
-        }
+            }
+            if (Input.mouseScrollDelta.y < 0)
+            {
+                _currentWeaponIndex--;
+                _hasSwitched = true;
+                if (_currentWeaponIndex < 0) { _currentWeaponIndex = _weapons.Count - 1; }
+                ChangeWeapon();
+            }
 
 
-        if (Input.GetMouseButton(1) && _canShoot || Gamepad.current.leftTrigger.isPressed && _canShoot)
-        {
-            _isAiming = true;
-        }
-        if (Input.GetMouseButtonUp(1) || Gamepad.current.leftTrigger.isPressed == false)
-        {
-            _isAiming = false;
-        }
+            if (Input.GetMouseButton(1) && _canShoot)
+            {
+                _isAiming = true;
+            }
+            if (Input.GetMouseButtonUp(1))
+            {
+                _isAiming = false;
+            }
 
-        if (_isAiming)
-        {
-            Aim();
+
+            if (_isAiming)
+            {
+                Aim();
+            }
+            else if (_isAiming == false && Camera.main.fieldOfView < _baseFOV) { Unaim(); }
         }
-        else if (_isAiming == false && Camera.main.fieldOfView < _baseFOV) { Unaim(); }
     }
 
     private void ChangeWeapon()

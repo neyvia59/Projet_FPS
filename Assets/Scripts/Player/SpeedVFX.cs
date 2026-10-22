@@ -10,7 +10,7 @@ public class SpeedVFX : MonoBehaviour
     [SerializeField] private Material _speedVFXFadeContrast;
     [Range(0,1f)]
     [SerializeField] private float _vfxUpTransitionSpeed;
-    [Range(0, 1f)]
+    [Range(0.0f, 0.02f)]
     [SerializeField] private float _vfxDownTransitionSpeed;
 
     [SerializeField] private float _vfxIntensityDivider;

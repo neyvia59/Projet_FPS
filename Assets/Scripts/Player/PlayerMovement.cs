@@ -325,6 +325,9 @@ public class PlayerMovement : MonoBehaviour
         float directionChangeSpeed =
             _directionChangeSpeed * _dirChangeSpeedAirMult;
 
+        print(desiredDirection);
+        print(_directionChangeSpeed);
+
         if (_horizontalVelocity.sqrMagnitude > 0.01f)
         {
             float directionDot = Vector3.Dot(
