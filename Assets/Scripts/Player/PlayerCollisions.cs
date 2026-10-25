@@ -21,6 +21,7 @@ public class PlayerCollisions : MonoBehaviour
             gameObject.GetComponent<CharacterController>().enabled = false;
             gameObject.transform.position = _currentCheckpoint.position;
             gameObject.GetComponent<CharacterController>().enabled = true;
+            print("Player has died");
         }
 
         if(other.GetComponent<Checkpoint>() != null)
