@@ -141,6 +141,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        print(_verticalVelocity);
         ReadInput();
 
         HandleGroundState();
@@ -664,7 +665,7 @@ public class PlayerMovement : MonoBehaviour
     private void HandleWallRun()
     {
 
-        if (_controller.isGrounded)
+        if (_controller.isGrounded || _verticalVelocity >0 || _verticalVelocity<0 && _controller.isGrounded )
         {
             StopWallRun();
             return;
