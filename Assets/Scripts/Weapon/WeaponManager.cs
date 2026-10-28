@@ -43,6 +43,7 @@ public class WeaponManager : MonoBehaviour
     public bool _canShoot = true;
     private bool _inShootCD = false;
     private bool _hasSwitched = false;
+    private bool _isInAnim = false; 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -156,7 +157,7 @@ public class WeaponManager : MonoBehaviour
 
     private void Shoot()
     {
-        if (_canShoot == false || _inShootCD == true) return;
+        if (_canShoot == false || _inShootCD == true ||_isInAnim) return;
 
         GameObject go = Instantiate(_currentWeapon._projectilePrefab, _SpawnPosition.position, Quaternion.identity);
         go.GetComponent<Rigidbody>().AddForce(_SpawnPosition.forward.normalized * _currentWeapon._projectionForce, ForceMode.Impulse);
@@ -183,14 +184,14 @@ public class WeaponManager : MonoBehaviour
     }
 
 
-    // Faut noter les décalage à faire, on fait position += offset
 
     private void UpdateWeaponPos()
     {
         if (_canShoot == false && gameObject.GetComponent<PlayerMovement>()._isSprinting && _state != "run")
         {
             _state = "run";
-            _gunGo.transform.DOLocalMove(_runningPosition, _animSpeed);
+            _isInAnim = true;
+            _gunGo.transform.DOLocalMove(_runningPosition, _animSpeed).OnComplete(ResetAnimBool);
             _gunGo.transform.DOLocalRotate(_runningRotation, _animSpeed);
             //_gunGo.transform.localRotation = Quaternion.Euler(_runningRotation);
 
@@ -199,8 +200,8 @@ public class WeaponManager : MonoBehaviour
         if (_isAiming && _state != "aim")
         {
             _state = "aim";
-
-            _gunGo.transform.DOLocalMove(_aimingPosition, _animSpeed);
+            _isInAnim = true;
+            _gunGo.transform.DOLocalMove(_aimingPosition, _animSpeed).OnComplete(ResetAnimBool);
             _gunGo.transform.DOLocalRotate(_aimingRotation, _animSpeed);
             //_gunGo.transform.localPosition = _aimingPosition;
             //_gunGo.transform.localRotation = Quaternion.Euler(_aimingRotation);
@@ -208,10 +209,16 @@ public class WeaponManager : MonoBehaviour
         else if(_state != "base" && _canShoot)
         {
             _state = "base";
-            _gunGo.transform.DOLocalMove(_basePosition, _animSpeed);
+            _isInAnim = true;
+            _gunGo.transform.DOLocalMove(_basePosition, _animSpeed).OnComplete(ResetAnimBool);
             _gunGo.transform.DOLocalRotate(_baseRotation, _animSpeed);
             //_gunGo.transform.localPosition = _basePosition;
             //_gunGo.transform.localRotation = Quaternion.Euler(_baseRotation);
         }
+    }
+
+    private void ResetAnimBool()
+    {
+        _isInAnim = false;
     }
 }
