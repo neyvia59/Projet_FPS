@@ -141,7 +141,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        print(_verticalVelocity);
         ReadInput();
 
         HandleGroundState();
@@ -315,8 +314,10 @@ public class PlayerMovement : MonoBehaviour
             );
         }
     }
+
     private void HandleAirMovement(Vector3 desiredDirection)
     {
+        desiredDirection.y = 0f;
 
         if (desiredDirection.sqrMagnitude < 0.01f)
             return;
@@ -326,55 +327,45 @@ public class PlayerMovement : MonoBehaviour
         float directionChangeSpeed =
             _directionChangeSpeed * _dirChangeSpeedAirMult;
 
+        float directionDot = 0f;
 
-        //if (_horizontalVelocity.sqrMagnitude > 0.01f)
-        //{
-            float directionDot = Vector3.Dot(
+        if (_horizontalVelocity.sqrMagnitude > 0.01f)
+        {
+            directionDot = Vector3.Dot(
                 _horizontalVelocity.normalized,
                 desiredDirection
             );
+        }
 
-            float directionChange = 1f - directionDot;
+        float directionChange = 1f - directionDot;
 
-            float acceleration = Mathf.Lerp(
-                _airAcceleration,
-                directionChangeSpeed,
-                directionChange
-            );
+        float acceleration = Mathf.Lerp(
+            _airAcceleration,
+            directionChangeSpeed,
+            directionChange
+        );
 
-            float speedInDirection = Vector3.Dot(
-                _horizontalVelocity,
-                desiredDirection
-            );
+        float speedBeforeAcceleration = _horizontalVelocity.magnitude;
 
-            float addSpeed = _airControlSpeed - speedInDirection;
-            if (addSpeed <= 0f)
-                return;
-            float accelerationSpeed = Mathf.Min(
-                acceleration * _airControlSpeed * Time.deltaTime,
-                addSpeed
-            );
+        float accelerationSpeed =
+            acceleration * _airControlSpeed * Time.deltaTime;
 
-            float speedBeforeAcceleration = _horizontalVelocity.magnitude;
+        _horizontalVelocity +=
+            desiredDirection * accelerationSpeed;
 
-            _horizontalVelocity +=
-                desiredDirection * accelerationSpeed;
+        float allowedSpeed = Mathf.Max(
+            _maxAirStrafeSpeed,
+            speedBeforeAcceleration
+        );
 
-            
-            float allowedSpeed = Mathf.Max(
-                _maxAirStrafeSpeed,
-                speedBeforeAcceleration
-            );
-
-            if (_horizontalVelocity.sqrMagnitude >
-                allowedSpeed * allowedSpeed)
-            {
-                _horizontalVelocity =
-                    _horizontalVelocity.normalized * allowedSpeed;
-            }
-       // }
-
+        if (_horizontalVelocity.sqrMagnitude >
+            allowedSpeed * allowedSpeed)
+        {
+            _horizontalVelocity =
+                _horizontalVelocity.normalized * allowedSpeed;
+        }
     }
+
     private Vector3 GetMoveDirection()
     {
         if (_cameraTransform == null)
