@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 8205438319308085767}
   - component: {fileID: 3892754030193957136}
   - component: {fileID: 7127479342174119498}
+  - component: {fileID: 6590536674582354618}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -201,7 +202,6 @@ MonoBehaviour:
   _walkSpeed: 6
   _sprintSpeed: 11
   _acceleration: 35
-  _deceleration: 70
   _landingSpeedMult: 0.9
   _landingSlowDuration: 0.7
   _directionChangeSpeed: 200
@@ -239,6 +239,7 @@ MonoBehaviour:
   _isSliding: 0
   _slideVisualHeight: 0.55
   _slideVisualSmooth: 14
+  _isSprinting: 0
 --- !u!114 &2026137334786976272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,6 +260,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _currentWeapon: {fileID: 0}
+  _shootingDelay: 0
   _aimingFOV: 35
   _aimingSpeed: 1.67
   _animSpeed: 0.7
@@ -325,3 +327,18 @@ MonoBehaviour:
   idleAmplitude: 0.02
   controller: {fileID: 8205438319308085767}
   _camTransform: {fileID: 0}
+--- !u!114 &6590536674582354618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7375654578469038265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34ff0af2a80252746a52203de2fdf62b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  IsAlive: 1
+  SporeBar: {fileID: 0}
+  _careSporeContamination: 0.001
