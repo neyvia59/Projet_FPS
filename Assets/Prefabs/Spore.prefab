@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 7598901800100115787}
   - component: {fileID: 3775341902685453222}
   - component: {fileID: 8883876370776526130}
-  - component: {fileID: 6495094499224743240}
   - component: {fileID: 8825246933882271979}
+  - component: {fileID: 1738543051642642779}
   m_Layer: 0
   m_Name: Spore
   m_TagString: Untagged
@@ -666,15 +666,15 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 0
+    type: 18
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: -0.0000009536743, y: 11.042234, z: 5.3172083}
-    m_Rotation: {x: -0, y: 0, z: 0}
-    m_Scale: {x: 0.4785124, y: 0.4785124, z: 0.4785124}
+    m_Position: {x: 0, y: 10, z: 0}
+    m_Rotation: {x: 359.75, y: 0, z: 0}
+    m_Scale: {x: 0.21, y: 0.47851244, z: 0.47851244}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -4838,8 +4838,21 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
---- !u!135 &6495094499224743240
-SphereCollider:
+--- !u!114 &8825246933882271979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3906177853176768774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814c9fc449933a147ae3cf4ae9ffaba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spore
+  _sporeContamination: 0.001
+--- !u!65 &1738543051642642779
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4857,18 +4870,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 30
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8825246933882271979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3906177853176768774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 814c9fc449933a147ae3cf4ae9ffaba6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Spore
-  _sporeContamination: 0.001
+  m_Size: {x: 51.629993, y: 64.37871, z: 51.639793}
+  m_Center: {x: 0, y: 3.8687503, z: 0}
