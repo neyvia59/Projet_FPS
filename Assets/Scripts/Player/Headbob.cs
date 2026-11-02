@@ -1,9 +1,12 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Headbob : MonoBehaviour
 {
 
     [Header("Parametres")]
+    [SerializeField] private float _sprintFrequency = 18.0f;
+    [SerializeField] private float _sprintAmplitude = 0.12f;
     [SerializeField] private float _movingFrequency = 14.0f;
     [SerializeField] private float _movingAmplitude = 0.08f;
     [SerializeField] private float idleFrequency = 1.0f;
@@ -33,22 +36,32 @@ public class Headbob : MonoBehaviour
 
     private void CheckForHeadBobTrigger()
     {
-        // Vérifie si le joueur est au sol et en train de se déplacer
+
         float inputMagnitude = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).magnitude;
 
         if (inputMagnitude > 0 && controller.isGrounded && controller.gameObject.GetComponent<PlayerMovement>()._isSliding == false)
         {
-            // Mouvement de marche
-            timer += Time.deltaTime * _movingFrequency;
-            _camTransform.localPosition = new Vector3(
-                startPos.x + Mathf.Cos(timer / 2) * _movingAmplitude,
-                startPos.y + Mathf.Sin(timer) * _movingAmplitude,
-                startPos.z
-            );
+            if(controller.gameObject.GetComponent<PlayerMovement>()._isSprinting == false)
+            {
+                timer += Time.deltaTime * _movingFrequency;
+                _camTransform.localPosition = new Vector3(
+                    startPos.x + Mathf.Cos(timer / 2) * _movingAmplitude,
+                    startPos.y + Mathf.Sin(timer) * _movingAmplitude,
+                    startPos.z
+                );
+            }
+            else
+            {
+                timer += Time.deltaTime * _sprintFrequency;
+                _camTransform.localPosition = new Vector3(
+                    startPos.x + Mathf.Cos(timer / 2) * _sprintAmplitude,
+                    startPos.y + Mathf.Sin(timer) * _sprintAmplitude,
+                    startPos.z
+                );
+            }
         }
         else if(controller.gameObject.GetComponent<PlayerMovement>()._isSliding == false)
         {
-            // Mouvement subtil au repos (Idle)
             timer += Time.deltaTime * idleFrequency;
             _camTransform.localPosition = new Vector3(
                 startPos.x,
