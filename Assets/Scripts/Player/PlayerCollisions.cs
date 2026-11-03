@@ -31,14 +31,14 @@ public class PlayerCollisions : MonoBehaviour
 
         if (other.GetComponent<Plant>() != null) 
         { 
-            if(other.GetComponent<Plant>()._isEnlightened == false)
-            {
-                print("attacked");
-            }
-            else
-            {
-                print("safe");
-            }
+            //if(other.GetComponent<Plant>()._isEnlightened == false)
+            //{
+            //    print("attacked");
+            //}
+            //else
+            //{
+            //    print("safe");
+            //}
         }
         if (other.gameObject.GetComponent<JumpPad>() != null)
         {

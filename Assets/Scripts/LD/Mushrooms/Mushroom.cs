@@ -6,6 +6,7 @@ using UnityEngine;
 public class Mushroom : MonoBehaviour
 {
     public bool _isEnlightened;
+    public bool _canBeLightenedByPlayer = true;
     [SerializeField] private float _detectionZoneRadius = 50f;
     private List<Collider> _colliders = new List<Collider>();
 
@@ -27,7 +28,14 @@ public class Mushroom : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((IsAmmo(other) || other.gameObject.GetComponent<PlayerStats>() != null) && !_colliders.Contains(other))
+        if ((IsAmmo(other)  && !_colliders.Contains(other)))
+        {
+            _colliders.Add(other);
+            _isEnlightened = true;
+            Debug.Log("Mushroom = lighttrue");
+        }
+
+        if( other.gameObject.GetComponent<PlayerStats>() != null && !_colliders.Contains(other) && _canBeLightenedByPlayer)
         {
             _colliders.Add(other);
             _isEnlightened = true;
