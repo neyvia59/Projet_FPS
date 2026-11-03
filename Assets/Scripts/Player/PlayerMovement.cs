@@ -8,12 +8,8 @@ using static UnityEngine.UI.Image;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
-
-
-
 {
 
-    [SerializeField] private bool _tpAtSceneView;
     [Header("References")]
     [SerializeField] private Transform _cameraTransform;
 
@@ -134,10 +130,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        if (_tpAtSceneView)
-        {
-            transform.position = SceneView.lastActiveSceneView.pivot;
-        }
         _controller =
             GetComponent<CharacterController>();
 

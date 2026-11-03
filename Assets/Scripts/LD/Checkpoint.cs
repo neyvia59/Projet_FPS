@@ -6,7 +6,11 @@ public class Checkpoint : MonoBehaviour
 
     private void Start()
     {
-        Cheats.Instance.Checkpoints.Add(transform.position);
+        if(Cheats.Instance != null)
+        {
+            Cheats.Instance.Checkpoints.Add(transform.position);
+        }
+        
     }
     private void OnTriggerStay(Collider other)
     {
