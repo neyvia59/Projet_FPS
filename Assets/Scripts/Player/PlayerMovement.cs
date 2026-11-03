@@ -128,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    private CharacterController _controller;
+    public CharacterController _controller;
 
     
 

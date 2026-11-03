@@ -5,7 +5,7 @@ using UnityEngine;
 public class Plant : Mushroom
 {
 
-
+    public bool _canKillPlayer;
     [SerializeField]private float _retractedDistance ;
     private Vector3 _basePos;
 
@@ -36,7 +36,7 @@ public class Plant : Mushroom
         {
             if (_isFullyRetracted == false && _isRetracting == false)
             {
-                print("hide");
+
                 transform.DOKill();
                 transform.DOLocalMove(_retractedPos, _timeToRetract).OnComplete(RetractionEnd);
                 _isRetracting = true;
@@ -50,7 +50,6 @@ public class Plant : Mushroom
         {
             if(_isFullyUnretracted == false && _isUnretracting == false)
             {
-                print("unHide");
                 transform.DOKill();
                 transform.DOLocalMove(_basePos, _timeToUnretract).OnComplete(UnretractionEnd);
                 _isUnretracting=true;

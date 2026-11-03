@@ -43432,6 +43432,52 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!1 &1910163871
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1910163873}
+  - component: {fileID: 1910163872}
+  m_Layer: 0
+  m_Name: Cheats
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1910163872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910163871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57246b6fd3999034c8758dadabef18aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  Player: {fileID: 2085860699}
+  Checkpoints: []
+--- !u!4 &1910163873
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910163871}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.79202, y: 0.765, z: 27.02909}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1921492305
 GameObject:
   m_ObjectHideFlags: 0
@@ -47227,6 +47273,11 @@ Transform:
   - {fileID: 1098565359}
   m_Father: {fileID: 25717921}
   m_LocalEulerAnglesHint: {x: 0, y: -15, z: 0}
+--- !u!1 &2085860699 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7375654578469038265, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
+  m_PrefabInstance: {fileID: 4541665768630354815}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &2111513208
 Mesh:
   m_ObjectHideFlags: 0
@@ -48888,3 +48939,4 @@ SceneRoots:
   - {fileID: 1045929930}
   - {fileID: 1362910309}
   - {fileID: 551285687}
+  - {fileID: 1910163873}

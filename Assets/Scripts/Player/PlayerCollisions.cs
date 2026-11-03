@@ -18,10 +18,7 @@ public class PlayerCollisions : MonoBehaviour
     {
         if(other.GetComponent<Killzone>() != null)
         {
-            gameObject.GetComponent<CharacterController>().enabled = false;
-            gameObject.transform.position = _currentCheckpoint.position;
-            gameObject.GetComponent<CharacterController>().enabled = true;
-            print("Player has died");
+            KillPlayer();
         }
 
         if(other.GetComponent<Checkpoint>() != null)
@@ -30,20 +27,25 @@ public class PlayerCollisions : MonoBehaviour
         }
 
         if (other.GetComponent<Plant>() != null) 
-        { 
-            //if(other.GetComponent<Plant>()._isEnlightened == false)
-            //{
-            //    print("attacked");
-            //}
-            //else
-            //{
-            //    print("safe");
-            //}
+        {
+            if (other.GetComponent<Plant>()._isEnlightened == false && other.GetComponent<Plant>()._canKillPlayer)
+            {
+                KillPlayer();
+            }
+
         }
         if (other.gameObject.GetComponent<JumpPad>() != null)
         {
             gameObject.GetComponent<PlayerMovement>().Launch(other.gameObject.GetComponent<JumpPad>().Force, other.gameObject.transform.forward);
         }
+    }
+
+    private void KillPlayer()
+    {
+        gameObject.GetComponent<CharacterController>().enabled = false;
+        gameObject.transform.position = _currentCheckpoint.position;
+        gameObject.GetComponent<CharacterController>().enabled = true;
+        print("Player has died");
     }
 
     private void OnCollisionEnter(Collision collision)
