@@ -2,6 +2,7 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -43,11 +44,17 @@ public class WeaponManager : MonoBehaviour
     public bool _canShoot = true;
     private bool _inShootCD = false;
     private bool _hasSwitched = false;
-    private bool _isInAnim = false; 
+    private bool _isInAnim = false;
+
+
+    private int _currentAmmo;
+    private int _maxAmmo = 6;
+    [SerializeField] private TextMeshProUGUI _ammoText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        _currentAmmo = _maxAmmo;
         ChangeWeapon();
         _baseFOV = Camera.main.fieldOfView;
     }
@@ -157,12 +164,14 @@ public class WeaponManager : MonoBehaviour
 
     private void Shoot()
     {
-        if (_canShoot == false || _inShootCD == true ||_isInAnim) return;
+        if (_canShoot == false || _inShootCD == true ||_isInAnim || _currentAmmo<=0) return;
 
         GameObject go = Instantiate(_currentWeapon._projectilePrefab, _SpawnPosition.position, Quaternion.identity);
         go.GetComponent<Rigidbody>().AddForce(_SpawnPosition.forward.normalized * _currentWeapon._projectionForce, ForceMode.Impulse);
 
         _inShootCD = true;
+        _currentAmmo--;
+        _ammoText.text = $@"{_currentAmmo} / {_maxAmmo}";
         StartCoroutine(ShootingCooldown());
     }
 
@@ -220,5 +229,11 @@ public class WeaponManager : MonoBehaviour
     private void ResetAnimBool()
     {
         _isInAnim = false;
+    }
+
+    public void RefillAmmo()
+    {
+        _currentAmmo = _maxAmmo;
+        _ammoText.text = $@"{_currentAmmo} / {_maxAmmo}";
     }
 }

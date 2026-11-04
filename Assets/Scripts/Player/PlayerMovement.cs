@@ -950,6 +950,11 @@ public class PlayerMovement : MonoBehaviour
         {
             gameObject.GetComponent<WeaponManager>()._canShoot = true;
         }
+
+        if (_isWallRunning)
+        {
+            gameObject.GetComponent<WeaponManager>()._canShoot = true;
+        }
     }
 
 

@@ -40,6 +40,14 @@ public class PlayerCollisions : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.GetComponent<AmmoBox>() != null && Input.GetKey(KeyCode.F))
+        {
+            gameObject.GetComponent<WeaponManager>().RefillAmmo();
+        }
+    }
+
     private void KillPlayer()
     {
         gameObject.GetComponent<PlayerStats>()._sporeContamination = 0;
