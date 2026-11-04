@@ -12341,8 +12341,6 @@ Transform:
   - {fileID: 22776442}
   m_Father: {fileID: 1863054016}
   m_LocalEulerAnglesHint: {x: 0, y: -45, z: 0}
-<<<<<<< Updated upstream
-=======
 --- !u!1 &443857049
 GameObject:
   m_ObjectHideFlags: 0
@@ -12511,7 +12509,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7598901800100115787, guid: 9b78ea91c704f1740822c8b37471a59e, type: 3}
   m_PrefabInstance: {fileID: 456717651}
   m_PrefabAsset: {fileID: 0}
->>>>>>> Stashed changes
 --- !u!1 &468891256
 GameObject:
   m_ObjectHideFlags: 0
@@ -36026,8 +36023,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4110458486038093445, guid: 40262f5eaa27f7e449913d938eaadd90, type: 3}
   m_PrefabInstance: {fileID: 556211113}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< Updated upstream
-=======
 --- !u!43 &1384417794
 Mesh:
   m_ObjectHideFlags: 0
@@ -36206,7 +36201,6 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
->>>>>>> Stashed changes
 --- !u!43 &1394419043
 Mesh:
   m_ObjectHideFlags: 0
@@ -49661,11 +49655,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   Player: {fileID: 2085860699}
   Checkpoints: []
-<<<<<<< Updated upstream
-  _checkpointCount: 0
-=======
   _checkpointCount: 3
->>>>>>> Stashed changes
 --- !u!4 &1910163873
 Transform:
   m_ObjectHideFlags: 0
@@ -50749,8 +50739,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
-<<<<<<< Updated upstream
-=======
 --- !u!1 &1956173487
 GameObject:
   m_ObjectHideFlags: 0
@@ -51107,7 +51095,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
->>>>>>> Stashed changes
 --- !u!4 &1971199703 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4110458486038093445, guid: 40262f5eaa27f7e449913d938eaadd90, type: 3}
