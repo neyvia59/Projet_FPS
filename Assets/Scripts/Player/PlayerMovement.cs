@@ -69,6 +69,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float _maxCamRotationOffset = 5f;
 
+    private GameObject _unallowedWallToRide;
+    private bool _wallJumped;
     private string _side;
 
     public bool _isWallRunning;
@@ -264,6 +266,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (_controller.isGrounded)
         {
+            _wallJumped = false;
             float targetSpeed = _sprintHeld
                 ? _sprintSpeed
                 : _walkSpeed;
@@ -679,10 +682,18 @@ public class PlayerMovement : MonoBehaviour
         {
             if (IsValidWall(hit.normal))
             {
+                if (_unallowedWallToRide == hit.transform.gameObject && _wallJumped)
+                {
+                    StopWallRun();
+                    return;
+                }
+                
                 _wallNormal = hit.normal;
                 if(hit.transform.gameObject.GetComponent<RunnableWall>() != null)
                 {
                     _side = "left";
+                    _wallJumped = false;
+                    _unallowedWallToRide = hit.transform.gameObject;
                     foundWall = true;
                 }
                 
@@ -698,10 +709,17 @@ public class PlayerMovement : MonoBehaviour
         {
             if (IsValidWall(hit.normal))
             {
+                if (_unallowedWallToRide == hit.transform.gameObject && _wallJumped)
+                {
+                    StopWallRun();
+                    return;
+                }
                 _wallNormal = hit.normal;
                 if (hit.transform.gameObject.GetComponent<RunnableWall>() != null)
                 {
                     _side = "right";
+                    _wallJumped = false;
+                    _unallowedWallToRide = hit.transform.gameObject;
                     foundWall = true;
                 }
             }
@@ -790,6 +808,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _isWallRunning = false;
         _canWallRun = true;
+        _wallJumped = true;
         _wallRunTimer = 0f;
 
         Vector3 jumpDirection =
