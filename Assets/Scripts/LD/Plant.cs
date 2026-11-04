@@ -32,6 +32,7 @@ public class Plant : Mushroom
     // Update is called once per frame
     void Update()
     {
+        base.Update();
         if (_isEnlightened)
         {
             if (_isFullyRetracted == false && _isRetracting == false)
