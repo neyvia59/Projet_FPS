@@ -6,7 +6,7 @@ public class PlayerStats : MonoBehaviour
     static public PlayerStats Instance;
     public bool IsAlive = true;
     [SerializeField] Gauge SporeBar;
-    private float _sporeContamination = 0f;
+    public float _sporeContamination = 0f;
     [SerializeField] private float _careSporeContamination = 0.001f;
 
     private void Awake()
