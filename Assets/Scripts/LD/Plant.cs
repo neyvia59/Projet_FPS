@@ -22,14 +22,15 @@ public class Plant : Mushroom
 
     [SerializeField] private float _animationSpeedDivider = 0.9f;
     private bool _canUnretract = true;
-    public Vector3 _retractedPos;
+    [SerializeField]private GameObject _retractedRef;
+    private Vector3 _retractedPos;
     private Animator _animator;
 
     private void Awake()
     {
         _animator = GetComponentInParent<Animator>();
         _basePos = transform.localPosition;
-        _retractedPos = transform.right * _retractedDistance;
+        _retractedPos = _retractedRef.transform.position;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -49,7 +50,7 @@ public class Plant : Mushroom
                 _animator.SetBool("IsRetracting", true);
                 _animator.SetBool("IsUnretracting", false);
                 transform.DOKill();
-                transform.DOLocalMove(_retractedPos, _timeToRetract).OnComplete(RetractionEnd);
+                transform.DOMove(_retractedPos, _timeToRetract).OnComplete(RetractionEnd);
                 _isRetracting = true;
                 _isFullyRetracted = false;
                 _isFullyUnretracted=false;
@@ -98,7 +99,7 @@ public class Plant : Mushroom
             _animator.SetBool("IsUnretracting", false);
             _canUnretract = false;
             transform.DOKill();
-            transform.DOLocalMove(_retractedPos, _timeToRetract).OnComplete(FastRetractEnd);
+            transform.DOMove(_retractedPos, _timeToRetract).OnComplete(FastRetractEnd);
             _isRetracting = true;
             _isFullyRetracted = false;
             _isFullyUnretracted = false;
