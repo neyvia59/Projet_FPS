@@ -32,6 +32,7 @@ public class PlayerStats : MonoBehaviour
 
     public void CareSporeContamination()
     {
+        if (_sporeContamination <=0) return;
         AddSporeContamination(-_careSporeContamination);
     }
 }
