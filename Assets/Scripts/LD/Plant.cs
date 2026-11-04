@@ -22,7 +22,7 @@ public class Plant : Mushroom
 
     [SerializeField] private float _animationSpeedDivider = 0.9f;
     private bool _canUnretract = true;
-    private Vector3 _retractedPos;
+    public Vector3 _retractedPos;
     private Animator _animator;
 
     private void Awake()
@@ -63,6 +63,7 @@ public class Plant : Mushroom
         {
             if(_isFullyUnretracted == false && _isUnretracting == false && _canUnretract)
             {
+
                 _animator.SetBool("IsRetracting", false);
                 _animator.SetBool("IsUnretracting", true);
                 transform.DOKill();

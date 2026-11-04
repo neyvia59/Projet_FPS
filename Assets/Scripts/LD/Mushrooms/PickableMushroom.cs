@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FlashGun : WeaponType
+public class PickableMushroom : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

@@ -289,12 +289,13 @@ MonoBehaviour:
   _canBeLightenedByPlayer: 0
   _detectionZoneRadius: 50
   _canKillPlayer: 0
-  _retractedDistance: 3
+  _retractedDistance: 1
   _timeToRetract: 2
   _fasterTimeToRetract: 1
   _timeToUnretract: 1
   _retractedTime: 1
   _animationSpeedDivider: 0.67
+  _retractedPos: {x: 0, y: 0, z: 0}
 --- !u!135 &5066603345030489107
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -342,8 +343,8 @@ Transform:
   m_GameObject: {fileID: 1324811527295870517}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.13, y: -0.09748074, z: 0.012167992}
-  m_LocalScale: {x: 0.85858, y: 0.85858, z: 0.85858}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7321068413496568849}
@@ -595,6 +596,7 @@ MonoBehaviour:
   _timeToUnretract: 1
   _retractedTime: 1
   _animationSpeedDivider: 0.9
+  _retractedPos: {x: 0, y: 0, z: 0}
 --- !u!1 &3646393388763537826
 GameObject:
   m_ObjectHideFlags: 0
@@ -1199,7 +1201,7 @@ Transform:
   m_GameObject: {fileID: 8811844761713817762}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.23, y: 0.85, z: 11.4}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

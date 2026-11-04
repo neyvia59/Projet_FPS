@@ -10,18 +10,23 @@ using UnityEngine.InputSystem;
 public class WeaponManager : MonoBehaviour
 {
     [SerializeField] private GameObject _prefabBasicProjectile;
-    [SerializeField] private Transform _SpawnPosition;
+    [SerializeField] private Transform[] _SpawnPosition = new Transform[2];
     [SerializeField] private GameObject _gunGo;
+    [SerializeField] private GameObject _shroomGo;
+    [SerializeField] private ThrowPreview _throwPreview;
 
     [SerializeField] private float _projectileForce;
 
     [SerializeField] private List<WeaponType> _weapons = new List<WeaponType>();
+
+    private int _weaponIndex = 0;
 
     [SerializeField] private WeaponType _currentWeapon;
 
     [SerializeField] private float _shootingDelay;
     [SerializeField] private float _aimingFOV;
     [SerializeField] private float _aimingSpeed;
+    
 
 
     [SerializeField] private float _animSpeed;
@@ -54,8 +59,8 @@ public class WeaponManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        _currentWeapon = _weapons[_weaponIndex];
         _currentAmmo = _maxAmmo;
-        ChangeWeapon();
         _baseFOV = Camera.main.fieldOfView;
     }
 
@@ -75,21 +80,6 @@ public class WeaponManager : MonoBehaviour
             if (Input.GetMouseButtonDown(0) || Gamepad.current.rightTrigger.isPressed)
             {
                 Shoot();
-            }
-            if (Input.mouseScrollDelta.y > 0 || Gamepad.current.rightShoulder.isPressed && _hasSwitched == false)
-            {
-                _currentWeaponIndex++;
-                _hasSwitched = true;
-                if (_currentWeaponIndex >= _weapons.Count) { _currentWeaponIndex = 0; }
-                ChangeWeapon();
-
-            }
-            if (Input.mouseScrollDelta.y < 0 || Gamepad.current.leftShoulder.isPressed && _hasSwitched == false)
-            {
-                _currentWeaponIndex--;
-                _hasSwitched = true;
-                if (_currentWeaponIndex < 0) { _currentWeaponIndex = _weapons.Count - 1; }
-                ChangeWeapon();
             }
 
             if (Gamepad.current.rightShoulder.isPressed == false && Gamepad.current.leftShoulder.isPressed == false && _hasSwitched == true)
@@ -114,21 +104,7 @@ public class WeaponManager : MonoBehaviour
             {
                 Shoot();
             }
-            if (Input.mouseScrollDelta.y > 0)
-            {
-                _currentWeaponIndex++;
-                _hasSwitched = true;
-                if (_currentWeaponIndex >= _weapons.Count) { _currentWeaponIndex = 0; }
-                ChangeWeapon();
 
-            }
-            if (Input.mouseScrollDelta.y < 0)
-            {
-                _currentWeaponIndex--;
-                _hasSwitched = true;
-                if (_currentWeaponIndex < 0) { _currentWeaponIndex = _weapons.Count - 1; }
-                ChangeWeapon();
-            }
 
 
             if (Input.GetMouseButton(1) && _canShoot)
@@ -149,11 +125,6 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    private void ChangeWeapon()
-    {
-        _currentWeapon = _weapons[_currentWeaponIndex];
-    }
-
     private IEnumerator ShootingCooldown()
     {
         yield return new WaitForSeconds(_shootingDelay);
@@ -164,14 +135,26 @@ public class WeaponManager : MonoBehaviour
 
     private void Shoot()
     {
-        if (_canShoot == false || _inShootCD == true ||_isInAnim || _currentAmmo<=0) return;
+        if (_canShoot == false || _inShootCD == true ||_isInAnim || _currentAmmo<=0 || _currentWeaponIndex == 1 && _isAiming == false) return;
 
-        GameObject go = Instantiate(_currentWeapon._projectilePrefab, _SpawnPosition.position, Quaternion.identity);
-        go.GetComponent<Rigidbody>().AddForce(_SpawnPosition.forward.normalized * _currentWeapon._projectionForce, ForceMode.Impulse);
+        GameObject go = Instantiate(_currentWeapon._projectilePrefab, _SpawnPosition[_weaponIndex].position, Quaternion.identity);
+        go.GetComponent<Rigidbody>().AddForce(_SpawnPosition[_weaponIndex].forward.normalized * _currentWeapon._projectionForce, ForceMode.Impulse);
 
-        _inShootCD = true;
-        _currentAmmo--;
-        _ammoText.text = $@"{_currentAmmo} / {_maxAmmo}";
+        if(_currentWeapon == _weapons[0])
+        {
+           
+            _currentAmmo--;
+            _ammoText.text = $@"{_currentAmmo} / {_maxAmmo}";
+            
+        }
+        else
+        {
+            _weaponIndex = 0;
+            _currentWeapon = _weapons[_weaponIndex];
+            _throwPreview.Hide();
+            HigherGun();
+        }
+            _inShootCD = true;
         StartCoroutine(ShootingCooldown());
     }
 
@@ -181,7 +164,33 @@ public class WeaponManager : MonoBehaviour
         {
             Camera.main.fieldOfView -= _aimingSpeed;
         }
+
+        if(_weaponIndex == 1)
+        {
+            UpdatePreview();
+        }
     }
+
+    private void UpdatePreview()
+    {
+        Ray ray = Camera.main.ViewportPointToRay(
+            new Vector3(0.5f, 0.5f, 0f)
+        );
+
+        Vector3 targetPoint = ray.GetPoint(50f);
+
+        Vector3 direction = (targetPoint - _SpawnPosition[1].position).normalized;
+
+        Vector3 velocity = direction * _currentWeapon._projectionForce;
+
+        _throwPreview.ShowTrajectory(
+            _SpawnPosition[1].position,
+            velocity,
+            _currentWeapon._projectilePrefab.GetComponent<ThrowableMushroom>()._destroyDelay,
+            _currentWeapon._projectilePrefab.GetComponent<ThrowableMushroom>()._zoneRadius
+        );
+    }
+
 
     private void Unaim()
     {
@@ -189,13 +198,17 @@ public class WeaponManager : MonoBehaviour
         {
             Camera.main.fieldOfView += _aimingSpeed;
         }
-
+        if (_weaponIndex == 1)
+        {
+            _throwPreview.Hide();
+        }
     }
 
 
 
     private void UpdateWeaponPos()
     {
+        if (_currentWeapon == _weapons[1]) return;
         if (_canShoot == false && gameObject.GetComponent<PlayerMovement>()._isSprinting && _state != "run")
         {
             _state = "run";
@@ -236,4 +249,27 @@ public class WeaponManager : MonoBehaviour
         _currentAmmo = _maxAmmo;
         _ammoText.text = $@"{_currentAmmo} / {_maxAmmo}";
     }
+
+    public void PickupMushroom()
+    {
+        _weaponIndex = 1;
+        _currentWeapon = _weapons[_weaponIndex];
+        LowerGun();
+    }
+
+    private void LowerGun()
+    {
+        _shroomGo.transform.DOLocalMoveY(_gunGo.transform.localPosition.y, _animSpeed);
+        _gunGo.transform.DOLocalMoveY(-2, _animSpeed);
+
+    }
+
+    private void HigherGun()
+    {
+        
+        _gunGo.transform.DOLocalMoveY(_shroomGo.transform.localPosition.y, _animSpeed);
+        _shroomGo.transform.DOLocalMoveY(-2, _animSpeed);
+
+    }
+
 }

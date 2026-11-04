@@ -42,9 +42,14 @@ public class PlayerCollisions : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.GetComponent<AmmoBox>() != null && Input.GetKey(KeyCode.F))
+        if(other.GetComponent<AmmoBox>() != null && ( Input.GetKeyDown(KeyCode.F)|| Input.GetKeyDown(KeyCode.E)))
         {
             gameObject.GetComponent<WeaponManager>().RefillAmmo();
+        }
+        if(other.gameObject.GetComponentInParent<PickableMushroom>() != null && (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.E)))
+        {
+            gameObject.GetComponent<WeaponManager>().PickupMushroom();
+            Destroy(other.gameObject.GetComponentInParent<PickableMushroom>().gameObject);
         }
     }
 
@@ -55,6 +60,7 @@ public class PlayerCollisions : MonoBehaviour
         gameObject.GetComponent<CharacterController>().enabled = false;
         gameObject.transform.position = _currentCheckpoint.position;
         gameObject.GetComponent<CharacterController>().enabled = true;
+        gameObject.GetComponent<WeaponManager>().RefillAmmo();
         print("Player has died");
     }
 
