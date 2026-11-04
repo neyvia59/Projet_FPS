@@ -42,6 +42,8 @@ public class PlayerCollisions : MonoBehaviour
 
     private void KillPlayer()
     {
+        gameObject.GetComponent<PlayerStats>()._sporeContamination = 0;
+        gameObject.GetComponent<PlayerStats>().AddSporeContamination(0);
         gameObject.GetComponent<CharacterController>().enabled = false;
         gameObject.transform.position = _currentCheckpoint.position;
         gameObject.GetComponent<CharacterController>().enabled = true;
