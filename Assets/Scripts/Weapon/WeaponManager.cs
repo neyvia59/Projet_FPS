@@ -55,6 +55,7 @@ public class WeaponManager : MonoBehaviour
     private int _currentAmmo;
     private int _maxAmmo = 6;
     [SerializeField] private TextMeshProUGUI _ammoText;
+    [SerializeField] private float _dropDistance = 2f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -68,7 +69,6 @@ public class WeaponManager : MonoBehaviour
     void Update()
     {
         CheckInputs();
-
         UpdateWeaponPos();
     }
 
@@ -96,7 +96,10 @@ public class WeaponManager : MonoBehaviour
             {
                 _isAiming = false;
             }
-
+            if ((Keyboard.current.qKey.wasPressedThisFrame || Gamepad.current.yButton.isPressed == true) && _currentWeapon == _weapons[1])
+            {
+                Drop();
+            }
         }
         else
         {
@@ -105,7 +108,10 @@ public class WeaponManager : MonoBehaviour
                 Shoot();
             }
 
-
+            if (Keyboard.current.qKey.wasPressedThisFrame && _currentWeapon == _weapons[1])
+            {
+                Drop();
+            }
 
             if (Input.GetMouseButton(1) && _canShoot)
             {
@@ -122,7 +128,21 @@ public class WeaponManager : MonoBehaviour
                 Aim();
             }
             else if (_isAiming == false && Camera.main.fieldOfView < _baseFOV) { Unaim(); }
+
         }
+    }
+
+    private void Drop()
+    {
+        print("drop");
+        _currentWeaponIndex = 0;
+        _currentWeapon = _weapons[_weaponIndex];
+        _throwPreview.Hide();
+        HigherGun();
+        GameObject go = Instantiate(_shroomGo,transform.position + transform.forward * _dropDistance, Quaternion.identity);
+        go.AddComponent<PickableMushroom>();
+        go.AddComponent<Rigidbody>();
+        go.GetComponent<BoxCollider>().enabled = true;
     }
 
     private IEnumerator ShootingCooldown()
