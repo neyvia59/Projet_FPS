@@ -37,7 +37,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FadeConstrast: 3.118796
+    - _FadeConstrast: 3.9999406
     - _Speed: 0.05
     - _TextureContrast: 0.26456794
     - _TransitionValue: 0
