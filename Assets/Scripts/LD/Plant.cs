@@ -23,14 +23,21 @@ public class Plant : Mushroom
     [SerializeField] private float _animationSpeedDivider = 0.9f;
     private bool _canUnretract = true;
     [SerializeField]private GameObject _retractedRef;
+    [SerializeField] private GameObject _plantModel;
     private Vector3 _retractedPos;
+    private Vector3 _basePlantPos;
     private Animator _animator;
 
     private void Awake()
     {
         _animator = GetComponentInParent<Animator>();
         _basePos = transform.localPosition;
-        _retractedPos = _retractedRef.transform.position;
+        
+        if (_canKillPlayer)
+        {
+            _retractedPos = _retractedRef.transform.position;
+			_basePlantPos = _plantModel.transform.localPosition;
+		}
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -45,31 +52,41 @@ public class Plant : Mushroom
         base.Update();
         if (_isEnlightened)
         {
+            GetComponent<BoxCollider>().enabled = false;
             if (_isFullyRetracted == false && _isRetracting == false)
             {
                 _animator.SetBool("IsRetracting", true);
                 _animator.SetBool("IsUnretracting", false);
-                transform.DOKill();
-                transform.DOMove(_retractedPos, _timeToRetract).OnComplete(RetractionEnd);
-                _isRetracting = true;
+                if (_canKillPlayer)
+                {
+					transform.DOKill();
+                    _plantModel.transform.DOLocalMove(-_plantModel.transform.forward, _timeToRetract);
+					transform.DOMove(_retractedPos, _timeToRetract).OnComplete(RetractionEnd);
+				}
+
+				_isRetracting = true;
                 _isFullyRetracted = false;
                 _isFullyUnretracted=false;
                 _isUnretracting = false;
                 _animator.speed = _timeToRetract * _animationSpeedDivider;
-                
             }
 
         }
         else
         {
-            if(_isFullyUnretracted == false && _isUnretracting == false && _canUnretract)
+			GetComponent<BoxCollider>().enabled = true;
+			if (_isFullyUnretracted == false && _isUnretracting == false && _canUnretract)
             {
 
                 _animator.SetBool("IsRetracting", false);
                 _animator.SetBool("IsUnretracting", true);
-                transform.DOKill();
-                transform.DOLocalMove(_basePos, _timeToUnretract).OnComplete(UnretractionEnd);
-                _isUnretracting=true;
+                if (_canKillPlayer)
+                {
+                    transform.DOKill();
+					_plantModel.transform.DOLocalMove(_basePlantPos, _timeToUnretract);
+					transform.DOLocalMove(_basePos, _timeToUnretract).OnComplete(UnretractionEnd);
+                }
+					_isUnretracting =true;
                 _isFullyUnretracted = false;
                 _isRetracting = false;
                 _isFullyRetracted = false;
@@ -81,9 +98,11 @@ public class Plant : Mushroom
 
     private void RetractionEnd()
     {
+        
         _isFullyRetracted = true;
         _isRetracting = false;
-        StartCoroutine(TimeBeforeUnretract());
+		_canUnretract = false;
+		StartCoroutine(TimeBeforeUnretract());
     }
 
     private void UnretractionEnd()
@@ -98,9 +117,13 @@ public class Plant : Mushroom
             _animator.SetBool("IsRetracting", true);
             _animator.SetBool("IsUnretracting", false);
             _canUnretract = false;
-            transform.DOKill();
-            transform.DOMove(_retractedPos, _timeToRetract).OnComplete(FastRetractEnd);
-            _isRetracting = true;
+            if (_canKillPlayer)
+            {
+                transform.DOKill();
+				_plantModel.transform.DOLocalMove(-_plantModel.transform.forward, _fasterTimeToRetract);
+				transform.DOMove(_retractedPos, _fasterTimeToRetract).OnComplete(RetractionEnd);
+            }
+				_isRetracting = true;
             _isFullyRetracted = false;
             _isFullyUnretracted = false;
             _isUnretracting = false;
