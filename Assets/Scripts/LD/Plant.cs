@@ -20,7 +20,8 @@ public class Plant : Mushroom
 
     [SerializeField] private float _retractedTime = 1f;
 
-    [SerializeField] private float _animationSpeedDivider = 0.9f;
+    [SerializeField] private float _retractAnimationSpeedDivider = 0.08f;
+    [SerializeField] private float _unretractAnimationSpeedDivider = 0.2f;
     private bool _canUnretract = true;
     [SerializeField]private GameObject _retractedRef;
     [SerializeField] private GameObject _plantModel;
@@ -43,7 +44,7 @@ public class Plant : Mushroom
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _animator.speed = 0;
+        //_animator.speed = 0;
     }
 
     // Update is called once per frame
@@ -68,7 +69,7 @@ public class Plant : Mushroom
                 _isFullyRetracted = false;
                 _isFullyUnretracted=false;
                 _isUnretracting = false;
-                _animator.speed = _timeToRetract * _animationSpeedDivider;
+                _animator.speed = _timeToRetract * _retractAnimationSpeedDivider;
             }
 
         }
@@ -90,7 +91,7 @@ public class Plant : Mushroom
                 _isFullyUnretracted = false;
                 _isRetracting = false;
                 _isFullyRetracted = false;
-                _animator.speed = _timeToUnretract * _animationSpeedDivider;
+                _animator.speed = _timeToUnretract * _unretractAnimationSpeedDivider;
             }
            
         }
@@ -110,26 +111,24 @@ public class Plant : Mushroom
         _isFullyUnretracted = true;
         _isUnretracting = false;
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.GetComponent<Ammo>() != null)
-        {
-            _animator.SetBool("IsRetracting", true);
-            _animator.SetBool("IsUnretracting", false);
-            _canUnretract = false;
-            if (_canKillPlayer)
-            {
-                transform.DOKill();
-				_plantModel.transform.DOLocalMove(-_plantModel.transform.forward, _fasterTimeToRetract);
-				transform.DOMove(_retractedPos, _fasterTimeToRetract).OnComplete(RetractionEnd);
-            }
-				_isRetracting = true;
-            _isFullyRetracted = false;
-            _isFullyUnretracted = false;
-            _isUnretracting = false;
-            _animator.speed = _fasterTimeToRetract * _animationSpeedDivider;
 
+    public void CollisionEnter()
+    {
+        _animator.SetBool("IsRetracting", true);
+        _animator.SetBool("IsUnretracting", false);
+        _canUnretract = false;
+        if (_canKillPlayer)
+        {
+            transform.DOKill();
+            _plantModel.transform.DOLocalMove(-_plantModel.transform.forward, _fasterTimeToRetract);
+            transform.DOMove(_retractedPos, _fasterTimeToRetract).OnComplete(RetractionEnd);
         }
+        _isRetracting = true;
+        _isFullyRetracted = false;
+        _isFullyUnretracted = false;
+        _isUnretracting = false;
+        _animator.speed = _fasterTimeToRetract * _retractAnimationSpeedDivider;
+
     }
 
     private void FastRetractEnd()

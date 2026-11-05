@@ -294,7 +294,8 @@ MonoBehaviour:
   _fasterTimeToRetract: 1
   _timeToUnretract: 1
   _retractedTime: 1
-  _animationSpeedDivider: 0.67
+  _retractAnimationSpeedDivider: 0.08
+  _unretractAnimationSpeedDivider: 0.4
   _retractedRef: {fileID: 2852839266461594728}
   _plantModel: {fileID: 9153111853541156443}
 --- !u!135 &5066603345030489107
@@ -328,6 +329,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1813118571474091151}
   - component: {fileID: 840609584111018841}
+  - component: {fileID: 7299406306322907686}
+  - component: {fileID: 8656095651712587645}
   m_Layer: 0
   m_Name: Plante
   m_TagString: Untagged
@@ -377,6 +380,41 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!136 &7299406306322907686
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324811527295870517}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.86
+  m_Height: 2.2278092
+  m_Direction: 1
+  m_Center: {x: 5.558645e-16, y: 0.21088445, z: 0}
+--- !u!114 &8656095651712587645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324811527295870517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8324b57b8bee85b4790765121e4ae577, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &1526622749993150720
 GameObject:
   m_ObjectHideFlags: 0
