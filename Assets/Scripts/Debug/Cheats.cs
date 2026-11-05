@@ -20,18 +20,18 @@ public class Cheats : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F2) && _checkpointCount<Checkpoints.Count-1)
         {
             _checkpointCount++;
-            Player.GetComponent<PlayerMovement>()._controller.enabled = false;
+            Player.GetComponent<CharacterController>().enabled = false;
             Player.transform.position = Checkpoints[_checkpointCount];
-            Player.GetComponent<PlayerMovement>()._controller.enabled = true;
+            Player.GetComponent<CharacterController>().enabled = true;
         }
 
 
         if (Input.GetKeyDown(KeyCode.F1) && _checkpointCount>0)
         {
             _checkpointCount--;
-            Player.GetComponent<PlayerMovement>()._controller.enabled = false;
+            Player.GetComponent<CharacterController>().enabled = false;
             Player.transform.position = Checkpoints[_checkpointCount];
-            Player.GetComponent<PlayerMovement>()._controller.enabled = true;
+            Player.GetComponent<CharacterController>().enabled = true;
 
         }
     }

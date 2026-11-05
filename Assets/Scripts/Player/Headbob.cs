@@ -12,15 +12,17 @@ public class Headbob : MonoBehaviour
     [SerializeField] private float idleFrequency = 1.0f;
     [SerializeField] private float idleAmplitude = 0.02f;
 
-    [Header("References")]
-    [SerializeField] private CharacterController controller;
-    [SerializeField] private Transform _camTransform;
+    //[Header("References")]
+    private CharacterController _controller;
+    private Transform _camTransform;
 
     private float timer = 0.0f;
     private Vector3 startPos;
 
     void Start()
     {
+        _camTransform = GetComponent<PlayerMovement>()._cameraTransform;
+        _controller = GetComponent<CharacterController>();
         if (_camTransform != null)
         {
             startPos = _camTransform.localPosition;
@@ -39,9 +41,9 @@ public class Headbob : MonoBehaviour
 
         float inputMagnitude = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).magnitude;
 
-        if (inputMagnitude > 0 && controller.isGrounded && controller.gameObject.GetComponent<PlayerMovement>()._isSliding == false)
+        if (inputMagnitude > 0 && _controller.isGrounded && _controller.gameObject.GetComponent<PlayerMovement>()._isSliding == false)
         {
-            if(controller.gameObject.GetComponent<PlayerMovement>()._isSprinting == false)
+            if(_controller.gameObject.GetComponent<PlayerMovement>()._isSprinting == false)
             {
                 timer += Time.deltaTime * _movingFrequency;
                 _camTransform.localPosition = new Vector3(
@@ -60,7 +62,7 @@ public class Headbob : MonoBehaviour
                 );
             }
         }
-        else if(controller.gameObject.GetComponent<PlayerMovement>()._isSliding == false)
+        else if(_controller.gameObject.GetComponent<PlayerMovement>()._isSliding == false)
         {
             timer += Time.deltaTime * idleFrequency;
             _camTransform.localPosition = new Vector3(

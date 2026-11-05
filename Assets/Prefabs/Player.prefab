@@ -205,10 +205,10 @@ MonoBehaviour:
   _acceleration: 35
   _landingSpeedMult: 0.9
   _landingSlowDuration: 0.7
-  _directionChangeSpeed: 200
-  _airAcceleration: 10
-  _airControlSpeed: 5
-  _maxAirStrafeSpeed: 10
+  _directionChangeSpeed: 100
+  _airAcceleration: 1
+  _airControlSpeed: 2
+  _maxAirStrafeSpeed: 6
   _dirChangeSpeedAirMult: 0.9
   _jumpForce: 9
   _gravity: 18
@@ -268,16 +268,17 @@ MonoBehaviour:
   _currentWeapon: {fileID: 0}
   _shootingDelay: 0.77
   _aimingFOV: 35
-  _aimingSpeed: 1.67
-  _animSpeed: 0.7
+  _aimingSpeed: 0.3
+  _animSpeed: 0.6
   _basePosition: {x: 0.463, y: -0.141, z: 0.784}
   _baseRotation: {x: 357.4, y: 356, z: 0.000000006676979}
   _runningPosition: {x: 0.153, y: -0.36, z: 0.842}
   _runningRotation: {x: 334.14893, y: 299.57773, z: 2.378351}
-  _aimingPosition: {x: 0.04, y: -0.251, z: 0.739}
-  _aimingRotation: {x: 357.4, y: 356, z: 0.000000006676979}
+  _aimingPosition: {x: -0.45, y: -0.39, z: 1.06}
+  _aimingRotation: {x: 349, y: 364, z: 0.000000006676979}
   _canShoot: 1
   _ammoText: {fileID: 0}
+  _dropDistance: 2
 --- !u!143 &8205438319308085767
 CharacterController:
   m_ObjectHideFlags: 0

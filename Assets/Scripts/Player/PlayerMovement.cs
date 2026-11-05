@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     [Header("References")]
-    [SerializeField] private Transform _cameraTransform;
+    public Transform _cameraTransform;
 
     [SerializeField] private Transform _playerTransform;
 
@@ -126,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    public CharacterController _controller;
+    private CharacterController _controller;
 
     
 
