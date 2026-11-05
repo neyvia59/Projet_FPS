@@ -28,7 +28,7 @@ public class PlayerCollisions : MonoBehaviour
 
         if (other.GetComponent<Plant>() != null) 
         {
-            if (other.GetComponent<Plant>()._isEnlightened == false && other.GetComponent<Plant>()._canKillPlayer)
+            if (other.GetComponent<Plant>()._isFullyRetracted == false && other.GetComponent<Plant>()._canKillPlayer && other is not SphereCollider)
             {
                 KillPlayer();
             }

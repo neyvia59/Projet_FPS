@@ -10,7 +10,7 @@ public class Plant : Mushroom
     [SerializeField]private float _retractedDistance ;
     private Vector3 _basePos;
 
-    private bool _isFullyRetracted;
+    public bool _isFullyRetracted;
     private bool _isFullyUnretracted = true;
     private bool _isUnretracting = false;
     private bool _isRetracting;
@@ -53,7 +53,7 @@ public class Plant : Mushroom
         base.Update();
         if (_isEnlightened)
         {
-            GetComponent<BoxCollider>().enabled = false;
+            
             if (_isFullyRetracted == false && _isRetracting == false)
             {
                 _animator.SetBool("IsRetracting", true);
@@ -99,7 +99,7 @@ public class Plant : Mushroom
 
     private void RetractionEnd()
     {
-        
+        GetComponent<BoxCollider>().enabled = false;
         _isFullyRetracted = true;
         _isRetracting = false;
 		_canUnretract = false;
