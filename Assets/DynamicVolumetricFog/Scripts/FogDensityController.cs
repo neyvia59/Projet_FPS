@@ -52,17 +52,6 @@ public class FogDensityController : MonoBehaviour
 
     private void InitializeDensityTexture()
     {
-        if (FogComputeShader == null)
-        {
-            Debug.LogError("Fog Compute Shader is missing!", this);
-            return;
-        }
-
-        if (FogVolume == null)
-        {
-            Debug.LogError("Fog Volume is missing!", this);
-            return;
-        }
 
         _initializeKernel =
             FogComputeShader.FindKernel("InitializeFog");

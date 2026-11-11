@@ -45,11 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8d7a1970ac11aa4b96e60eb8d7fbcf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FogDensityController
-  fogComputeShader: {fileID: 7200000, guid: b1a4884e35169b64bbad52f01129a064, type: 3}
-  fogVolume: {fileID: 3852677388121411916}
-  resolution: 64
-  baseDensity: 1
-  returnSpeed: 0.4
+  FogComputeShader: {fileID: 7200000, guid: b1a4884e35169b64bbad52f01129a064, type: 3}
+  FogVolume: {fileID: 3852677388121411916}
+  Resolution: 32
+  BaseDensity: 1
+  ReturnSpeed: 0.15
 --- !u!1 &6104678188967113159
 GameObject:
   m_ObjectHideFlags: 0
