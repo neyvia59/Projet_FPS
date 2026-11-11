@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: -8104900930625763224}
   - component: {fileID: 584388268957251557}
   - component: {fileID: 3764614854220497965}
+  - component: {fileID: 3031105135384424036}
   m_Layer: 0
   m_Name: FlareAmmo
   m_TagString: Untagged
@@ -431,6 +432,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LightingBaitAmmo
   _light: {fileID: 3748229168041843645}
   _material: {fileID: 2100000, guid: 5a43338c561dd89459d550d7a26e684a, type: 2}
+--- !u!114 &3031105135384424036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3228087392335792475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6caf18329f7475a4780ac19dcbaf10ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FogLightSource
+  clearingRadius: 10
+  clearingStrength: 1
+  isActive: 1
 --- !u!1 &4421858880172212661
 GameObject:
   m_ObjectHideFlags: 0

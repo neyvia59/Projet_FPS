@@ -633,6 +633,7 @@ GameObject:
   - component: {fileID: 6011794656369961146}
   - component: {fileID: 2205824476362500369}
   - component: {fileID: 4343115510552016769}
+  - component: {fileID: -6306144514737984638}
   m_Layer: 0
   m_Name: PointLightMushroom
   m_TagString: Untagged
@@ -695,6 +696,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LightPointsMushroom
   _isEnlightened: 0
+  _canBeLightenedByPlayer: 1
   _detectionZoneRadius: 50
   _prefabsList:
   - {fileID: 3736640764191992817}
@@ -705,6 +707,21 @@ MonoBehaviour:
   - {fileID: 5241393123669755863}
   _delayBetweenStates: 0.3
   _counter: 0
+--- !u!114 &-6306144514737984638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4174720790090233155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6caf18329f7475a4780ac19dcbaf10ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FogLightSource
+  clearingRadius: 7
+  clearingStrength: 1
+  isActive: 1
 --- !u!1 &4744053203458123575
 GameObject:
   m_ObjectHideFlags: 0

@@ -241,7 +241,6 @@ MonoBehaviour:
   _slideVisualHeight: 0.55
   _slideVisualSmooth: 14
   _isSprinting: 0
-  _controller: {fileID: 0}
 --- !u!114 &2026137334786976272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,8 +334,6 @@ MonoBehaviour:
   _movingAmplitude: 0.08
   idleFrequency: 1
   idleAmplitude: 0.02
-  controller: {fileID: 8205438319308085767}
-  _camTransform: {fileID: 0}
 --- !u!114 &6590536674582354618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,6 +373,10 @@ PrefabInstance:
     - target: {fileID: 1012262286102172635, guid: f3cd3564c83e894479b42b17538c403e, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012262286102172635, guid: f3cd3564c83e894479b42b17538c403e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2481159862534582549, guid: f3cd3564c83e894479b42b17538c403e, type: 3}
       propertyPath: m_Layer

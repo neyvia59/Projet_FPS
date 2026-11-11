@@ -1,0 +1,84 @@
+
+#pragma kernel InitializeFog
+#pragma kernel UpdateFog
+
+RWTexture3D<float> _DensityTexture;
+
+int _Resolution;
+float _BaseDensity;
+
+struct FogLightData
+{
+    float4 positionRadius;
+    float4 parameters;
+};
+
+StructuredBuffer<FogLightData> _Lights;
+
+int _LightCount;
+float _DeltaTime;
+float _ReturnSpeed;
+
+float3 _VolumeCenter;
+float3 _VolumeSize;
+float4x4 _LocalToWorld;
+
+[numthreads(4, 4, 4)]
+void InitializeFog(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= (uint) _Resolution ||
+        id.y >= (uint) _Resolution ||
+        id.z >= (uint) _Resolution)
+        return;
+
+    _DensityTexture[id] = _BaseDensity;
+}
+
+[numthreads(4, 4, 4)]
+void UpdateFog(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= (uint) _Resolution ||
+        id.y >= (uint) _Resolution ||
+        id.z >= (uint) _Resolution)
+        return;
+
+    float3 uv = (float3(id) + 0.5) / (float) _Resolution;
+
+    float3 localPosition =
+        _VolumeCenter + (uv - 0.5) * _VolumeSize;
+
+    float3 worldPosition =
+        mul(_LocalToWorld, float4(localPosition, 1.0)).xyz;
+
+    float density = _DensityTexture[id];
+
+    density = min(
+        _BaseDensity,
+        density + _ReturnSpeed * _DeltaTime
+    );
+
+    for (int i = 0; i < _LightCount; i++)
+    {
+        FogLightData light = _Lights[i];
+
+        float3 lightPosition = light.positionRadius.xyz;
+        float radius = light.positionRadius.w;
+        float strength = light.parameters.x;
+
+        if (radius <= 0.0001)
+            continue;
+
+        float distanceToLight =
+            distance(worldPosition, lightPosition);
+
+        float falloff = 1.0 - smoothstep(
+    radius * 0.25,
+    radius,
+    distanceToLight
+);
+
+        density -= strength * falloff * _DeltaTime;
+    }
+
+    _DensityTexture[id] = clamp(density, 0.0, _BaseDensity);
+}
