@@ -45,14 +45,12 @@ Shader "Custom/VolumetricFog"
             {
                 float2 uv = input.texcoord;
 
-                // Couleur originale de l'image.
                 float4 sceneColor = SAMPLE_TEXTURE2D_X(
                     _BlitTexture,
                     sampler_LinearClamp,
                     uv
                 );
 
-                // Profondeur de la scène.
                 float rawDepth = SampleSceneDepth(uv);
 
                 #if !UNITY_REVERSED_Z
@@ -63,7 +61,6 @@ Shader "Custom/VolumetricFog"
                     );
                 #endif
 
-                // Position du point visible dans le monde.
                 float3 worldEnd = ComputeWorldSpacePosition(
                     uv,
                     rawDepth,
@@ -72,7 +69,6 @@ Shader "Custom/VolumetricFog"
 
                 float3 worldStart = GetCameraPositionWS();
 
-                // Conversion des positions dans l'espace local du volume.
                 float3 localStart = mul(
                     _FogWorldToLocal,
                     float4(worldStart, 1.0)
@@ -85,11 +81,9 @@ Shader "Custom/VolumetricFog"
 
                 float3 localDelta = localEnd - localStart;
 
-                // Limites locales du volume.
                 float3 boxMin = _FogVolumeCenter - _FogVolumeSize * 0.5;
                 float3 boxMax = _FogVolumeCenter + _FogVolumeSize * 0.5;
 
-                // Évite une division par zéro lorsque le rayon est parallèle à une face.
                 float3 safeDelta = float3(
                     abs(localDelta.x) < 0.00001 ? 0.00001 : localDelta.x,
                     abs(localDelta.y) < 0.00001 ? 0.00001 : localDelta.y,
@@ -112,11 +106,9 @@ Shader "Custom/VolumetricFog"
                     min(tMax.z, 1.0)
                 );
 
-                // Le rayon ne traverse pas le volume.
                 if (tExit <= tEnter)
                     return sceneColor;
 
-                // Parcours du volume et accumulation du brouillard.
                 const int STEP_COUNT = 64;
 
                 float worldDistance = distance(worldStart, worldEnd);
