@@ -56868,6 +56868,14 @@ PrefabInstance:
       propertyPath: _camTransform
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7127479342174119498, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
+      propertyPath: idleAmplitude
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127479342174119498, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
+      propertyPath: idleFrequency
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7375654578469038265, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
       propertyPath: m_Name
       value: Player
