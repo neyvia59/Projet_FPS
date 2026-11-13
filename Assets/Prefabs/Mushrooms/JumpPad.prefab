@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 2001749157719935235}
   - component: {fileID: 1672445299978468251}
   - component: {fileID: 4504250742643548555}
+  - component: {fileID: 1374727400591430189}
   m_Layer: 0
   m_Name: Cube.018 FOG
   m_TagString: Untagged
@@ -197,6 +198,27 @@ MonoBehaviour:
   clearingRadius: 4
   clearingStrength: 1
   isActive: 1
+--- !u!65 &1374727400591430189
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873849291529526495}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.033355907, y: 0.0333559, z: 0.112364314}
+  m_Center: {x: 0, y: 0, z: 0.037528753}
 --- !u!1 &2453225850817849423
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,6 +229,10 @@ GameObject:
   m_Component:
   - component: {fileID: 482854432857082799}
   - component: {fileID: 879194109177014302}
+  - component: {fileID: -8853043711476716108}
+  - component: {fileID: 9061654273307457669}
+  - component: {fileID: 4937012103079006836}
+  - component: {fileID: -6460261813856607544}
   m_Layer: 0
   m_Name: JumpPad
   m_TagString: Untagged
@@ -251,6 +277,79 @@ Animation:
   m_AnimatePhysics: 0
   m_UpdateMode: 0
   m_CullingType: 0
+--- !u!114 &-8853043711476716108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2453225850817849423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6e3898b8ba98741a69b4706af2c48c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mushroom
+  _isEnlightened: 0
+  _canBeLightenedByPlayer: 1
+  _detectionZoneRadius: 50
+--- !u!114 &9061654273307457669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2453225850817849423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 402ec216815995b4f8ab2c84853e1c8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JumpPad
+  _isEnlightened: 0
+  _canBeLightenedByPlayer: 1
+  _detectionZoneRadius: 50
+  Force: 5
+--- !u!65 &4937012103079006836
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2453225850817849423}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 17.6, y: 1.97, z: 18.6}
+  m_Center: {x: 0, y: 10.84, z: 0}
+--- !u!135 &-6460261813856607544
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2453225850817849423}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4089937339726197858
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,6 +615,7 @@ GameObject:
   - component: {fileID: 2163956467527388867}
   - component: {fileID: 6325586654933411704}
   - component: {fileID: 8804781927308709904}
+  - component: {fileID: 3597961622233290129}
   m_Layer: 0
   m_Name: Plane.003
   m_TagString: Untagged
@@ -595,3 +695,24 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3597961622233290129
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8584298930911401738}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.15, y: 0.01, z: 0.17}
+  m_Center: {x: 0, y: -0.01047623, z: 3.7219018e-17}

@@ -34,9 +34,9 @@ public class PlayerCollisions : MonoBehaviour
             }
 
         }
-        if (other.gameObject.GetComponent<JumpPad>() != null)
+        if (other.gameObject.GetComponent<JumpPad>() != null && other is not SphereCollider)
         {
-            gameObject.GetComponent<PlayerMovement>().Launch(other.gameObject.GetComponent<JumpPad>().Force, other.gameObject.transform.forward);
+            gameObject.GetComponent<PlayerMovement>().Launch(other.gameObject.GetComponent<JumpPad>().Force, other.gameObject.transform.up);
         }
     }
 
@@ -46,7 +46,7 @@ public class PlayerCollisions : MonoBehaviour
         {
             gameObject.GetComponent<WeaponManager>().RefillAmmo();
         }
-        print(other.gameObject.GetComponentInParent<PickableMushroom>() != null);
+        
         if(other.gameObject.GetComponentInParent<PickableMushroom>() != null && (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.E)))
         {
             print("pickup");
