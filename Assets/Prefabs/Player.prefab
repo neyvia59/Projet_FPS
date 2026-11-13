@@ -260,6 +260,7 @@ MonoBehaviour:
   _gunGo: {fileID: 0}
   _shroomGo: {fileID: 0}
   _throwPreview: {fileID: 3690189362913797192}
+  _armsAnimator: {fileID: 0}
   _projectileForce: 25
   _weapons:
   - {fileID: 0}
@@ -404,7 +405,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9074152541323509461, guid: f3cd3564c83e894479b42b17538c403e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.05
+      value: -34.3
       objectReference: {fileID: 0}
     - target: {fileID: 9074152541323509461, guid: f3cd3564c83e894479b42b17538c403e, type: 3}
       propertyPath: m_LocalPosition.z
