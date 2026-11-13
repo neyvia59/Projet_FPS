@@ -495,7 +495,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void Launch(float Force, Vector3 target)
     {
-        print("llaunch");
         Vector3 launchVelocity = target.normalized * Force;
 
         _horizontalVelocity = new Vector3(
