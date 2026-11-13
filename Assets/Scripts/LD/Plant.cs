@@ -53,7 +53,7 @@ public class Plant : Mushroom
         base.Update();
         if (_isEnlightened)
         {
-            
+            GetComponent<BoxCollider>().enabled = false;
             if (_isFullyRetracted == false && _isRetracting == false)
             {
                 _animator.SetBool("IsRetracting", true);

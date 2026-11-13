@@ -47,7 +47,7 @@ MonoBehaviour:
   _speedVFXContrast: {fileID: 2100000, guid: 37d5dd9297e16684fbcfa980beeac53a, type: 2}
   _speedVFXFadeContrast: {fileID: 2100000, guid: 37d5dd9297e16684fbcfa980beeac53a, type: 2}
   _vfxUpTransitionSpeed: 0.067
-  _vfxDownTransitionSpeed: 0.29
+  _vfxDownTransitionSpeed: 0.02
   _vfxIntensityDivider: 67
   _vfxFadeContrastMult: 6.7
   _speedVFXFadeContrastDefault: 4

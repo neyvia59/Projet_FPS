@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FogDensityController : MonoBehaviour
 {
-    private const int _maxLightSource = 100;
+    private const int _maxLightSource = 1000000;
 
     [StructLayout(LayoutKind.Sequential)]
     private struct FogLightData

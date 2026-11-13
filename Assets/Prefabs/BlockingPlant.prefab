@@ -58,7 +58,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 644763457765566645}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: e69e7bbed5cf91d45a577b97bdd28e57, type: 2}
   m_CullingMode: 0
@@ -383,12 +383,15 @@ MonoBehaviour:
   _detectionZoneRadius: 50
   _canKillPlayer: 0
   _retractedDistance: 1
+  _isFullyRetracted: 0
   _timeToRetract: 2
   _fasterTimeToRetract: 1
   _timeToUnretract: 1
   _retractedTime: 1
-  _animationSpeedDivider: 0.67
+  _retractAnimationSpeedDivider: 0.08
+  _unretractAnimationSpeedDivider: 0.2
   _retractedRef: {fileID: 0}
+  _plantModel: {fileID: 0}
 --- !u!135 &5066603345030489107
 SphereCollider:
   m_ObjectHideFlags: 0

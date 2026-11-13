@@ -419,6 +419,8 @@ MonoBehaviour:
   _destroyDelay: 5
   _destroyDelayInAir: 5
   _offsetPlacement: 2.5
+  _pointLightPrefab: {fileID: 4391124153992776836, guid: ea3d1d64373a33a4fbf2614bb787e0c9, type: 3}
+  _distanceBetweenLights: 20
 --- !u!114 &3764614854220497965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,7 +462,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8, y: 8, z: 8}
+  m_LocalScale: {x: 20, y: 20, z: 20}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5026167734643085966}
@@ -514,7 +516,7 @@ TrailRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Time: 5
+  m_Time: 50
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -569,10 +571,10 @@ TrailRenderer:
     alignment: 0
     textureMode: 0
     textureScale: {x: 1, y: 1}
-    shadowBias: 0.5
-    generateLightingData: 0
-  m_MinVertexDistance: 0.1
-  m_Autodestruct: 0
+    shadowBias: 6.08
+    generateLightingData: 1
+  m_MinVertexDistance: 0.5
+  m_Autodestruct: 1
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
 --- !u!1 &7237404873115900550
@@ -715,7 +717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6caf18329f7475a4780ac19dcbaf10ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FogLightSource
-  clearingRadius: 10
+  clearingRadius: 20
   clearingStrength: 1
   isActive: 1
 --- !u!1001 &6523011080474878565
