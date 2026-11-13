@@ -5138,6 +5138,7 @@ GameObject:
   - component: {fileID: 7361908910000361961}
   - component: {fileID: -7742756209017606977}
   - component: {fileID: 1562129501484840059}
+  - component: {fileID: 6282086599067382622}
   m_Layer: 0
   m_Name: BaitAmmo
   m_TagString: Untagged
@@ -5298,3 +5299,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LightingBaitAmmo
   _light: {fileID: 7178971095550721544}
   _material: {fileID: 2100000, guid: 5a43338c561dd89459d550d7a26e684a, type: 2}
+--- !u!114 &6282086599067382622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6972077110535941411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6caf18329f7475a4780ac19dcbaf10ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FogLightSource
+  clearingRadius: 15
+  clearingStrength: 2
+  isActive: 1
