@@ -643,6 +643,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7609724543810194953}
     m_Modifications:
+    - target: {fileID: 704711921130819153, guid: 4357e789a61f40c4bb380dd4b27d3ec7, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 704711921130819153, guid: 4357e789a61f40c4bb380dd4b27d3ec7, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 704711921130819153, guid: 4357e789a61f40c4bb380dd4b27d3ec7, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].value
+      value: 0.33846092
+      objectReference: {fileID: 0}
+    - target: {fileID: 704711921130819153, guid: 4357e789a61f40c4bb380dd4b27d3ec7, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 704711921130819153, guid: 4357e789a61f40c4bb380dd4b27d3ec7, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].outSlope
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2089739210013907796, guid: 4357e789a61f40c4bb380dd4b27d3ec7, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.45224673
