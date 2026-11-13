@@ -5,6 +5,7 @@ public class ThrowableMushroom : Ammo
 {
 	[SerializeField] private GameObject _lightZonePrefab;
 	public float _zoneRadius;
+	[SerializeField] private float _offsetPlacement = 2.5f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
@@ -20,20 +21,30 @@ public class ThrowableMushroom : Ammo
 	{
 		if (collision.gameObject.GetComponent<Wall>() != null || collision.gameObject.GetComponent<Floor>() != null)
 		{
-            Explode();
+
+
+            ContactPoint contact = collision.contacts[0];
+
+            Vector3 pointCollision = contact.point;
+            Vector3 normale = contact.normal;
+
+
+            Vector3 newPos = pointCollision + normale * _offsetPlacement;
+
+            GetComponentInChildren<Light>().gameObject.transform.position = newPos;
+            Instantiate(_lightZonePrefab, newPos, Quaternion.identity);
+
+            Destroy(gameObject);
 		}
 	}
 
 	private IEnumerator DestroyAfter()
 	{
 		yield return new WaitForSeconds(_destroyDelay);
-        Explode();
-	}
+        Instantiate(_lightZonePrefab, transform.position, Quaternion.identity);
+
+        Destroy(gameObject);
+    }
 
 
-	private void Explode() 
-	{
-		Instantiate(_lightZonePrefab, transform.position, Quaternion.identity);
-		Destroy(gameObject);
-	}
 }

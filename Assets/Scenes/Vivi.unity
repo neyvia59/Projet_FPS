@@ -5669,11 +5669,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8d7a1970ac11aa4b96e60eb8d7fbcf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FogDensityController
-  fogComputeShader: {fileID: 7200000, guid: b1a4884e35169b64bbad52f01129a064, type: 3}
-  fogVolume: {fileID: 659595434}
-  resolution: 32
-  baseDensity: 1
-  returnSpeed: 0.15
+  FogComputeShader: {fileID: 7200000, guid: b1a4884e35169b64bbad52f01129a064, type: 3}
+  FogVolume: {fileID: 659595434}
+  Resolution: 32
+  BaseDensity: 0.472
+  ReturnSpeed: 0.15
 --- !u!4 &2055743941
 Transform:
   m_ObjectHideFlags: 0
@@ -6520,6 +6520,18 @@ PrefabInstance:
     - target: {fileID: 4738505152235921245, guid: ae54802161f6ac34b9e1e581c00e81bb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567870119939352730, guid: ae54802161f6ac34b9e1e581c00e81bb, type: 3}
+      propertyPath: m_Size.x
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567870119939352730, guid: ae54802161f6ac34b9e1e581c00e81bb, type: 3}
+      propertyPath: m_Size.y
+      value: 1.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567870119939352730, guid: ae54802161f6ac34b9e1e581c00e81bb, type: 3}
+      propertyPath: m_Size.z
+      value: 1.63
       objectReference: {fileID: 0}
     - target: {fileID: 9115397843835852701, guid: ae54802161f6ac34b9e1e581c00e81bb, type: 3}
       propertyPath: m_Name

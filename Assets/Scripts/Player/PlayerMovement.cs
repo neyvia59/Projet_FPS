@@ -147,6 +147,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+
+       
         ReadInput();
 
         HandleGroundState();
@@ -430,13 +432,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleJumpBuffer()
     {
-
+        RaycastHit hit;
         if (Physics.Raycast(
             transform.position,
-            -transform.up,
+            -transform.up, 
+            out hit,
             _jumpBufferDistance) && _controller.isGrounded == false && _isSliding == false)
         {
-            _canJumpBuff = true;
+            if(hit.transform.GetComponent<Floor>() != null)
+            {
+                _canJumpBuff = true;
+            }
+            else
+            {
+                _canJumpBuff = false;
+            }
 
 
         }
