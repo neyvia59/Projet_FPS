@@ -14,6 +14,7 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private GameObject _gunGo;
     [SerializeField] private GameObject _shroomGo;
     [SerializeField] private ThrowPreview _throwPreview;
+    [SerializeField] private Animator _armsAnimator;
 
     [SerializeField] private float _projectileForce;
 
@@ -56,6 +57,12 @@ public class WeaponManager : MonoBehaviour
     private int _maxAmmo = 6;
     [SerializeField] private TextMeshProUGUI _ammoText;
     [SerializeField] private float _dropDistance = 2f;
+
+
+    private void Awake()
+    {
+        _armsAnimator = _gunGo.GetComponentInParent<Animator>();
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -134,7 +141,6 @@ public class WeaponManager : MonoBehaviour
 
     private void Drop()
     {
-        print("drop");
         _currentWeaponIndex = 0;
         _currentWeapon = _weapons[_weaponIndex];
         _throwPreview.Hide();
@@ -159,7 +165,7 @@ public class WeaponManager : MonoBehaviour
 
         GameObject go = Instantiate(_currentWeapon._projectilePrefab, _SpawnPosition[_weaponIndex].position, Quaternion.identity);
         go.GetComponent<Rigidbody>().AddForce(_SpawnPosition[_weaponIndex].forward.normalized * _currentWeapon._projectionForce, ForceMode.Impulse);
-
+        _armsAnimator.SetTrigger("Shoot");
         if(_currentWeapon == _weapons[0])
         {
            
@@ -232,9 +238,11 @@ public class WeaponManager : MonoBehaviour
         if (_canShoot == false && gameObject.GetComponent<PlayerMovement>()._isSprinting && _state != "run")
         {
             _state = "run";
-            _isInAnim = true;
-            _gunGo.transform.DOLocalMove(_runningPosition, _animSpeed).OnComplete(ResetAnimBool);
-            _gunGo.transform.DOLocalRotate(_runningRotation, _animSpeed);
+            _armsAnimator.SetBool("IsRunning", true);
+            _armsAnimator.SetBool("IsAiming", false);
+            //_isInAnim = true;
+            //_gunGo.transform.DOLocalMove(_runningPosition, _animSpeed).OnComplete(ResetAnimBool);
+            //_gunGo.transform.DOLocalRotate(_runningRotation, _animSpeed);
             //_gunGo.transform.localRotation = Quaternion.Euler(_runningRotation);
 
         }
@@ -242,18 +250,22 @@ public class WeaponManager : MonoBehaviour
         if (_isAiming && _state != "aim")
         {
             _state = "aim";
-            _isInAnim = true;
-            _gunGo.transform.DOLocalMove(_aimingPosition, _animSpeed).OnComplete(ResetAnimBool);
-            _gunGo.transform.DOLocalRotate(_aimingRotation, _animSpeed);
+            _armsAnimator.SetBool("IsRunning", false);
+            _armsAnimator.SetBool("IsAiming", true);
+            //_isInAnim = true;
+            //_gunGo.transform.DOLocalMove(_aimingPosition, _animSpeed).OnComplete(ResetAnimBool);
+            //_gunGo.transform.DOLocalRotate(_aimingRotation, _animSpeed);
             //_gunGo.transform.localPosition = _aimingPosition;
             //_gunGo.transform.localRotation = Quaternion.Euler(_aimingRotation);
         }
         else if(_state != "base" && _canShoot)
         {
             _state = "base";
-            _isInAnim = true;
-            _gunGo.transform.DOLocalMove(_basePosition, _animSpeed).OnComplete(ResetAnimBool);
-            _gunGo.transform.DOLocalRotate(_baseRotation, _animSpeed);
+            _armsAnimator.SetBool("IsRunning", false);
+            _armsAnimator.SetBool("IsAiming", false);
+            //_isInAnim = true;
+            //_gunGo.transform.DOLocalMove(_basePosition, _animSpeed).OnComplete(ResetAnimBool);
+            //_gunGo.transform.DOLocalRotate(_baseRotation, _animSpeed);
             //_gunGo.transform.localPosition = _basePosition;
             //_gunGo.transform.localRotation = Quaternion.Euler(_baseRotation);
         }
@@ -266,7 +278,9 @@ public class WeaponManager : MonoBehaviour
 
     public void RefillAmmo()
     {
+        _armsAnimator.SetTrigger("Reload");
         _currentAmmo = _maxAmmo;
+
         _ammoText.text = $@"{_currentAmmo} / {_maxAmmo}";
     }
 
