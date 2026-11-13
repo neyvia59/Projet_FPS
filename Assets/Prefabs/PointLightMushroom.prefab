@@ -634,6 +634,7 @@ GameObject:
   - component: {fileID: 2205824476362500369}
   - component: {fileID: 4343115510552016769}
   - component: {fileID: -6306144514737984638}
+  - component: {fileID: 6304512774794319462}
   m_Layer: 0
   m_Name: PointLightMushroom
   m_TagString: Untagged
@@ -722,6 +723,23 @@ MonoBehaviour:
   clearingRadius: 7
   clearingStrength: 1
   isActive: 1
+--- !u!111 &6304512774794319462
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4174720790090233155}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 7400000, guid: 0f7b16f47b8c34549b589cd020af3153, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 0f7b16f47b8c34549b589cd020af3153, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
 --- !u!1 &4744053203458123575
 GameObject:
   m_ObjectHideFlags: 0

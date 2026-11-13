@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LightPointsMushroom : Mushroom
 {
@@ -23,11 +24,15 @@ public class LightPointsMushroom : Mushroom
     void Update()
     {
         base.Update();
+        if(SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            _isEnlightened = true;
+        }
         if (_isEnlightened && _counter < _prefabsList.Count && _isChanging == false)
         {
             StartCoroutine(LightenUp());
         }
-        else if(_counter > 0 && _isEnlightened == false && _isChanging == false)
+        else if(_counter > 0 && _isEnlightened == false && _isChanging == false && SceneManager.GetActiveScene().name != "MainMenu")
         {
             StartCoroutine(LightenDown());
         }
