@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerCam : MonoBehaviour
 {
@@ -16,13 +17,27 @@ public class PlayerCam : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        if(SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            SettingsHolder settings = SettingsHolder.Instance;
+
+            if (settings.CurrentSensiMouse.x == 0) return;
+
+            sensiMouseX = settings.CurrentSensiMouse.x;
+            sensiMouseY = settings.CurrentSensiMouse.y;
+
+            sensiGamePadX = settings.CurrentSensiController.x;
+            sensiGamePadY = settings.CurrentSensiController.y;
+        }
+        
     }
 
     private void Update()
     {
-
+        if (SceneManager.GetActiveScene().name == "MainMenu") return;
         var keyboard = Keyboard.current;
         var gamepad = Gamepad.current;
 

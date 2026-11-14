@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpeedVFX : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class SpeedVFX : MonoBehaviour
     [SerializeField] private float _vfxFadeContrastMult;
     [SerializeField] private float _speedVFXFadeContrastDefault;
 
+
     [Header("FOV Slide")]
 
     [SerializeField] private float _slidingFOV;
@@ -27,6 +29,15 @@ public class SpeedVFX : MonoBehaviour
     void Start()
     {
         _baseFOV = Camera.main.fieldOfView;
+
+        if(SceneManager.GetActiveScene().name == "Gameplay")
+        {
+            _speedVFXContrast.color = new Color(SettingsHolder.Instance.CurrentVFXOpacity, SettingsHolder.Instance.CurrentVFXOpacity, SettingsHolder.Instance.CurrentVFXOpacity);
+        }
+        else
+        {
+            _speedVFXContrast.color = new Color(_speedVFXContrast.color.r, _speedVFXContrast.color.g, _speedVFXContrast.color.b, 0);
+        }
     }
 
     // Update is called once per frame
