@@ -54,6 +54,7 @@ public class MainMenuManager : MonoBehaviour
     public void OnClickCredits()
     {
         _isInCredits = true;
+        Camera.main.GetComponent<Animator>().SetBool("IsInCredits", true);
         _creditsGo.gameObject.SetActive(true);
         _creditsGo.GetComponentInChildren<Image>().DOFade(1, _creditsFadeDuration);
     }
@@ -62,11 +63,15 @@ public class MainMenuManager : MonoBehaviour
     {
         if (_isInCredits)
         {
+            Camera.main.GetComponent<Animator>().SetBool("IsInCredits", false);
             _creditsGo.GetComponentInChildren<Image>().DOFade(0, _creditsFadeDuration).OnComplete(Hide);
+            
         }
         if (_isInSettings)
         {
+            Camera.main.GetComponent<Animator>().SetBool("IsInSettings", false);
             _settingsGo.GetComponentInChildren<Image>().DOFade(0, _creditsFadeDuration).OnComplete(Hide);
+            
         }
         
     }
@@ -84,6 +89,7 @@ public class MainMenuManager : MonoBehaviour
     public void OnClickSettings()
     {
         _isInSettings = true;
+        Camera.main.GetComponent<Animator>().SetBool("IsInSettings", true);
         _settingsGo.gameObject.SetActive(true);
         _settingsGo.GetComponentInChildren<Image>().DOFade(1, _creditsFadeDuration);
     }
