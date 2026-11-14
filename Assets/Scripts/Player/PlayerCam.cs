@@ -15,6 +15,8 @@ public class PlayerCam : MonoBehaviour
     float xrot;
     float yrot;
 
+    public SettingsHolder settings;
+
     private void Start()
     {
         if(SceneManager.GetActiveScene().name != "MainMenu")
@@ -22,22 +24,30 @@ public class PlayerCam : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
-            SettingsHolder settings = SettingsHolder.Instance;
-
-            if (settings.CurrentSensiMouse.x == 0) return;
-
-            sensiMouseX = settings.CurrentSensiMouse.x;
-            sensiMouseY = settings.CurrentSensiMouse.y;
-
-            sensiGamePadX = settings.CurrentSensiController.x;
-            sensiGamePadY = settings.CurrentSensiController.y;
+            
+            UpdateSensiValues();
+            Instantiate(settings);
+           
         }
         
+    }
+
+    public void UpdateSensiValues()
+    {
+        if (SettingsHolder.Instance == null) return;
+        SettingsHolder settings = SettingsHolder.Instance;
+        if (settings.CurrentSensiMouse.x == 0) return;
+        sensiMouseX = settings.CurrentSensiMouse.x;
+        sensiMouseY = settings.CurrentSensiMouse.y;
+
+        sensiGamePadX = settings.CurrentSensiController.x;
+        sensiGamePadY = settings.CurrentSensiController.y;
     }
 
     private void Update()
     {
         if (SceneManager.GetActiveScene().name == "MainMenu") return;
+        if (PauseMenu.Instance.IsInPause) return;
         var keyboard = Keyboard.current;
         var gamepad = Gamepad.current;
 

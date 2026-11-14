@@ -75,6 +75,7 @@ public class WeaponManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseMenu.Instance.IsInPause) return;
         CheckInputs();
         UpdateWeaponPos();
     }

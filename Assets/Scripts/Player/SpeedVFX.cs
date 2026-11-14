@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class SpeedVFX : MonoBehaviour
 {
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [Header("SpeedWindVFX")]
 
@@ -32,12 +33,18 @@ public class SpeedVFX : MonoBehaviour
 
         if(SceneManager.GetActiveScene().name == "Gameplay")
         {
-            _speedVFXContrast.color = new Color(SettingsHolder.Instance.CurrentVFXOpacity, SettingsHolder.Instance.CurrentVFXOpacity, SettingsHolder.Instance.CurrentVFXOpacity);
+            UpdateMatColor();
         }
         else
         {
             _speedVFXContrast.color = new Color(_speedVFXContrast.color.r, _speedVFXContrast.color.g, _speedVFXContrast.color.b, 0);
         }
+    }
+
+    public void UpdateMatColor()
+    {
+        if (SettingsHolder.Instance == null) return;
+        _speedVFXContrast.color = new Color(SettingsHolder.Instance.CurrentVFXOpacity, SettingsHolder.Instance.CurrentVFXOpacity, SettingsHolder.Instance.CurrentVFXOpacity);
     }
 
     // Update is called once per frame

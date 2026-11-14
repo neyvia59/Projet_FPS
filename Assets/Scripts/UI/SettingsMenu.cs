@@ -15,6 +15,7 @@ public class SettingsMenu : MonoBehaviour
     [Header("VFX")]
     
     [SerializeField] private Slider _vfxOpacitySlider;
+    [SerializeField] private Material _vfxMaterial;
 
 
     void Start()
@@ -30,12 +31,13 @@ public class SettingsMenu : MonoBehaviour
         _gamepadSensiYSlider.value = Camera.main.GetComponent<PlayerCam>().sensiGamePadY;
 
         _vfxOpacitySlider.maxValue = 255;
-        _vfxOpacitySlider.value = 122;
+        _vfxOpacitySlider.value = _vfxMaterial.color.r;
     }
 
 
     public void SendValueToHolder()
     {
+        if(SettingsHolder.Instance ==  null) return;
         SettingsHolder.Instance.StoreBeforeLoad(new Vector2(_mouseSensiXSlider.value,_mouseSensiYSlider.value), 
             new Vector2(_gamepadSensiXSlider.value, _gamepadSensiYSlider.value),
             _vfxOpacitySlider.value);

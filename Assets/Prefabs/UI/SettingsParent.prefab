@@ -1751,6 +1751,7 @@ MonoBehaviour:
   _gamepadSensiXSlider: {fileID: 2653630862776648283}
   _gamepadSensiYSlider: {fileID: 2830378906042782001}
   _vfxOpacitySlider: {fileID: 4743035159263847101}
+  _vfxMaterial: {fileID: 2100000, guid: 37d5dd9297e16684fbcfa980beeac53a, type: 2}
 --- !u!1 &5177472709552327166
 GameObject:
   m_ObjectHideFlags: 0
