@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     private float _currentAcceleration;
     [SerializeField] private float _timeBetweenStepsWalk = 1.2f;
     [SerializeField] private float _timeBetweenStepsRun = 0.4f;
+    private float _currentTimeBetweenSteps;
     private Coroutine _stepsCoroutine;
 
 
@@ -302,17 +303,40 @@ public class PlayerMovement : MonoBehaviour
                     directionChange
                 );
 
-                if (_isSprinting && _stepsCoroutine == null )
+                if (_isSprinting)
                 {
-                    print("sprint");
+                    if(_currentTimeBetweenSteps != _timeBetweenStepsRun)
+                    {
+                        if (_stepsCoroutine != null)
+                        {
+                            StopCoroutine(_stepsCoroutine);
+                            _stepsCoroutine = null;
+                        }
+                    }
+                }
+                else if(_currentTimeBetweenSteps != _timeBetweenStepsWalk)
+                {
+                    if(_stepsCoroutine != null)
+                    {
+                        StopCoroutine(_stepsCoroutine);
+                        _stepsCoroutine = null;
+                    }
+                    
+                }
+
+
+                if (_isSprinting && _stepsCoroutine == null)
+                {
+                    _currentTimeBetweenSteps = _timeBetweenStepsRun;
                     System.Random rand = new System.Random();
                     int index = rand.Next(0, SoundManager._walkingSounds.Count);
                     SoundManager.PlaySound(SoundManager._walkingSounds[index]);
                     _stepsCoroutine = StartCoroutine(StepsSFXDelay(_timeBetweenStepsRun));
                 }
-                else if(_stepsCoroutine == null)
+                else if (_stepsCoroutine == null)
                 {
-                    print("walk");
+
+                    _currentTimeBetweenSteps = _timeBetweenStepsWalk;
                     System.Random rand = new System.Random();
                     int index = rand.Next(0, SoundManager._walkingSounds.Count);
                     SoundManager.PlaySound(SoundManager._walkingSounds[index]);
@@ -668,6 +692,8 @@ public class PlayerMovement : MonoBehaviour
         _isSliding = false;
         _speedVFXManager.ResetFOV();
         _slideTimer = 0f;
+
+        SoundManager.StopSlideSound();
 
         if (reduceVelocity)
         {

@@ -142,14 +142,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91667374c6b0fa54887403e45a9bd12d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
-  Slide: {fileID: 0}
-  Shoot: {fileID: 0}
-  Jump: {fileID: 0}
-  Land: {fileID: 0}
+  Slide: {fileID: 8300000, guid: 479b8b2b3bfcca547853cda8847989b4, type: 3}
+  Shoot: {fileID: 8300000, guid: 9079a1ddbdadcdb48b8fe7d68dc143df, type: 3}
+  Jump: {fileID: 8300000, guid: 1b6f88949ccbba046a7c32c686da32ab, type: 3}
+  Land: {fileID: 8300000, guid: 4f8b3c6d766aef94390b40abf8716e98, type: 3}
   Reload: {fileID: 0}
   Pick: {fileID: 0}
   Throw: {fileID: 0}
-  JumpPad: {fileID: 0}
+  JumpPad: {fileID: 8300000, guid: 020ffddf1a31c71448a24596adbde0bf, type: 3}
   VineRetract: {fileID: 0}
   VineUnretract: {fileID: 0}
   PlantRetract: {fileID: 0}

@@ -20,6 +20,7 @@ public class SoundManager : MonoBehaviour
 
     private static SoundManager Instance;
     private AudioSource AudioSource;
+    private AudioSource _slideAudioSource;
     private void Awake()
     {
         Instance = this;
@@ -36,6 +37,11 @@ public class SoundManager : MonoBehaviour
         _plantRetract = PlantRetract;
         _vineUnretract = VineUnretract;
         _plantUnretract = PlantUnretract;
+
+        GameObject go = new GameObject();
+
+        _slideAudioSource = go.AddComponent<AudioSource>();
+        _slideAudioSource.clip = _slide;
 
 
         for (int i = 0; i < WallrunSounds.Count; i++)
@@ -56,8 +62,22 @@ public class SoundManager : MonoBehaviour
 
     public static void PlaySound(AudioClip sound, float volume = 1)
     {
-        Instance.AudioSource.PlayOneShot(sound, volume);
-        print(sound);
+        if(sound == _slide)
+        {
+            Instance._slideAudioSource.Play();
+        }
+        else
+        {
+            Instance.AudioSource.PlayOneShot(sound, volume);
+        }
+
+        
+        
     }
 
+
+    public static void StopSlideSound()
+    {
+        Instance._slideAudioSource.Stop();
+    }
 }

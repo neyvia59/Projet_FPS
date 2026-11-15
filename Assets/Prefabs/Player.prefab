@@ -206,7 +206,7 @@ MonoBehaviour:
   _landingSpeedMult: 0.9
   _landingSlowDuration: 0.7
   _directionChangeSpeed: 100
-  _timeBetweenStepsWalk: 1.2
+  _timeBetweenStepsWalk: 0.8
   _timeBetweenStepsRun: 0.4
   _airAcceleration: 1
   _airControlSpeed: 2
