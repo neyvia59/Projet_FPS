@@ -10,9 +10,13 @@ public class SoundManager : MonoBehaviour
     public static AudioClip _slide, _shoot, _jump, _land, _reload, _pick, _throw, _jumpPad, _vineRetract, _vineUnretract, _plantRetract, _plantUnretract;
     public  AudioClip Slide, Shoot, Jump, Land, Reload, Pick, Throw, JumpPad, VineRetract, VineUnretract, PlantRetract, PlantUnretract;
 
+    public static float _walkingSoundsVolume, _slideVolume, _shootVolume, _jumpVolume, _landVolume, _reloadVolume, _pickVolume,
+        _throwVolume, _jumpPadVolume, _vineRetractVolume, _vineUnretractVolume, _plantRetractVolume, _plantUnretractVolume, _wallrunVolume;
+    public float WalkingSoundsVolume =1,SlideVolume = 1, ShootVolume = 1, JumpVolume = 1, LandVolume = 1, ReloadVolume = 1, PickVolume = 1,
+        ThrowVolume = 1, JumpPadVolume = 1, VineRetractVolume = 1, VineUnretractVolume = 1, PlantRetractVolume = 1, PlantUnretractVolume = 1, WallRunVolume =1;
+
     public static List<AudioClip> _walkingSounds = new List<AudioClip>();
     public List<AudioClip> WalkingSounds = new List<AudioClip>();
-
 
     public static List<AudioClip> _wallrunSounds = new List<AudioClip>();
     public List<AudioClip> WallrunSounds = new List<AudioClip>();
@@ -21,6 +25,7 @@ public class SoundManager : MonoBehaviour
     private static SoundManager Instance;
     private AudioSource AudioSource;
     private AudioSource _slideAudioSource;
+    private AudioSource _wallrunAudioSource;
     private void Awake()
     {
         Instance = this;
@@ -38,10 +43,30 @@ public class SoundManager : MonoBehaviour
         _vineUnretract = VineUnretract;
         _plantUnretract = PlantUnretract;
 
+        _walkingSoundsVolume = WalkingSoundsVolume;
+        _wallrunVolume = WallRunVolume;
+        _slideVolume = SlideVolume;
+        _jumpVolume = JumpVolume;
+        _throwVolume = ThrowVolume;
+        _landVolume = LandVolume;
+        _shootVolume = ShootVolume;
+        _reloadVolume = ReloadVolume;
+        _pickVolume = PickVolume;
+        _jumpPadVolume = JumpPadVolume;
+        _vineRetractVolume = VineRetractVolume;
+        _vineUnretractVolume = VineUnretractVolume;
+        _plantRetractVolume = PlantRetractVolume;
+        _plantUnretractVolume = PlantUnretractVolume;
+
+
         GameObject go = new GameObject();
 
         _slideAudioSource = go.AddComponent<AudioSource>();
         _slideAudioSource.clip = _slide;
+
+        //GameObject go1 = new GameObject();
+
+        //_wallrunAudioSource = go1.AddComponent<AudioSource>();
 
 
         for (int i = 0; i < WallrunSounds.Count; i++)
@@ -66,12 +91,14 @@ public class SoundManager : MonoBehaviour
         {
             Instance._slideAudioSource.Play();
         }
+        //else if (_wallrunSounds.Contains(sound))
+        //{
+        //    Instance._wallrunAudioSource.Play();
+        //}
         else
         {
             Instance.AudioSource.PlayOneShot(sound, volume);
         }
-
-        
         
     }
 
@@ -80,4 +107,6 @@ public class SoundManager : MonoBehaviour
     {
         Instance._slideAudioSource.Stop();
     }
+
+
 }

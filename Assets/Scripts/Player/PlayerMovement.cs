@@ -70,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _wallJumpForce = 10f;
     [SerializeField] private float _wallJumpAwayForce = 8f;
     [SerializeField] private float _wallJumpForwardForce = 5f;
+    [SerializeField] private float _wallRunTimeBetweenSteps = 0.6f;
 
     [SerializeField] private float _maxCamRotationOffset = 5f;
 
@@ -259,7 +260,7 @@ public class PlayerMovement : MonoBehaviour
         {
             StartCoroutine(LandingSlowDown());
             _velocityMult = _landingSpeedMult;
-            SoundManager.PlaySound(SoundManager._land);
+            SoundManager.PlaySound(SoundManager._land, SoundManager._landVolume);
             _isInJump = false;
         }
 
@@ -330,7 +331,7 @@ public class PlayerMovement : MonoBehaviour
                     _currentTimeBetweenSteps = _timeBetweenStepsRun;
                     System.Random rand = new System.Random();
                     int index = rand.Next(0, SoundManager._walkingSounds.Count);
-                    SoundManager.PlaySound(SoundManager._walkingSounds[index]);
+                    SoundManager.PlaySound(SoundManager._walkingSounds[index], SoundManager._walkingSoundsVolume);
                     _stepsCoroutine = StartCoroutine(StepsSFXDelay(_timeBetweenStepsRun));
                 }
                 else if (_stepsCoroutine == null)
@@ -339,7 +340,7 @@ public class PlayerMovement : MonoBehaviour
                     _currentTimeBetweenSteps = _timeBetweenStepsWalk;
                     System.Random rand = new System.Random();
                     int index = rand.Next(0, SoundManager._walkingSounds.Count);
-                    SoundManager.PlaySound(SoundManager._walkingSounds[index]);
+                    SoundManager.PlaySound(SoundManager._walkingSounds[index], SoundManager._walkingSoundsVolume);
                     _stepsCoroutine = StartCoroutine(StepsSFXDelay(_timeBetweenStepsWalk));
                 }
             }
@@ -533,7 +534,7 @@ public class PlayerMovement : MonoBehaviour
                     _jumpForce;
             }
 
-            SoundManager.PlaySound(SoundManager._jump);
+            SoundManager.PlaySound(SoundManager._jump, SoundManager._jumpVolume);
             Vector3 desiredDirection = GetMoveDirection();
             HandleAirMovement(desiredDirection);
             _isInJump = true;
@@ -560,7 +561,7 @@ public class PlayerMovement : MonoBehaviour
         _verticalVelocity = launchVelocity.y;
 
 
-        SoundManager.PlaySound(SoundManager._jumpPad);
+        SoundManager.PlaySound(SoundManager._jumpPad, SoundManager._jumpPadVolume);
         _isWallRunning = false;
         _isSliding = false;
     }
@@ -677,7 +678,7 @@ public class PlayerMovement : MonoBehaviour
             _horizontalVelocity.normalized;
 
 
-        SoundManager.PlaySound(SoundManager._slide);
+        SoundManager.PlaySound(SoundManager._slide, SoundManager._slideVolume);
 
         if (_slideDirection.sqrMagnitude <
             0.01f)
@@ -846,6 +847,22 @@ public class PlayerMovement : MonoBehaviour
                     wallDirection * speed,
                     _acceleration * Time.deltaTime
                 );
+
+            if (_stepsCoroutine != null && _currentTimeBetweenSteps != _wallRunTimeBetweenSteps) 
+            { 
+                StopCoroutine(_stepsCoroutine); 
+                _stepsCoroutine = null; 
+            }
+
+            if (_stepsCoroutine == null)
+            {
+                _currentTimeBetweenSteps = _wallRunTimeBetweenSteps;
+                System.Random rand = new System.Random();
+                int index = rand.Next(0, SoundManager._wallrunSounds.Count);
+                SoundManager.PlaySound(SoundManager._wallrunSounds[index], SoundManager._wallrunVolume);
+                _stepsCoroutine = StartCoroutine(StepsSFXDelay(_wallRunTimeBetweenSteps));
+            }
+
         }
     }
 

@@ -66,7 +66,7 @@ public class Plant : Mushroom
                 _animator.SetBool("IsUnretracting", false);
                 if (_canKillPlayer)
                 {
-                    SoundManager.PlaySound(SoundManager._plantRetract);
+                    SoundManager.PlaySound(SoundManager._plantRetract, SoundManager._plantRetractVolume);
 
                     transform.DOKill();
                     _plantModel.transform.DOLocalMove(-_plantModel.transform.forward, _timeToRetract);
@@ -74,7 +74,7 @@ public class Plant : Mushroom
 				}
                 else
                 {
-                    SoundManager.PlaySound(SoundManager._vineRetract);
+                    SoundManager.PlaySound(SoundManager._vineRetract, SoundManager._vineRetractVolume);
                 }
 
                 _isRetracting = true;
@@ -105,11 +105,11 @@ public class Plant : Mushroom
                     transform.DOKill();
 					_plantModel.transform.DOLocalMove(_basePlantPos, _timeToUnretract);
 					transform.DOLocalMove(_basePos, _timeToUnretract).OnComplete(UnretractionEnd);
-                    SoundManager.PlaySound(SoundManager._plantUnretract);
+                    SoundManager.PlaySound(SoundManager._plantUnretract, SoundManager._plantUnretractVolume);
                 }
                 else
                 {
-                    SoundManager.PlaySound(SoundManager._vineUnretract);
+                    SoundManager.PlaySound(SoundManager._vineUnretract, SoundManager._vineUnretractVolume);
                 }
                     _isUnretracting = true;
                 _isFullyUnretracted = false;
@@ -161,11 +161,11 @@ public class Plant : Mushroom
             transform.DOKill();
             _plantModel.transform.DOLocalMove(-_plantModel.transform.forward, _fasterTimeToRetract);
             transform.DOMove(_retractedPos, _fasterTimeToRetract).OnComplete(RetractionEnd);
-            SoundManager.PlaySound(SoundManager._plantRetract);
+            SoundManager.PlaySound(SoundManager._plantRetract, SoundManager._plantRetractVolume);
         }
         else
         {
-            SoundManager.PlaySound(SoundManager._vineRetract);
+            SoundManager.PlaySound(SoundManager._vineRetract, SoundManager._vineRetractVolume);
         }
             _isRetracting = true;
         _isFullyRetracted = false;

@@ -150,12 +150,29 @@ MonoBehaviour:
   Pick: {fileID: 0}
   Throw: {fileID: 0}
   JumpPad: {fileID: 8300000, guid: 020ffddf1a31c71448a24596adbde0bf, type: 3}
-  VineRetract: {fileID: 0}
-  VineUnretract: {fileID: 0}
-  PlantRetract: {fileID: 0}
-  PlantUnretract: {fileID: 0}
+  VineRetract: {fileID: 8300000, guid: b23699e3b9918094ca182a9a1be6399f, type: 3}
+  VineUnretract: {fileID: 8300000, guid: e7a5cf4bfc11a3d4b8c90e56e70ab7d5, type: 3}
+  PlantRetract: {fileID: 8300000, guid: c615656c47b450547b96a6094dae488c, type: 3}
+  PlantUnretract: {fileID: 8300000, guid: b7248d4c174db7c48b08e2b7bd266534, type: 3}
+  WalkingSoundsVolume: 1
+  SlideVolume: 1
+  ShootVolume: 1
+  JumpVolume: 1
+  LandVolume: 1
+  ReloadVolume: 1
+  PickVolume: 1
+  ThrowVolume: 1
+  JumpPadVolume: 1
+  VineRetractVolume: 1
+  VineUnretractVolume: 1
+  PlantRetractVolume: 1
+  PlantUnretractVolume: 1
+  WallRunVolume: 1
   WalkingSounds:
   - {fileID: 8300000, guid: b1335f4be5bf10847b8e7d2bcff3e723, type: 3}
   - {fileID: 8300000, guid: 3a5a0eef1cc13894cb3613b03fd6df1a, type: 3}
   - {fileID: 8300000, guid: c1a91794e5af2e143af251b3c17e3ee4, type: 3}
-  WallrunSounds: []
+  WallrunSounds:
+  - {fileID: 8300000, guid: 44f88c3d64ca41143878afffc27aa829, type: 3}
+  - {fileID: 8300000, guid: 9ac3051a9f144d84598400819d9819b8, type: 3}
+  - {fileID: 8300000, guid: a1c13b2160c87bc4792196171c388c62, type: 3}

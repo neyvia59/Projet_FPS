@@ -227,6 +227,7 @@ MonoBehaviour:
   _wallJumpForce: 14.49
   _wallJumpAwayForce: 15.81
   _wallJumpForwardForce: 5
+  _wallRunTimeBetweenSteps: 0.2
   _maxCamRotationOffset: 5
   _isWallRunning: 0
   _canWallRun: 0
