@@ -172,12 +172,13 @@ public class WeaponManager : MonoBehaviour
            
             _currentAmmo--;
             _ammoText.text = $@"{_currentAmmo} / {_maxAmmo}";
-            
+            SoundManager.PlaySound(SoundManager._shoot);
         }
         else
         {
             _weaponIndex = 0;
             _currentWeapon = _weapons[_weaponIndex];
+            SoundManager.PlaySound(SoundManager._throw);
             _throwPreview.Hide();
             HigherGun();
         }
@@ -282,6 +283,8 @@ public class WeaponManager : MonoBehaviour
         _armsAnimator.SetTrigger("Reload");
         _currentAmmo = _maxAmmo;
 
+        SoundManager.PlaySound(SoundManager._reload);
+
         _ammoText.text = $@"{_currentAmmo} / {_maxAmmo}";
     }
 
@@ -289,6 +292,7 @@ public class WeaponManager : MonoBehaviour
     {
         _weaponIndex = 1;
         _currentWeapon = _weapons[_weaponIndex];
+        SoundManager.PlaySound(SoundManager._pick);
         LowerGun();
     }
 

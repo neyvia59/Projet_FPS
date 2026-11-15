@@ -60,12 +60,18 @@ public class Plant : Mushroom
                 _animator.SetBool("IsUnretracting", false);
                 if (_canKillPlayer)
                 {
-					transform.DOKill();
+                    SoundManager.PlaySound(SoundManager._plantRetract);
+
+                    transform.DOKill();
                     _plantModel.transform.DOLocalMove(-_plantModel.transform.forward, _timeToRetract);
 					transform.DOMove(_retractedPos, _timeToRetract).OnComplete(RetractionEnd);
 				}
+                else
+                {
+                    SoundManager.PlaySound(SoundManager._vineRetract);
+                }
 
-				_isRetracting = true;
+                    _isRetracting = true;
                 _isFullyRetracted = false;
                 _isFullyUnretracted=false;
                 _isUnretracting = false;
@@ -86,8 +92,13 @@ public class Plant : Mushroom
                     transform.DOKill();
 					_plantModel.transform.DOLocalMove(_basePlantPos, _timeToUnretract);
 					transform.DOLocalMove(_basePos, _timeToUnretract).OnComplete(UnretractionEnd);
+                    SoundManager.PlaySound(SoundManager._plantUnretract);
                 }
-					_isUnretracting =true;
+                else
+                {
+                    SoundManager.PlaySound(SoundManager._vineUnretract);
+                }
+                    _isUnretracting = true;
                 _isFullyUnretracted = false;
                 _isRetracting = false;
                 _isFullyRetracted = false;

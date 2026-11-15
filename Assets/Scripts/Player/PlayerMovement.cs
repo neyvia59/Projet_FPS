@@ -9,7 +9,7 @@ using static UnityEngine.UI.Image;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-
+  
     [Header("References")]
     public Transform _cameraTransform;
 
@@ -30,6 +30,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _directionChangeSpeed = 200f;
 
     private float _currentAcceleration;
+    [SerializeField] private float _timeBetweenStepsWalk = 1.2f;
+    [SerializeField] private float _timeBetweenStepsRun = 0.4f;
+    private Coroutine _stepsCoroutine;
 
 
     [Header("Air Movement")]
@@ -128,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
 
     private CharacterController _controller;
 
-    
+
 
     private void Awake()
     {
@@ -148,7 +151,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
 
-       
+
         ReadInput();
 
         HandleGroundState();
@@ -214,7 +217,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (gamepad != null)
         {
- 
+
             Vector2 stickInput = gamepad.leftStick.ReadValue();
 
             _moveInput += stickInput;
@@ -223,7 +226,7 @@ public class PlayerMovement : MonoBehaviour
 
             _crouchHeld |= gamepad.buttonEast.isPressed;
 
-          
+
             _jumpPressed |= gamepad.buttonSouth.wasPressedThisFrame;
         }
 
@@ -255,6 +258,7 @@ public class PlayerMovement : MonoBehaviour
         {
             StartCoroutine(LandingSlowDown());
             _velocityMult = _landingSpeedMult;
+            SoundManager.PlaySound(SoundManager._land);
             _isInJump = false;
         }
 
@@ -277,7 +281,7 @@ public class PlayerMovement : MonoBehaviour
             else _isSprinting = false;
 
 
-                Vector3 targetVelocity = desiredDirection * targetSpeed;
+            Vector3 targetVelocity = desiredDirection * targetSpeed;
 
             float acceleration = _acceleration;
 
@@ -297,6 +301,23 @@ public class PlayerMovement : MonoBehaviour
                     _directionChangeSpeed,
                     directionChange
                 );
+
+                if (_isSprinting && _stepsCoroutine == null )
+                {
+                    print("sprint");
+                    System.Random rand = new System.Random();
+                    int index = rand.Next(0, SoundManager._walkingSounds.Count);
+                    SoundManager.PlaySound(SoundManager._walkingSounds[index]);
+                    _stepsCoroutine = StartCoroutine(StepsSFXDelay(_timeBetweenStepsRun));
+                }
+                else if(_stepsCoroutine == null)
+                {
+                    print("walk");
+                    System.Random rand = new System.Random();
+                    int index = rand.Next(0, SoundManager._walkingSounds.Count);
+                    SoundManager.PlaySound(SoundManager._walkingSounds[index]);
+                    _stepsCoroutine = StartCoroutine(StepsSFXDelay(_timeBetweenStepsWalk));
+                }
             }
 
             _horizontalVelocity = Vector3.MoveTowards(
@@ -304,6 +325,7 @@ public class PlayerMovement : MonoBehaviour
                 targetVelocity,
                 acceleration * Time.deltaTime
             );
+
 
         }
         else
@@ -322,6 +344,12 @@ public class PlayerMovement : MonoBehaviour
                 15f * Time.deltaTime
             );
         }
+    }
+
+    private IEnumerator StepsSFXDelay(float length)
+    {
+        yield return new WaitForSeconds(length);
+        _stepsCoroutine = null;
     }
 
     private void HandleAirMovement(Vector3 desiredDirection)
@@ -435,11 +463,11 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(
             transform.position,
-            -transform.up, 
+            -transform.up,
             out hit,
             _jumpBufferDistance) && _controller.isGrounded == false && _isSliding == false)
         {
-            if(hit.transform.GetComponent<Floor>() != null)
+            if (hit.transform.GetComponent<Floor>() != null)
             {
                 _canJumpBuff = true;
             }
@@ -469,7 +497,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (_controller.isGrounded || _isInCoyotte || _canJumpBuff)
         {
-            if(_sprintHeld) _isSprintingInJump = true;
+            if (_sprintHeld) _isSprintingInJump = true;
             if (_canJumpBuff)
             {
                 _verticalVelocity =
@@ -480,6 +508,8 @@ public class PlayerMovement : MonoBehaviour
                 _verticalVelocity =
                     _jumpForce;
             }
+
+            SoundManager.PlaySound(SoundManager._jump);
             Vector3 desiredDirection = GetMoveDirection();
             HandleAirMovement(desiredDirection);
             _isInJump = true;
@@ -505,6 +535,8 @@ public class PlayerMovement : MonoBehaviour
 
         _verticalVelocity = launchVelocity.y;
 
+
+        SoundManager.PlaySound(SoundManager._jumpPad);
         _isWallRunning = false;
         _isSliding = false;
     }
@@ -620,6 +652,9 @@ public class PlayerMovement : MonoBehaviour
         _slideDirection =
             _horizontalVelocity.normalized;
 
+
+        SoundManager.PlaySound(SoundManager._slide);
+
         if (_slideDirection.sqrMagnitude <
             0.01f)
         {
@@ -628,7 +663,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void StopSlide( bool reduceVelocity )
+    private void StopSlide(bool reduceVelocity)
     {
         _isSliding = false;
         _speedVFXManager.ResetFOV();
@@ -673,7 +708,7 @@ public class PlayerMovement : MonoBehaviour
     private void HandleWallRun()
     {
 
-        if (_controller.isGrounded || _verticalVelocity >0 || _verticalVelocity<0 && _controller.isGrounded )
+        if (_controller.isGrounded || _verticalVelocity > 0 || _verticalVelocity < 0 && _controller.isGrounded)
         {
             StopWallRun();
             return;
@@ -697,16 +732,16 @@ public class PlayerMovement : MonoBehaviour
                     StopWallRun();
                     return;
                 }
-                
+
                 _wallNormal = hit.normal;
-                if(hit.transform.gameObject.GetComponent<RunnableWall>() != null)
+                if (hit.transform.gameObject.GetComponent<RunnableWall>() != null)
                 {
                     _side = "left";
                     _wallJumped = false;
                     _unallowedWallToRide = hit.transform.gameObject;
                     foundWall = true;
                 }
-                
+
             }
         }
 
@@ -764,18 +799,18 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             _wallRunTimer += Time.deltaTime;
-            
 
-            if (_wallRunTimer >= _wallRunDuration || 
-                Mathf.Abs( Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up)) < 90 + _maxCamRotationOffset && _side == "left" ||
-                Mathf.Abs( Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up)) > 90 - _maxCamRotationOffset && _side == "right")
+
+            if (_wallRunTimer >= _wallRunDuration ||
+                Mathf.Abs(Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up)) < 90 + _maxCamRotationOffset && _side == "left" ||
+                Mathf.Abs(Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up)) > 90 - _maxCamRotationOffset && _side == "right")
             {
                 StopWallRun();
                 return;
             }
 
             Vector3 wallDirection = GetWallRunDirection(_wallNormal);
-            
+
 
             float speed = Mathf.Max(_horizontalVelocity.magnitude, _wallRunSpeed);
 
@@ -934,14 +969,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateRotation()
     {
-        transform.rotation = Quaternion.Euler(0,_cameraTransform.rotation.eulerAngles.y, 0);
+        transform.rotation = Quaternion.Euler(0, _cameraTransform.rotation.eulerAngles.y, 0);
     }
 
     private void UpdateSpeedVFX()
     {
-        if(_isSliding || _sprintHeld && _controller.isGrounded || _sprintHeld && _isSprintingInJump)
+        if (_isSliding || _sprintHeld && _controller.isGrounded || _sprintHeld && _isSprintingInJump)
         {
-            _speedVFXManager.UpdateWindVFX(Mathf.Abs(_controller.velocity.x) + Mathf.Abs(  _controller.velocity.y) + Mathf.Abs( _controller.velocity.z));
+            _speedVFXManager.UpdateWindVFX(Mathf.Abs(_controller.velocity.x) + Mathf.Abs(_controller.velocity.y) + Mathf.Abs(_controller.velocity.z));
 
         }
         else
@@ -952,7 +987,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateShootBool()
     {
-        if(_sprintHeld && _isSliding == false && _isWallRunning == false || _isSprintingInJump)
+        if (_sprintHeld && _isSliding == false && _isWallRunning == false || _isSprintingInJump)
         {
             gameObject.GetComponent<WeaponManager>()._canShoot = false;
         }
