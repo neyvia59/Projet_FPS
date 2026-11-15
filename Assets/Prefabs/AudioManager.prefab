@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3095750881694448756
+--- !u!1 &1127233241123005075
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6327790407509643535}
-  - component: {fileID: 7231235085982850396}
-  - component: {fileID: 3046130949812838235}
+  - component: {fileID: 3161592194306421423}
+  - component: {fileID: 4045241523337693846}
+  - component: {fileID: 4009558931946488203}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -18,28 +18,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6327790407509643535
+--- !u!4 &3161592194306421423
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3095750881694448756}
+  m_GameObject: {fileID: 1127233241123005075}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.54732, y: 0, z: 18.26102}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &7231235085982850396
+--- !u!82 &4045241523337693846
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3095750881694448756}
+  m_GameObject: {fileID: 1127233241123005075}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -130,23 +130,32 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3046130949812838235
+--- !u!114 &4009558931946488203
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3095750881694448756}
+  m_GameObject: {fileID: 1127233241123005075}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91667374c6b0fa54887403e45a9bd12d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
-  YellingMan: {fileID: 8300000, guid: 3a5a0eef1cc13894cb3613b03fd6df1a, type: 3}
-  YellingWoman: {fileID: 8300000, guid: b1335f4be5bf10847b8e7d2bcff3e723, type: 3}
-  Yay: {fileID: 0}
-  Boo: {fileID: 0}
+  Slide: {fileID: 0}
+  Shoot: {fileID: 0}
+  Jump: {fileID: 0}
+  Land: {fileID: 0}
+  Reload: {fileID: 0}
+  Pick: {fileID: 0}
+  Throw: {fileID: 0}
+  JumpPad: {fileID: 0}
+  VineRetract: {fileID: 0}
+  VineUnretract: {fileID: 0}
+  PlantRetract: {fileID: 0}
+  PlantUnretract: {fileID: 0}
   WalkingSounds:
   - {fileID: 8300000, guid: b1335f4be5bf10847b8e7d2bcff3e723, type: 3}
   - {fileID: 8300000, guid: 3a5a0eef1cc13894cb3613b03fd6df1a, type: 3}
   - {fileID: 8300000, guid: c1a91794e5af2e143af251b3c17e3ee4, type: 3}
+  WallrunSounds: []
