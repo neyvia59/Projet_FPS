@@ -282,8 +282,8 @@ Transform:
   m_GameObject: {fileID: 1196164128568450438}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1.18, y: 0.29, z: -2.45}
-  m_LocalScale: {x: 9.24971, y: 6.552263, z: 1.7742621}
+  m_LocalPosition: {x: -1.1799998, y: 0.2900002, z: -2.4500012}
+  m_LocalScale: {x: 9.24971, y: 6.5522637, z: 1.7742621}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 268377999990370831}
@@ -384,12 +384,14 @@ MonoBehaviour:
   _canKillPlayer: 0
   _retractedDistance: 1
   _isFullyRetracted: 0
+  _currentTime: 0
   _timeToRetract: 2
   _fasterTimeToRetract: 1
   _timeToUnretract: 1
   _retractedTime: 1
   _retractAnimationSpeedDivider: 0.08
   _unretractAnimationSpeedDivider: 0.2
+  _canUnretract: 1
   _retractedRef: {fileID: 0}
   _plantModel: {fileID: 0}
 --- !u!135 &5066603345030489107

@@ -291,12 +291,14 @@ MonoBehaviour:
   _canKillPlayer: 1
   _retractedDistance: 1
   _isFullyRetracted: 0
+  _currentTime: 0
   _timeToRetract: 2
   _fasterTimeToRetract: 1
   _timeToUnretract: 1
   _retractedTime: 1
   _retractAnimationSpeedDivider: 0.08
   _unretractAnimationSpeedDivider: 0.4
+  _canUnretract: 1
   _retractedRef: {fileID: 2852839266461594728}
   _plantModel: {fileID: 9153111853541156443}
 --- !u!135 &5066603345030489107
@@ -332,6 +334,7 @@ GameObject:
   - component: {fileID: 840609584111018841}
   - component: {fileID: 7299406306322907686}
   - component: {fileID: 8656095651712587645}
+  - component: {fileID: 1684391020872548809}
   m_Layer: 0
   m_Name: Plante
   m_TagString: Untagged
@@ -416,6 +419,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8324b57b8bee85b4790765121e4ae577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!114 &1684391020872548809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324811527295870517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b347662a770c1724fbb0864aab93ef64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Wall
 --- !u!1 &1526622749993150720
 GameObject:
   m_ObjectHideFlags: 0
