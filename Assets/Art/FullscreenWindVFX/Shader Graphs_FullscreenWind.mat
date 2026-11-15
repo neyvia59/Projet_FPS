@@ -37,11 +37,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+<<<<<<< Updated upstream
     - _FadeConstrast: 3.3738449
     - _Speed: 0.05
     - _TextureContrast: 0.26510826
+=======
+    - _FadeConstrast: 2.6251397
+    - _Speed: 0.05
+    - _TextureContrast: 0.23826021
+>>>>>>> Stashed changes
     - _TransitionValue: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
