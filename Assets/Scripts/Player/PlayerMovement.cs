@@ -910,6 +910,8 @@ public class PlayerMovement : MonoBehaviour
                 Vector3.up
             );
 
+        SoundManager.PlaySound(SoundManager._jump, SoundManager._jumpVolume);
+
         _verticalVelocity = jumpDirection.y;
     }
 
