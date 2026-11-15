@@ -105,7 +105,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JumpPad
   _isEnlightened: 0
-  Force: 21
+  _canBeLightenedByPlayer: 1
+  _detectionZoneRadius: 50
+  Force: 15
 --- !u!65 &1057639180366071068
 BoxCollider:
   m_ObjectHideFlags: 0
