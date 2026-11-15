@@ -206,6 +206,8 @@ MonoBehaviour:
   _landingSpeedMult: 0.9
   _landingSlowDuration: 0.7
   _directionChangeSpeed: 100
+  _timeBetweenStepsWalk: 1.2
+  _timeBetweenStepsRun: 0.4
   _airAcceleration: 1
   _airControlSpeed: 2
   _maxAirStrafeSpeed: 6
@@ -261,6 +263,7 @@ MonoBehaviour:
   _shroomGo: {fileID: 0}
   _throwPreview: {fileID: 3690189362913797192}
   _armsAnimator: {fileID: 0}
+  _reloadAnimSpeed: 1.75
   _projectileForce: 25
   _weapons:
   - {fileID: 0}
@@ -269,16 +272,17 @@ MonoBehaviour:
   _shootingDelay: 0.77
   _aimingFOV: 35
   _aimingSpeed: 0.3
-  _animSpeed: 0.6
-  _basePosition: {x: 0.463, y: -0.141, z: 0.784}
-  _baseRotation: {x: 357.4, y: 356, z: 0.000000006676979}
-  _runningPosition: {x: 0.153, y: -0.36, z: 0.842}
-  _runningRotation: {x: 334.14893, y: 299.57773, z: 2.378351}
-  _aimingPosition: {x: -0.45, y: -0.39, z: 1.06}
-  _aimingRotation: {x: 349, y: 364, z: 0.000000006676979}
+  _animSpeed: 0.7
+  _basePosition: {x: -0.59, y: -0.85, z: 1.56}
+  _baseRotation: {x: -0.000005122642, y: 90, z: 319.84674}
+  _muzzleAimPosition: {x: -5.04, y: 2.37, z: 0.452}
+  _muzzleAimRotation: {x: 327.9238, y: 9.746579, z: 354.78802}
+  _aimingPosition: {x: -0.46, y: -1.39, z: 1.57}
+  _aimingRotation: {x: 0, y: 90, z: -13}
   _canShoot: 1
   _ammoText: {fileID: 0}
   _dropDistance: 2
+  _reloadingDuration: 3
 --- !u!143 &8205438319308085767
 CharacterController:
   m_ObjectHideFlags: 0

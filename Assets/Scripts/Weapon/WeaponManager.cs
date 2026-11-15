@@ -15,6 +15,7 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private GameObject _shroomGo;
     [SerializeField] private ThrowPreview _throwPreview;
     [SerializeField] private Animator _armsAnimator;
+    [SerializeField] private float _reloadAnimSpeed = 1.75f;
 
     [SerializeField] private float _projectileForce;
 
@@ -35,8 +36,11 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private Vector3 _basePosition;
     [SerializeField] private Vector3 _baseRotation;
 
-    [SerializeField] private Vector3 _runningPosition;
-    [SerializeField] private Vector3 _runningRotation;
+    private Vector3 _baseMuzzlePosition = new Vector3(0.17f, 0.387f, 0.864f);
+    private Vector3 _baseMuzzleRotation = Vector3.zero;
+
+    [SerializeField] private Vector3 _muzzleAimPosition;
+    [SerializeField] private Vector3 _muzzleAimRotation;
 
     [SerializeField] private Vector3 _aimingPosition;
     [SerializeField] private Vector3 _aimingRotation;
@@ -58,6 +62,9 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _ammoText;
     [SerializeField] private float _dropDistance = 2f;
 
+    private bool _isReloading;
+    [SerializeField] private float _reloadingDuration = 3f;
+    private bool _wasHoldingTrigger = false;
 
     private void Awake()
     {
@@ -75,6 +82,8 @@ public class WeaponManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(_wasHoldingTrigger);
+        print(_isAiming + "aim");
         if (PauseMenu.Instance.IsInPause) return;
         CheckInputs();
         UpdateWeaponPos();
@@ -96,13 +105,22 @@ public class WeaponManager : MonoBehaviour
             }
 
 
-            if (Input.GetMouseButton(1) && _canShoot || Gamepad.current.leftTrigger.isPressed && _canShoot)
+            if (Input.GetMouseButton(1) && _canShoot )
             {
                 _isAiming = true;
             }
-            if (Input.GetMouseButtonUp(1) || Gamepad.current.leftTrigger.isPressed == false)
+
+            if( Gamepad.current.leftTrigger.isPressed && _canShoot)
+            {
+                _isAiming = true;
+                _wasHoldingTrigger = true;
+            }
+
+
+            if (Input.GetMouseButtonUp(1) || Gamepad.current.leftTrigger.isPressed == false && _wasHoldingTrigger)
             {
                 _isAiming = false;
+                _wasHoldingTrigger = false;
             }
             if ((Keyboard.current.qKey.wasPressedThisFrame || Gamepad.current.yButton.isPressed == true) && _currentWeapon == _weapons[1])
             {
@@ -162,7 +180,7 @@ public class WeaponManager : MonoBehaviour
 
     private void Shoot()
     {
-        if (_canShoot == false || _inShootCD == true ||_isInAnim || _currentAmmo<=0 || _currentWeaponIndex == 1 && _isAiming == false) return;
+        if (_canShoot == false || _inShootCD == true ||_isInAnim || _currentAmmo<=0 || _currentWeaponIndex == 1 && _isAiming == false || _isReloading) return;
 
         GameObject go = Instantiate(_currentWeapon._projectilePrefab, _SpawnPosition[_weaponIndex].position,new Quaternion(Camera.main.transform.rotation.x, Camera.main.transform.rotation.y, Camera.main.transform.rotation.z, Camera.main.transform.rotation.w));
         go.GetComponent<Rigidbody>().AddForce(_SpawnPosition[_weaponIndex].forward.normalized * _currentWeapon._projectionForce, ForceMode.Impulse);
@@ -191,6 +209,7 @@ public class WeaponManager : MonoBehaviour
         if (Camera.main.fieldOfView > _aimingFOV)
         {
             Camera.main.fieldOfView -= _aimingSpeed;
+            _armsAnimator.SetBool("IsAiming", true);
         }
 
         if(_weaponIndex == 1)
@@ -225,6 +244,7 @@ public class WeaponManager : MonoBehaviour
         if (Camera.main.fieldOfView < _baseFOV)
         {
             Camera.main.fieldOfView += _aimingSpeed;
+            _armsAnimator.SetBool("IsAiming", false);
         }
         if (_weaponIndex == 1)
         {
@@ -237,39 +257,58 @@ public class WeaponManager : MonoBehaviour
     private void UpdateWeaponPos()
     {
         if (_currentWeapon == _weapons[1]) return;
-        if (_canShoot == false && gameObject.GetComponent<PlayerMovement>()._isSprinting )
+        if (_canShoot == false && gameObject.GetComponent<PlayerMovement>()._isSprinting && _state !="run" )
         {
+            print("toRUn");
             _state = "run";
             _armsAnimator.SetBool("IsRunning", true);
             _armsAnimator.SetBool("IsAiming", false);
-            //_isInAnim = true;
-            //_gunGo.transform.DOLocalMove(_runningPosition, _animSpeed).OnComplete(ResetAnimBool);
-            //_gunGo.transform.DOLocalRotate(_runningRotation, _animSpeed);
-            //_gunGo.transform.localRotation = Quaternion.Euler(_runningRotation);
+            _isInAnim = true;
+            _armsAnimator.gameObject.transform.DOLocalMove(_basePosition, _animSpeed).OnComplete(ResetAnimBool);
+            _armsAnimator.gameObject.transform.DOLocalRotate(_baseRotation, _animSpeed);
+            _armsAnimator.gameObject.transform.localRotation = Quaternion.Euler(_baseRotation);
 
+            _SpawnPosition[0].transform.DOLocalMove(_baseMuzzlePosition, _animSpeed);
+            _SpawnPosition[0].transform.DOLocalRotate(_baseMuzzleRotation, _animSpeed);
+            _SpawnPosition[0].transform.localPosition = _baseMuzzlePosition;
+
+            _SpawnPosition[0].transform.localRotation = Quaternion.Euler(_baseMuzzleRotation);
         }
 
-        if (_isAiming)
+        if (_isAiming && _state != "aim")
         {
+            print("toAIm");
             _state = "aim";
             _armsAnimator.SetBool("IsRunning", false);
-            _armsAnimator.SetBool("IsAiming", true);
-            //_isInAnim = true;
-            //_gunGo.transform.DOLocalMove(_aimingPosition, _animSpeed).OnComplete(ResetAnimBool);
-            //_gunGo.transform.DOLocalRotate(_aimingRotation, _animSpeed);
-            //_gunGo.transform.localPosition = _aimingPosition;
-            //_gunGo.transform.localRotation = Quaternion.Euler(_aimingRotation);
+
+            _isInAnim = true;
+            _armsAnimator.gameObject.transform.DOLocalMove(_aimingPosition, _animSpeed).OnComplete(ResetAnimBool);
+            _armsAnimator.gameObject.transform.DOLocalRotate(_aimingRotation, _animSpeed);
+            _armsAnimator.gameObject.transform.localPosition = _aimingPosition;
+            _armsAnimator.gameObject.transform.localRotation = Quaternion.Euler(_aimingRotation);
+
+            _SpawnPosition[0].transform.DOLocalMove(_muzzleAimPosition, _animSpeed);
+            _SpawnPosition[0].transform.DOLocalRotate(_muzzleAimRotation, _animSpeed);
+            _SpawnPosition[0].transform.localPosition = _muzzleAimPosition;
+            _SpawnPosition[0].transform.localRotation = Quaternion.Euler(_muzzleAimRotation);
         }
-        else if( _canShoot)
+        else if( _canShoot && _state != "base" && _isAiming == false)
         {
+            print("toBase");    
             _state = "base";
             _armsAnimator.SetBool("IsRunning", false);
-            _armsAnimator.SetBool("IsAiming", false);
-            //_isInAnim = true;
-            //_gunGo.transform.DOLocalMove(_basePosition, _animSpeed).OnComplete(ResetAnimBool);
-            //_gunGo.transform.DOLocalRotate(_baseRotation, _animSpeed);
-            //_gunGo.transform.localPosition = _basePosition;
-            //_gunGo.transform.localRotation = Quaternion.Euler(_baseRotation);
+
+            _isInAnim = true;
+            _armsAnimator.gameObject.transform.DOLocalMove(_basePosition, _animSpeed).OnComplete(ResetAnimBool);
+            _armsAnimator.gameObject.transform.DOLocalRotate(_baseRotation, _animSpeed);
+            _armsAnimator.gameObject.transform.localPosition = _basePosition;
+            _armsAnimator.gameObject.transform.localRotation = Quaternion.Euler(_baseRotation);
+
+            _SpawnPosition[0].transform.DOLocalMove(_baseMuzzlePosition, _animSpeed);
+            _SpawnPosition[0].transform.DOLocalRotate(_baseMuzzleRotation, _animSpeed);
+            _SpawnPosition[0].transform.localPosition = _baseMuzzlePosition;
+
+            _SpawnPosition[0].transform.localRotation = Quaternion.Euler(_baseMuzzleRotation);
         }
     }
 
@@ -280,9 +319,13 @@ public class WeaponManager : MonoBehaviour
 
     public void RefillAmmo()
     {
+        _armsAnimator.speed = _reloadAnimSpeed;
         _armsAnimator.SetTrigger("Reload");
         _currentAmmo = _maxAmmo;
 
+        _isReloading = true;
+        StartCoroutine(ReloadingDelay());
+        
         SoundManager.PlaySound(SoundManager._reload);
 
         _ammoText.text = $@"{_currentAmmo} / {_maxAmmo}";
@@ -309,6 +352,13 @@ public class WeaponManager : MonoBehaviour
         _gunGo.transform.DOLocalMoveY(_shroomGo.transform.localPosition.y, _animSpeed);
         _shroomGo.transform.DOLocalMoveY(-2, _animSpeed);
 
+    }
+
+
+    private IEnumerator ReloadingDelay()
+    {
+        yield return new WaitForSeconds(_reloadingDuration);
+        _isReloading = false;
     }
 
 }
