@@ -21,7 +21,12 @@ public class PlayerCollisions : MonoBehaviour
             KillPlayer();
         }
 
-        if(other.GetComponent<Checkpoint>() != null)
+        if (other.GetComponent<LowZone>() != null)
+        {
+            GetComponent<PlayerMovement>().CanStandUp = false;
+        }
+
+        if (other.GetComponent<Checkpoint>() != null)
         {
             _currentCheckpoint = other.transform;
         }
@@ -41,6 +46,14 @@ public class PlayerCollisions : MonoBehaviour
         if (other.gameObject.GetComponent<JumpPad>() != null && other is not SphereCollider)
         {
             gameObject.GetComponent<PlayerMovement>().Launch(other.gameObject.GetComponent<JumpPad>().Force, other.gameObject.transform.up);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.GetComponent<LowZone>() != null)
+        {
+            GetComponent<PlayerMovement>().CanStandUp = true;
         }
     }
 

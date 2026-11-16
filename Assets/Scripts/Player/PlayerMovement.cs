@@ -112,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Slide Visual Feedback")]
     [SerializeField] private float _slideVisualHeight = 0.55f;
     [SerializeField] private float _slideVisualSmooth = 14f;
+    public bool CanStandUp = true;
 
 
 
@@ -996,6 +997,8 @@ public class PlayerMovement : MonoBehaviour
             shouldBeLow
                 ? _slideVisualHeight
                 : 1f;
+
+        targetHeight = CanStandUp ? 1f : _slideVisualHeight;
 
         Vector3 targetScale =
             _visualNormalScale;
