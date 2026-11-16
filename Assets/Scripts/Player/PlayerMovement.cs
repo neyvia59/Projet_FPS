@@ -998,7 +998,11 @@ public class PlayerMovement : MonoBehaviour
                 ? _slideVisualHeight
                 : 1f;
 
-        targetHeight = CanStandUp ? 1f : _slideVisualHeight;
+        if(targetHeight == 1)
+        {
+            targetHeight = CanStandUp ? 1f : _slideVisualHeight;
+        }
+        
 
         Vector3 targetScale =
             _visualNormalScale;

@@ -277,8 +277,8 @@ MonoBehaviour:
   _animSpeed: 0.7
   _basePosition: {x: -0.59, y: -0.85, z: 1.56}
   _baseRotation: {x: -0.000005122642, y: 90, z: 319.84674}
-  _muzzleAimPosition: {x: -3.916, y: 2.03, z: 0.513}
-  _muzzleAimRotation: {x: 331.95404, y: 19.259106, z: 351.60895}
+  _muzzleAimPosition: {x: -5.252, y: -0.173, z: 0.094}
+  _muzzleAimRotation: {x: 0.00000041045666, y: 355.67038, z: -0.0000004427072}
   _aimingPosition: {x: -0.41, y: -1.26, z: 1.55}
   _aimingRotation: {x: 358.32095, y: 82.705536, z: 347.10703}
   _canShoot: 1
