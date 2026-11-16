@@ -41,6 +41,7 @@ public class FogDensityController : MonoBehaviour
 
     private void Awake()
     {
+        GetComponentInChildren<GameObject>().SetActive(true);
         FogVolume = GetComponentInChildren<BoxCollider>();
     }
 
