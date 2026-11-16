@@ -307,7 +307,7 @@ MonoBehaviour:
   _isEnlightened: 0
   _canBeLightenedByPlayer: 1
   _detectionZoneRadius: 50
-  Force: 5
+  Force: 15
 --- !u!65 &4937012103079006836
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -327,8 +327,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 17.6, y: 1.97, z: 18.6}
-  m_Center: {x: 0, y: 10.84, z: 0}
+  m_Size: {x: 17.6, y: 6.9982586, z: 18.6}
+  m_Center: {x: 0, y: 11.918747, z: 0}
 --- !u!135 &-6460261813856607544
 SphereCollider:
   m_ObjectHideFlags: 0
