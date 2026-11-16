@@ -150909,27 +150909,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2026137334786976272, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
       propertyPath: _aimingPosition.x
-      value: -0.34
+      value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: 2026137334786976272, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
       propertyPath: _aimingPosition.y
-      value: -1.41
+      value: -1.32
       objectReference: {fileID: 0}
     - target: {fileID: 2026137334786976272, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
       propertyPath: _aimingPosition.z
-      value: 1.31
+      value: 1.07
       objectReference: {fileID: 0}
     - target: {fileID: 2026137334786976272, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
       propertyPath: _aimingRotation.x
-      value: -0.13
+      value: -1.93
       objectReference: {fileID: 0}
     - target: {fileID: 2026137334786976272, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
       propertyPath: _aimingRotation.y
-      value: 85
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 2026137334786976272, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
       propertyPath: _aimingRotation.z
-      value: -8.9
+      value: -11.87
       objectReference: {fileID: 0}
     - target: {fileID: 2026137334786976272, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
       propertyPath: '_weapons.Array.data[0]'
