@@ -11,15 +11,20 @@ public class SoundManager : MonoBehaviour
     public  AudioClip Slide, Shoot, Jump, Land, Reload, Pick, Throw, JumpPad, VineRetract, VineUnretract, PlantRetract, PlantUnretract;
 
     public static float _walkingSoundsVolume, _slideVolume, _shootVolume, _jumpVolume, _landVolume, _reloadVolume, _pickVolume,
-        _throwVolume, _jumpPadVolume, _vineRetractVolume, _vineUnretractVolume, _plantRetractVolume, _plantUnretractVolume, _wallrunVolume;
+        _throwVolume, _jumpPadVolume, _vineRetractVolume, _vineUnretractVolume, _plantRetractVolume, _plantUnretractVolume, _wallrunVolume, _coughVolume;
+
     public float WalkingSoundsVolume =1,SlideVolume = 1, ShootVolume = 1, JumpVolume = 1, LandVolume = 1, ReloadVolume = 1, PickVolume = 1,
-        ThrowVolume = 1, JumpPadVolume = 1, VineRetractVolume = 1, VineUnretractVolume = 1, PlantRetractVolume = 1, PlantUnretractVolume = 1, WallRunVolume =1;
+        ThrowVolume = 1, JumpPadVolume = 1, VineRetractVolume = 1, VineUnretractVolume = 1, PlantRetractVolume = 1, PlantUnretractVolume = 1, WallRunVolume =1, CoughVolume =1;
 
     public static List<AudioClip> _walkingSounds = new List<AudioClip>();
     public List<AudioClip> WalkingSounds = new List<AudioClip>();
 
     public static List<AudioClip> _wallrunSounds = new List<AudioClip>();
     public List<AudioClip> WallrunSounds = new List<AudioClip>();
+
+
+    public static List<AudioClip> _coughingSounds = new List<AudioClip>();
+    public List<AudioClip> CoughingSounds = new List<AudioClip>();
 
 
     private static SoundManager Instance;
@@ -77,6 +82,10 @@ public class SoundManager : MonoBehaviour
         for (int i = 0; i < WalkingSounds.Count; i++)
         {
             _walkingSounds.Add(WalkingSounds[i]);
+        }
+        for (int i = 0; i < CoughingSounds.Count; i++)
+        {
+            _coughingSounds.Add(CoughingSounds[i]);
         }
     }
 

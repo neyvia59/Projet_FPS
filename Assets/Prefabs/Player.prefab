@@ -264,7 +264,7 @@ MonoBehaviour:
   _shroomGo: {fileID: 0}
   _throwPreview: {fileID: 3690189362913797192}
   _armsAnimator: {fileID: 0}
-  _reloadAnimSpeed: 1.75
+  _reloadAnimSpeed: 2.1
   _projectileForce: 25
   _weapons:
   - {fileID: 0}
@@ -283,7 +283,7 @@ MonoBehaviour:
   _canShoot: 1
   _ammoText: {fileID: 0}
   _dropDistance: 2
-  _reloadingDuration: 3
+  _reloadingDuration: 2
 --- !u!143 &8205438319308085767
 CharacterController:
   m_ObjectHideFlags: 0

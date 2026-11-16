@@ -55,7 +55,7 @@ public class PlayerCollisions : MonoBehaviour
         }
     }
 
-    private void KillPlayer()
+    public void KillPlayer()
     {
         gameObject.GetComponent<PlayerStats>()._sporeContamination = 0;
         gameObject.GetComponent<PlayerStats>().AddSporeContamination(0);

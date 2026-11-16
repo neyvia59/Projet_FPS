@@ -146,9 +146,9 @@ MonoBehaviour:
   Shoot: {fileID: 8300000, guid: 9079a1ddbdadcdb48b8fe7d68dc143df, type: 3}
   Jump: {fileID: 8300000, guid: 1b6f88949ccbba046a7c32c686da32ab, type: 3}
   Land: {fileID: 8300000, guid: 4f8b3c6d766aef94390b40abf8716e98, type: 3}
-  Reload: {fileID: 0}
-  Pick: {fileID: 0}
-  Throw: {fileID: 0}
+  Reload: {fileID: 8300000, guid: a821cb7530f2c1a41b24a8f497856988, type: 3}
+  Pick: {fileID: 8300000, guid: fb4572627b073fd4d952bbd8ab5b5629, type: 3}
+  Throw: {fileID: 8300000, guid: 9532c03ee5c44b44ab013b82000ec13b, type: 3}
   JumpPad: {fileID: 8300000, guid: 020ffddf1a31c71448a24596adbde0bf, type: 3}
   VineRetract: {fileID: 8300000, guid: b23699e3b9918094ca182a9a1be6399f, type: 3}
   VineUnretract: {fileID: 8300000, guid: e7a5cf4bfc11a3d4b8c90e56e70ab7d5, type: 3}
@@ -176,3 +176,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 44f88c3d64ca41143878afffc27aa829, type: 3}
   - {fileID: 8300000, guid: 9ac3051a9f144d84598400819d9819b8, type: 3}
   - {fileID: 8300000, guid: a1c13b2160c87bc4792196171c388c62, type: 3}
+  CoughingSounds:
+  - {fileID: 8300000, guid: bf15fb9afeaf6ec4bb99e6e36bdf57d3, type: 3}
+  - {fileID: 8300000, guid: f5c1b36288060b140ba2108f4f0002f9, type: 3}
+  - {fileID: 8300000, guid: 5b861a90de9bcba4a86483051ea09b17, type: 3}
