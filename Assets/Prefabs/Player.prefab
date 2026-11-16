@@ -243,6 +243,7 @@ MonoBehaviour:
   _isSliding: 0
   _slideVisualHeight: 0.55
   _slideVisualSmooth: 14
+  CanStandUp: 1
   _isSprinting: 0
 --- !u!114 &2026137334786976272
 MonoBehaviour:
@@ -276,10 +277,10 @@ MonoBehaviour:
   _animSpeed: 0.7
   _basePosition: {x: -0.59, y: -0.85, z: 1.56}
   _baseRotation: {x: -0.000005122642, y: 90, z: 319.84674}
-  _muzzleAimPosition: {x: -5.04, y: 2.37, z: 0.452}
-  _muzzleAimRotation: {x: 327.9238, y: 9.746579, z: 354.78802}
-  _aimingPosition: {x: -0.46, y: -1.39, z: 1.57}
-  _aimingRotation: {x: 0, y: 90, z: -13}
+  _muzzleAimPosition: {x: -3.916, y: 2.03, z: 0.513}
+  _muzzleAimRotation: {x: 331.95404, y: 19.259106, z: 351.60895}
+  _aimingPosition: {x: -0.41, y: -1.26, z: 1.55}
+  _aimingRotation: {x: 358.32095, y: 82.705536, z: 347.10703}
   _canShoot: 1
   _ammoText: {fileID: 0}
   _dropDistance: 2
@@ -352,10 +353,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34ff0af2a80252746a52203de2fdf62b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  IsAlive: 1
   SporeBar: {fileID: 0}
   _sporeContamination: 0
   _careSporeContamination: 0.001
+  _timeBetweenCoughs: 4
 --- !u!1001 &3835652311523625362
 PrefabInstance:
   m_ObjectHideFlags: 0

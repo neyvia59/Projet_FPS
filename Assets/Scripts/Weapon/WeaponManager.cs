@@ -294,9 +294,9 @@ public class WeaponManager : MonoBehaviour
             _armsAnimator.SetBool("IsRunning", true);
             _armsAnimator.SetBool("IsAiming", false);
             _isInAnim = true;
-            _armsAnimator.gameObject.transform.DOLocalMove(_basePosition, _animSpeed).OnComplete(ResetAnimBool);
-            _armsAnimator.gameObject.transform.DOLocalRotate(_baseRotation, _animSpeed);
-            _armsAnimator.gameObject.transform.localRotation = Quaternion.Euler(_baseRotation);
+            _armsAnimator.gameObject.transform.DOLocalMove(_basePosition, _animSpeed).SetEase(Ease.InOutSine).OnComplete(ResetAnimBool);
+            //_armsAnimator.gameObject.transform.DOLocalRotate(_baseRotation, _animSpeed);
+            //_armsAnimator.gameObject.transform.localRotation = Quaternion.Euler(_baseRotation);
 
             _SpawnPosition[0].transform.DOLocalMove(_baseMuzzlePosition, _animSpeed);
             _SpawnPosition[0].transform.DOLocalRotate(_baseMuzzleRotation, _animSpeed);
@@ -310,12 +310,12 @@ public class WeaponManager : MonoBehaviour
             print("toAIm");
             _state = "aim";
             _armsAnimator.SetBool("IsRunning", false);
-
+            
             _isInAnim = true;
-            _armsAnimator.gameObject.transform.DOLocalMove(_aimingPosition, _animSpeed).OnComplete(ResetAnimBool);
+            _armsAnimator.gameObject.transform.DOLocalMove(_aimingPosition, _animSpeed).SetEase(Ease.InOutSine).OnComplete(ResetAnimBool);
             _armsAnimator.gameObject.transform.DOLocalRotate(_aimingRotation, _animSpeed);
-            _armsAnimator.gameObject.transform.localPosition = _aimingPosition;
-            _armsAnimator.gameObject.transform.localRotation = Quaternion.Euler(_aimingRotation);
+            //_armsAnimator.gameObject.transform.localPosition = _aimingPosition;
+            //_armsAnimator.gameObject.transform.localRotation = Quaternion.Euler(_aimingRotation);
 
             _SpawnPosition[0].transform.DOLocalMove(_muzzleAimPosition, _animSpeed);
             _SpawnPosition[0].transform.DOLocalRotate(_muzzleAimRotation, _animSpeed);
@@ -327,12 +327,12 @@ public class WeaponManager : MonoBehaviour
             print("toBase");    
             _state = "base";
             _armsAnimator.SetBool("IsRunning", false);
-
+            
             _isInAnim = true;
-            _armsAnimator.gameObject.transform.DOLocalMove(_basePosition, _animSpeed).OnComplete(ResetAnimBool);
+            _armsAnimator.gameObject.transform.DOLocalMove(_basePosition, _animSpeed).SetEase(Ease.InOutSine).OnComplete(ResetAnimBool);
             _armsAnimator.gameObject.transform.DOLocalRotate(_baseRotation, _animSpeed);
-            _armsAnimator.gameObject.transform.localPosition = _basePosition;
-            _armsAnimator.gameObject.transform.localRotation = Quaternion.Euler(_baseRotation);
+            //_armsAnimator.gameObject.transform.localPosition = _basePosition;
+            //_armsAnimator.gameObject.transform.localRotation = Quaternion.Euler(_baseRotation);
 
             _SpawnPosition[0].transform.DOLocalMove(_baseMuzzlePosition, _animSpeed);
             _SpawnPosition[0].transform.DOLocalRotate(_baseMuzzleRotation, _animSpeed);
