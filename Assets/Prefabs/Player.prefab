@@ -273,7 +273,7 @@ MonoBehaviour:
   _currentWeapon: {fileID: 0}
   _shootingDelay: 0.77
   _aimingFOV: 35
-  _aimingSpeed: 0.3
+  _aimingSpeed: 1.2
   _animSpeed: 0.7
   _basePosition: {x: -0.59, y: -0.85, z: 1.56}
   _baseRotation: {x: -0.000005122642, y: 90, z: 319.84674}
