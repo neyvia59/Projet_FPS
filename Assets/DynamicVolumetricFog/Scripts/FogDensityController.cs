@@ -41,6 +41,7 @@ public class FogDensityController : MonoBehaviour
 
     private void Awake()
     {
+        GetComponentInChildren<GameObject>().SetActive(true);
         FogVolume = GetComponentInChildren<BoxCollider>();
     }
 
@@ -102,7 +103,6 @@ public class FogDensityController : MonoBehaviour
             _densityTexture
         );
 
-        Debug.Log("Fog density texture initialized successfully!");
     }
 
     private void InitializeLightBuffer()
@@ -124,7 +124,6 @@ public class FogDensityController : MonoBehaviour
             _lightBuffer
         );
 
-        Debug.Log("Fog light buffer initialized successfully!");
     }
 
     private void Update()
@@ -175,10 +174,6 @@ public class FogDensityController : MonoBehaviour
 
         if (_currentLightCount != _lastReportedLightCount)
         {
-            Debug.Log(
-                "Fog sources detected: " + _currentLightCount,
-                this
-            );
 
             _lastReportedLightCount = _currentLightCount;
         }
