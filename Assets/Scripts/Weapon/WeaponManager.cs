@@ -361,6 +361,11 @@ public class WeaponManager : MonoBehaviour
         _ammoText.text = $@"{_currentAmmo} / {_maxAmmo}";
     }
 
+    public void RefillNoAnim()
+    {
+        _currentAmmo = _maxAmmo;
+        _ammoText.text = $@"{_currentAmmo} / {_maxAmmo}";
+    }
     public void PickupMushroom()
     {
         _weaponIndex = 1;

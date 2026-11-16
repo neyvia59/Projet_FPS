@@ -915,7 +915,7 @@ public class PlayerMovement : MonoBehaviour
         _verticalVelocity = jumpDirection.y;
     }
 
-    private void StopWallRun()
+    public void StopWallRun()
     {
 
         _isWallRunning = false;

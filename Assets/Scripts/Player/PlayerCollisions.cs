@@ -32,6 +32,10 @@ public class PlayerCollisions : MonoBehaviour
             {
                 KillPlayer();
             }
+            if(other.GetComponent<Plant>()._canKillPlayer == false && other is BoxCollider)
+            {
+                GetComponent<PlayerMovement>().StopWallRun();
+            }
 
         }
         if (other.gameObject.GetComponent<JumpPad>() != null && other is not SphereCollider)
@@ -62,7 +66,7 @@ public class PlayerCollisions : MonoBehaviour
         gameObject.GetComponent<CharacterController>().enabled = false;
         gameObject.transform.position = _currentCheckpoint.position;
         gameObject.GetComponent<CharacterController>().enabled = true;
-        gameObject.GetComponent<WeaponManager>().RefillAmmo();
+        gameObject.GetComponent<WeaponManager>().RefillNoAnim();
         print("Player has died");
     }
 
