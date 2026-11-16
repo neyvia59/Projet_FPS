@@ -89,8 +89,6 @@ public class WeaponManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(_wasHoldingTrigger);
-        print(_isAiming + "aim");
         if (PauseMenu.Instance.IsInPause) return;
         CheckInputs();
         UpdateWeaponPos();
@@ -210,8 +208,9 @@ public class WeaponManager : MonoBehaviour
 
     private void Shoot()
     {
+        print("shoot");
         if (_canShoot == false || _inShootCD == true ||_isInAnim || _currentAmmo<=0 || _currentWeaponIndex == 1 && _isAiming == false || _isReloading) return;
-
+        print("shoot");
         GameObject go = Instantiate(_currentWeapon._projectilePrefab, _SpawnPosition[_weaponIndex].position,new Quaternion(Camera.main.transform.rotation.x, Camera.main.transform.rotation.y, Camera.main.transform.rotation.z, Camera.main.transform.rotation.w));
         go.GetComponent<Rigidbody>().AddForce(_SpawnPosition[_weaponIndex].forward.normalized * _currentWeapon._projectionForce, ForceMode.Impulse);
         _armsAnimator.SetTrigger("Shoot");
@@ -293,16 +292,16 @@ public class WeaponManager : MonoBehaviour
             _state = "run";
             _armsAnimator.SetBool("IsRunning", true);
             _armsAnimator.SetBool("IsAiming", false);
-            _isInAnim = true;
-            _armsAnimator.gameObject.transform.DOLocalMove(_basePosition, _animSpeed).SetEase(Ease.InOutSine).OnComplete(ResetAnimBool);
+            //_isInAnim = true;
+            //_armsAnimator.gameObject.transform.DOLocalMove(_basePosition, _animSpeed).SetEase(Ease.InOutSine).OnComplete(ResetAnimBool);
             //_armsAnimator.gameObject.transform.DOLocalRotate(_baseRotation, _animSpeed);
             //_armsAnimator.gameObject.transform.localRotation = Quaternion.Euler(_baseRotation);
 
             _SpawnPosition[0].transform.DOLocalMove(_baseMuzzlePosition, _animSpeed);
             _SpawnPosition[0].transform.DOLocalRotate(_baseMuzzleRotation, _animSpeed);
-            _SpawnPosition[0].transform.localPosition = _baseMuzzlePosition;
+            //_SpawnPosition[0].transform.localPosition = _baseMuzzlePosition;
 
-            _SpawnPosition[0].transform.localRotation = Quaternion.Euler(_baseMuzzleRotation);
+            //_SpawnPosition[0].transform.localRotation = Quaternion.Euler(_baseMuzzleRotation);
         }
 
         if (_isAiming && _state != "aim")
@@ -311,16 +310,16 @@ public class WeaponManager : MonoBehaviour
             _state = "aim";
             _armsAnimator.SetBool("IsRunning", false);
             
-            _isInAnim = true;
-            _armsAnimator.gameObject.transform.DOLocalMove(_aimingPosition, _animSpeed).SetEase(Ease.InOutSine).OnComplete(ResetAnimBool);
-            _armsAnimator.gameObject.transform.DOLocalRotate(_aimingRotation, _animSpeed);
+            //_isInAnim = true;
+            //_armsAnimator.gameObject.transform.DOLocalMove(_aimingPosition, _animSpeed).SetEase(Ease.InOutSine).OnComplete(ResetAnimBool);
+            //_armsAnimator.gameObject.transform.DOLocalRotate(_aimingRotation, _animSpeed);
             //_armsAnimator.gameObject.transform.localPosition = _aimingPosition;
             //_armsAnimator.gameObject.transform.localRotation = Quaternion.Euler(_aimingRotation);
 
             _SpawnPosition[0].transform.DOLocalMove(_muzzleAimPosition, _animSpeed);
             _SpawnPosition[0].transform.DOLocalRotate(_muzzleAimRotation, _animSpeed);
-            _SpawnPosition[0].transform.localPosition = _muzzleAimPosition;
-            _SpawnPosition[0].transform.localRotation = Quaternion.Euler(_muzzleAimRotation);
+            //_SpawnPosition[0].transform.localPosition = _muzzleAimPosition;
+            //_SpawnPosition[0].transform.localRotation = Quaternion.Euler(_muzzleAimRotation);
         }
         else if( _canShoot && _state != "base" && _isAiming == false)
         {
@@ -328,17 +327,17 @@ public class WeaponManager : MonoBehaviour
             _state = "base";
             _armsAnimator.SetBool("IsRunning", false);
             
-            _isInAnim = true;
-            _armsAnimator.gameObject.transform.DOLocalMove(_basePosition, _animSpeed).SetEase(Ease.InOutSine).OnComplete(ResetAnimBool);
-            _armsAnimator.gameObject.transform.DOLocalRotate(_baseRotation, _animSpeed);
+            //_isInAnim = true;
+            //_armsAnimator.gameObject.transform.DOLocalMove(_basePosition, _animSpeed).SetEase(Ease.InOutSine).OnComplete(ResetAnimBool);
+            //_armsAnimator.gameObject.transform.DOLocalRotate(_baseRotation, _animSpeed);
             //_armsAnimator.gameObject.transform.localPosition = _basePosition;
             //_armsAnimator.gameObject.transform.localRotation = Quaternion.Euler(_baseRotation);
 
             _SpawnPosition[0].transform.DOLocalMove(_baseMuzzlePosition, _animSpeed);
             _SpawnPosition[0].transform.DOLocalRotate(_baseMuzzleRotation, _animSpeed);
-            _SpawnPosition[0].transform.localPosition = _baseMuzzlePosition;
+            //_SpawnPosition[0].transform.localPosition = _baseMuzzlePosition;
 
-            _SpawnPosition[0].transform.localRotation = Quaternion.Euler(_baseMuzzleRotation);
+            //_SpawnPosition[0].transform.localRotation = Quaternion.Euler(_baseMuzzleRotation);
         }
     }
 
@@ -369,6 +368,7 @@ public class WeaponManager : MonoBehaviour
     public void PickupMushroom()
     {
         _weaponIndex = 1;
+        _armsAnimator.SetTrigger("Switch");
         _currentWeapon = _weapons[_weaponIndex];
         SoundManager.PlaySound(SoundManager._pick, SoundManager._pickVolume);
         LowerGun();
@@ -376,23 +376,25 @@ public class WeaponManager : MonoBehaviour
 
     private void LowerGun()
     {
-        _shroomGo.transform.DOLocalMoveY(_gunGo.transform.localPosition.y, _animSpeed);
-        _gunGo.transform.DOLocalMoveY(-2, _animSpeed);
+        //_shroomGo.transform.DOLocalMoveY(_gunGo.transform.localPosition.y, _animSpeed);
+        //_gunGo.transform.DOLocalMoveY(-2, _animSpeed);
+        _shroomGo.SetActive(true);
 
     }
 
     private void HigherGun()
     {
-        
-        _gunGo.transform.DOLocalMoveY(_shroomGo.transform.localPosition.y, _animSpeed);
-        _shroomGo.transform.DOLocalMoveY(-2, _animSpeed);
 
+        //_gunGo.transform.DOLocalMoveY(_shroomGo.transform.localPosition.y, _animSpeed);
+        //_shroomGo.transform.DOLocalMoveY(-2, _animSpeed);
+        _shroomGo.SetActive(false);
     }
 
 
     private IEnumerator ReloadingDelay()
     {
         yield return new WaitForSeconds(_reloadingDuration);
+        _armsAnimator.speed = 1;
         _isReloading = false;
     }
 
