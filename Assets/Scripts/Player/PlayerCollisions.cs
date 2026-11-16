@@ -66,6 +66,10 @@ public class PlayerCollisions : MonoBehaviour
         
         if(other.gameObject.GetComponentInParent<PickableMushroom>() != null && (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.E)))
         {
+            if(gameObject.GetComponent<WeaponManager>()._weaponIndex == 1)
+            {
+                return;
+            }
             gameObject.GetComponent<WeaponManager>().PickupMushroom();
             Destroy(other.gameObject.GetComponentInParent<PickableMushroom>().gameObject);
         }

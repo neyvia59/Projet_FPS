@@ -21,7 +21,7 @@ public class WeaponManager : MonoBehaviour
 
     [SerializeField] private List<WeaponType> _weapons = new List<WeaponType>();
 
-    private int _weaponIndex = 0;
+    public int _weaponIndex = 0;
 
     [SerializeField] private WeaponType _currentWeapon;
 
