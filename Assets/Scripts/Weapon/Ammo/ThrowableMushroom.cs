@@ -5,7 +5,11 @@ public class ThrowableMushroom : Ammo
 {
 	[SerializeField] private GameObject _lightZonePrefab;
 	public float _zoneRadius;
-	[SerializeField] private float _offsetPlacement = 2.5f;
+    public float MinDistance = 2f;
+    public float CurrentDistance = 4f;
+    public float MaxDistance = 8f;
+    public float DistanceIncrement = 0.01f;
+    [SerializeField] private float _offsetPlacement = 2.5f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {

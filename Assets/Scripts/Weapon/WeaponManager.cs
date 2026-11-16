@@ -66,9 +66,16 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private float _reloadingDuration = 3f;
     private bool _wasHoldingTrigger = false;
 
+
+    private float _currentThrowDistance, _maxThrowDistance, _minThrowDistance, _throwDistanceIncrement;
+
     private void Awake()
     {
         _armsAnimator = _gunGo.GetComponentInParent<Animator>();
+        _currentThrowDistance = _weapons[1].GetComponent<ThrowableMushroomGun>()._projectilePrefab.GetComponent<ThrowableMushroom>().CurrentDistance;
+        _maxThrowDistance = _weapons[1].GetComponent<ThrowableMushroomGun>()._projectilePrefab.GetComponent<ThrowableMushroom>().MaxDistance;
+        _minThrowDistance = _weapons[1].GetComponent<ThrowableMushroomGun>()._projectilePrefab.GetComponent<ThrowableMushroom>().MinDistance;
+        _throwDistanceIncrement = _weapons[1].GetComponent<ThrowableMushroomGun>()._projectilePrefab.GetComponent<ThrowableMushroom>().DistanceIncrement;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -134,10 +141,7 @@ public class WeaponManager : MonoBehaviour
                 Shoot();
             }
 
-            if (Keyboard.current.qKey.wasPressedThisFrame && _currentWeapon == _weapons[1])
-            {
-                Drop();
-            }
+
 
             if (Input.GetMouseButton(1) && _canShoot)
             {
@@ -146,6 +150,32 @@ public class WeaponManager : MonoBehaviour
             if (Input.GetMouseButtonUp(1))
             {
                 _isAiming = false;
+            }
+
+            if(_currentWeapon == _weapons[1])
+            {
+                if (Keyboard.current.qKey.wasPressedThisFrame )
+                {
+                    Drop();
+                }
+
+                if (Input.mouseScrollDelta.y > 0)
+                {
+                    if(_currentThrowDistance< _maxThrowDistance)
+                    {
+                        _currentThrowDistance += _throwDistanceIncrement;
+                    }
+
+                }
+                if (Input.mouseScrollDelta.y < 0)
+                {
+                    if (_currentThrowDistance > _minThrowDistance)
+                    {
+                        _currentThrowDistance -= _throwDistanceIncrement;
+                    }
+
+                }
+
             }
 
 
@@ -233,8 +263,8 @@ public class WeaponManager : MonoBehaviour
         _throwPreview.ShowTrajectory(
             _SpawnPosition[1].position,
             velocity,
-            _currentWeapon._projectilePrefab.GetComponent<ThrowableMushroom>()._destroyDelay,
-            _currentWeapon._projectilePrefab.GetComponent<ThrowableMushroom>()._zoneRadius
+          _currentThrowDistance,
+        _currentWeapon._projectilePrefab.GetComponent<ThrowableMushroom>()._zoneRadius
         );
     }
 
