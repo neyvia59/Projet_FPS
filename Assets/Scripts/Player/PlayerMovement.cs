@@ -814,6 +814,7 @@ public class PlayerMovement : MonoBehaviour
 
             _canWallRun = false;
             _isWallRunning = true;
+            GetComponent<WeaponManager>().ChangeWallrunningState();
             _wallRunTimer = 0f;
 
             float currentSpeed = _horizontalVelocity.magnitude;
@@ -900,6 +901,8 @@ public class PlayerMovement : MonoBehaviour
         _wallJumped = true;
         _wallRunTimer = 0f;
 
+        GetComponent<WeaponManager>().ChangeWallrunningState();
+
         Vector3 jumpDirection =
             _wallNormal * _wallJumpAwayForce +
             Vector3.up * _wallJumpForce +
@@ -918,7 +921,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void StopWallRun()
     {
-        print("stop");
+        GetComponent<WeaponManager>().ChangeWallrunningState();
         _isWallRunning = false;
         _wallRunTimer = 0f;
     }

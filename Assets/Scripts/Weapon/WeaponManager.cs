@@ -94,6 +94,11 @@ public class WeaponManager : MonoBehaviour
         UpdateWeaponPos();
     }
 
+    public void ChangeWallrunningState()
+    {
+        _armsAnimator.SetBool("IsWallrunning" ,GetComponent<PlayerMovement>()._isWallRunning);
+    }
+
     private void CheckInputs()
     {
 
