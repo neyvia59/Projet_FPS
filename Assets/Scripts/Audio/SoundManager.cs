@@ -104,7 +104,6 @@ public class SoundManager : MonoBehaviour
         }
         else
         {
-            print(SettingsHolder.Instance.CurrentMasterVolume);
             ChangeMasterVolume(SettingsHolder.Instance.CurrentMasterVolume);
         }
            
@@ -112,14 +111,12 @@ public class SoundManager : MonoBehaviour
 
     public static void ChangeMasterVolume(float newVolume)
     {
-        print(newVolume);
-        
+
         _masterVolume = newVolume;
     }
 
     public static void PlaySound(AudioClip sound, float volume = 1)
     {
-        print(SettingsHolder.Instance.CurrentMasterVolume);
         ChangeMasterVolume(SettingsHolder.Instance.CurrentMasterVolume);
         if(sound == _slide)
         {
@@ -134,7 +131,7 @@ public class SoundManager : MonoBehaviour
         {
             
             Instance.AudioSource.PlayOneShot(sound, volume*_masterVolume);
-            print(_masterVolume);
+
         }
         
     }
