@@ -11,6 +11,8 @@ public class Headbob : MonoBehaviour
     [SerializeField] private float _movingAmplitude = 0.08f;
     [SerializeField] private float idleFrequency = 1.0f;
     [SerializeField] private float idleAmplitude = 0.02f;
+    [SerializeField] private float _toIdleDecrement = 0.1f;
+    [SerializeField] private float _currentFrequency;
 
     //[Header("References")]
     private CharacterController _controller;
@@ -45,6 +47,7 @@ public class Headbob : MonoBehaviour
         {
             if(_controller.gameObject.GetComponent<PlayerMovement>()._isSprinting == false)
             {
+                _currentFrequency = _movingFrequency;
                 timer += Time.deltaTime * _movingFrequency;
                 _camTransform.localPosition = new Vector3(
                     startPos.x + Mathf.Cos(timer / 2) * _movingAmplitude,
@@ -54,6 +57,7 @@ public class Headbob : MonoBehaviour
             }
             else
             {
+                _currentFrequency = _sprintFrequency;
                 timer += Time.deltaTime * _sprintFrequency;
                 _camTransform.localPosition = new Vector3(
                     startPos.x + Mathf.Cos(timer / 2) * _sprintAmplitude,
@@ -64,12 +68,30 @@ public class Headbob : MonoBehaviour
         }
         else if(_controller.gameObject.GetComponent<PlayerMovement>()._isSliding == false)
         {
-            timer += Time.deltaTime * idleFrequency;
+
+            //timer += Time.deltaTime * _currentFrequency;
+            //_camTransform.localPosition = new Vector3(
+            //    startPos.x +Mathf.Cos(timer / 2) * idleAmplitude,
+            //    startPos.y + Mathf.Sin(timer) * idleAmplitude,
+            //    startPos.z
+            //);
+
+            //_currentFrequency = _sprintFrequency;
+            timer += Time.deltaTime * _currentFrequency;
             _camTransform.localPosition = new Vector3(
-                startPos.x,
+                startPos.x + Mathf.Cos(timer / 2) * idleAmplitude,
                 startPos.y + Mathf.Sin(timer) * idleAmplitude,
                 startPos.z
             );
+            if (_currentFrequency > idleFrequency)
+            {
+                _currentFrequency -= _toIdleDecrement;
+            }
+            else
+            {
+                _currentFrequency = idleFrequency;
+            }
+
         }
     }
 

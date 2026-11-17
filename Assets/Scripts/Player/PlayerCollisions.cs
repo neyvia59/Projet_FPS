@@ -40,6 +40,7 @@ public class PlayerCollisions : MonoBehaviour
 
         if (other.GetComponent<Checkpoint>() != null)
         {
+            if (_currentCheckpoint == other.transform) return;
             _currentCheckpoint = other.transform;
             _checkpointsText.DOFade(1, CheckpointsDuration).OnComplete(HideText);
         }
