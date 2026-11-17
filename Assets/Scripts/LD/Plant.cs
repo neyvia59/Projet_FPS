@@ -12,8 +12,8 @@ public class Plant : Mushroom
 
     public bool _isFullyRetracted;
     private bool _isFullyUnretracted = true;
-    private bool _isUnretracting = false;
-    private bool _isRetracting;
+    public bool _isUnretracting = false;
+    public bool _isRetracting;
     public float _currentTime;
     [SerializeField] private float _timeToRetract = 2f;
     [SerializeField] private float _fasterTimeToRetract = 1f;
@@ -62,8 +62,8 @@ public class Plant : Mushroom
             if (_isFullyRetracted == false && _isRetracting == false)
             {
                 
-                _animator.SetBool("IsRetracting", true);
-                _animator.SetBool("IsUnretracting", false);
+                _animator.SetBool("IsRetracting", false);
+                _animator.SetBool("IsUnretracting", true);
                 if (_canKillPlayer)
                 {
                     SoundManager.PlaySound(SoundManager._plantRetract, SoundManager._plantRetractVolume);
@@ -98,8 +98,8 @@ public class Plant : Mushroom
                 {
                     GetComponentInParent<CapsuleCollider>().enabled = true;
                 }
-                _animator.SetBool("IsRetracting", false);
-                _animator.SetBool("IsUnretracting", true);
+                _animator.SetBool("IsRetracting", true);
+                _animator.SetBool("IsUnretracting", false);
                 if (_canKillPlayer)
                 {
                     transform.DOKill();
@@ -153,8 +153,8 @@ public class Plant : Mushroom
     public void CollisionEnter()
     {
 
-        _animator.SetBool("IsRetracting", true);
-        _animator.SetBool("IsUnretracting", false);
+        _animator.SetBool("IsRetracting", false);
+        _animator.SetBool("IsUnretracting", true);
         _canUnretract = false;
         if (_canKillPlayer)
         {
