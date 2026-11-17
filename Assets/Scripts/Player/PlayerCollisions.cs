@@ -1,8 +1,11 @@
 using DG.Tweening;
 using NUnit.Framework;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerCollisions : MonoBehaviour
 {
@@ -12,6 +15,9 @@ public class PlayerCollisions : MonoBehaviour
 
     public float CheckpointsDuration = 0.7f;
 
+    public Image VictoryImage;
+    public TextMeshProUGUI VictoryText;
+    public float VictoryDuration = 10f;
 
     private void Awake()
     {
@@ -55,6 +61,31 @@ public class PlayerCollisions : MonoBehaviour
         {
             gameObject.GetComponent<PlayerMovement>().Launch(other.gameObject.GetComponent<JumpPad>().Force, other.gameObject.transform.up);
         }
+
+
+        if(other.gameObject.GetComponent<Victory>() != null)
+        {
+            Victory();
+        }
+    }
+
+    private void Victory()
+    {
+        VictoryImage.gameObject.SetActive(true);
+        VictoryImage.DOFade(0, 0.001f);
+        VictoryImage.DOFade(1, 0.7f);
+        VictoryText.gameObject.SetActive(true);
+        VictoryText.DOFade(1, 0.7f).OnComplete(StartDelayMenu);
+    }
+
+    private void StartDelayMenu()
+    {
+        StartCoroutine(BackToMenu());
+    }
+    private IEnumerator BackToMenu()
+    {
+        yield return new WaitForSeconds(VictoryDuration);
+        SceneManager.LoadScene("MainMenu");
     }
 
     private void HideText()

@@ -31,6 +31,7 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         PauseMenuImage.gameObject.SetActive(false);
+        _stats.VictoryImage = FadeImage;
     }
 
     // Update is called once per frame
