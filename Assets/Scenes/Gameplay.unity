@@ -33476,7 +33476,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 5000
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 1e-45, y: 0, z: 1.17, w: 2.8}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
@@ -39671,7 +39671,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 1e-45, y: 0, z: 15.9, w: 16.88}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
@@ -51325,6 +51325,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1868205788593214710, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1930584208581274107, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -51340,10 +51344,6 @@ PrefabInstance:
     - target: {fileID: 1930584208581274107, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038996950625026190, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2518958165085029054, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
       propertyPath: m_Name
@@ -51441,6 +51441,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4383590559025878407, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
+      propertyPath: m_fontColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383590559025878407, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 1548456
+      objectReference: {fileID: 0}
     - target: {fileID: 4389397097440500252, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
       propertyPath: m_Value
       value: 0
@@ -51509,6 +51517,22 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5845709154200556622, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
+      propertyPath: m_Animation
+      value: 
+      objectReference: {fileID: 7400000, guid: 814c2548e0db97746943ab41da21b883, type: 2}
+    - target: {fileID: 5845709154200556622, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
+      propertyPath: m_PlayAutomatically
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5845709154200556622, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
+      propertyPath: m_Animations.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5845709154200556622, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
+      propertyPath: 'm_Animations.Array.data[0]'
+      value: 
+      objectReference: {fileID: 7400000, guid: 814c2548e0db97746943ab41da21b883, type: 2}
     - target: {fileID: 6194464727737010071, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -52846,7 +52870,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 1e-45, y: 3e-45, z: 27.8, w: 156.1}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
@@ -126740,7 +126764,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 1e-45, y: 0, z: 15.9, w: 16.88}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
@@ -144544,7 +144568,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 1e-45, y: 0, z: 15.9, w: 16.88}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
@@ -148514,6 +148538,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f006490752f32f747ae966991371e735, type: 3}
+--- !u!114 &1892049471 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4383590559025878407, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
+  m_PrefabInstance: {fileID: 641327444}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1892842045
 GameObject:
   m_ObjectHideFlags: 0
@@ -166895,6 +166930,10 @@ PrefabInstance:
       propertyPath: '_SpawnPosition.Array.data[1]'
       value: 
       objectReference: {fileID: 1547241362}
+    - target: {fileID: 3892754030193957136, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
+      propertyPath: _checkpointsText
+      value: 
+      objectReference: {fileID: 1892049471}
     - target: {fileID: 4266806995448797769, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
       propertyPath: m_IsActive
       value: 1

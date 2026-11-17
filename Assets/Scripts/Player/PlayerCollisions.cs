@@ -1,4 +1,6 @@
+using DG.Tweening;
 using NUnit.Framework;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +8,9 @@ public class PlayerCollisions : MonoBehaviour
 {
 
     public Transform _currentCheckpoint;
+    public TextMeshProUGUI _checkpointsText;
+
+    public float CheckpointsDuration = 0.7f;
 
 
     private void Awake()
@@ -30,7 +35,9 @@ public class PlayerCollisions : MonoBehaviour
         if (other.GetComponent<Checkpoint>() != null)
         {
             _currentCheckpoint = other.transform;
+            _checkpointsText.DOFade(1, CheckpointsDuration).OnComplete(HideText);
         }
+
 
         if (other.GetComponent<Plant>() != null) 
         {
@@ -48,6 +55,12 @@ public class PlayerCollisions : MonoBehaviour
         {
             gameObject.GetComponent<PlayerMovement>().Launch(other.gameObject.GetComponent<JumpPad>().Force, other.gameObject.transform.up);
         }
+    }
+
+    private void HideText()
+    {
+ 
+        _checkpointsText.DOFade(0, CheckpointsDuration);
     }
 
     private void OnTriggerExit(Collider other)
