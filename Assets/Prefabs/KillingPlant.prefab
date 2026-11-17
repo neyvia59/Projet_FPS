@@ -435,6 +435,7 @@ GameObject:
   - component: {fileID: 7299406306322907686}
   - component: {fileID: 8656095651712587645}
   - component: {fileID: 1684391020872548809}
+  - component: {fileID: 34496665999976034}
   m_Layer: 0
   m_Name: Plante
   m_TagString: Untagged
@@ -530,6 +531,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b347662a770c1724fbb0864aab93ef64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wall
+--- !u!114 &34496665999976034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324811527295870517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b22528c295b6847b0aab927446b9f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnableWall
 --- !u!1 &1344904154757222117
 GameObject:
   m_ObjectHideFlags: 0
@@ -2109,6 +2122,7 @@ GameObject:
   - component: {fileID: 4347928980852395743}
   - component: {fileID: 877980959152006035}
   - component: {fileID: 3250173591906603527}
+  - component: {fileID: 8827729948627880367}
   m_Layer: 0
   m_Name: KillingPlant
   m_TagString: Untagged
@@ -2201,6 +2215,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b347662a770c1724fbb0864aab93ef64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wall
+--- !u!114 &8827729948627880367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8811844761713817762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b22528c295b6847b0aab927446b9f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnableWall
 --- !u!1 &9003487664185913325
 GameObject:
   m_ObjectHideFlags: 0
