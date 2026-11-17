@@ -1185,6 +1185,90 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 555704821}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &586584204
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 586584206}
+  - component: {fileID: 586584205}
+  - component: {fileID: 586584207}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &586584205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586584204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b78c6bf88b392e48adc98ec7c0bc553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Plant
+  _isEnlightened: 0
+  _canBeLightenedByPlayer: 1
+  _detectionZoneRadius: 50
+  _canKillPlayer: 0
+  _retractedDistance: 0
+  _isFullyRetracted: 0
+  _isUnretracting: 0
+  _isRetracting: 0
+  _currentTime: 0
+  _timeToRetract: 2
+  _fasterTimeToRetract: 1
+  _timeToUnretract: 1
+  _retractedTime: 1
+  _retractAnimationSpeedDivider: 0.08
+  _unretractAnimationSpeedDivider: 0.2
+  _canUnretract: 1
+  _retractedRef: {fileID: 0}
+  _plantModel: {fileID: 0}
+--- !u!4 &586584206
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586584204}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 7.2, y: 0.8499969, z: 8.88}
+  m_LocalScale: {x: 7.3198, y: 7.3198, z: 7.3198}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &586584207
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586584204}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &598968503
 GameObject:
   m_ObjectHideFlags: 0
@@ -6929,7 +7013,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3468043270840082596, guid: 1334ee672e265d940af707a5da1c08c0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 1334ee672e265d940af707a5da1c08c0, type: 3}
 --- !u!1001 &2039896729172018452
 PrefabInstance:
@@ -7455,4 +7542,5 @@ SceneRoots:
   - {fileID: 9180590232493995271}
   - {fileID: 1427899498}
   - {fileID: 1764949236}
+  - {fileID: 586584206}
   - {fileID: 1131151647}

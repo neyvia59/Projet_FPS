@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class LightZone : Ammo
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    
+    private void Start()
     {
-        
+        GetComponent<SphereCollider>().radius = GetComponent<Light>().range;
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void OnTriggerStay(Collider other)
     {
-        
+
     }
 }

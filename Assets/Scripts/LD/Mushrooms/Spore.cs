@@ -34,5 +34,6 @@ public class Spore : MonoBehaviour
         {
             PlayerStats.Instance.AddSporeContamination(_sporeContamination);
         }
+
     }
 }

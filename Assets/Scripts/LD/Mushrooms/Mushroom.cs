@@ -6,6 +6,7 @@ using UnityEngine;
 public class Mushroom : MonoBehaviour
 {
     public bool _isEnlightened;
+    private bool _isEnlightenedForever;
     public bool _canBeLightenedByPlayer = true;
     [SerializeField] private float _detectionZoneRadius = 50f;
     private List<Collider> _colliders = new List<Collider>();
@@ -24,12 +25,20 @@ public class Mushroom : MonoBehaviour
                 Remove(_colliders[i]);
             }
         }
+
+
+        if (_isEnlightenedForever) { _isEnlightened = true; }
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (_isEnlightenedForever) return;
         if ((IsAmmo(other)  && !_colliders.Contains(other)))
         {
+            if(other.GetComponent<ThrowableMushroom>()!= null)
+            {
+                _isEnlightenedForever = true;
+            }
             _colliders.Add(other);
             _isEnlightened = true;
             Debug.Log("Mushroom = lighttrue");
@@ -55,6 +64,7 @@ public class Mushroom : MonoBehaviour
 
     private void Remove(Collider collider)
     {
+        if (_isEnlightenedForever) return;
         if (_colliders.Contains(collider))
         {
             _colliders.Remove(collider);
