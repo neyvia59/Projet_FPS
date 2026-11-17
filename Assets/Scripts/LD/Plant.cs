@@ -26,13 +26,16 @@ public class Plant : Mushroom
     public bool _canUnretract = true;
     [SerializeField]private GameObject _retractedRef;
     [SerializeField] private GameObject _plantModel;
+    [SerializeField] private GameObject _plantLiane;
     private Vector3 _retractedPos;
     private Vector3 _basePlantPos;
     private Animator _animator;
+    private Animator _plantLianeAnimator;
 
     private void Awake()
     {
         _animator = GetComponentInParent<Animator>();
+        _plantLianeAnimator = _plantLiane.GetComponent<Animator>();
         _basePos = transform.localPosition;
         
         if (_canKillPlayer)
@@ -62,8 +65,6 @@ public class Plant : Mushroom
             if (_isFullyRetracted == false && _isRetracting == false)
             {
                 
-                _animator.SetBool("IsRetracting", false);
-                _animator.SetBool("IsUnretracting", true);
                 if (_canKillPlayer)
                 {
                     SoundManager.PlaySound(SoundManager._plantRetract, SoundManager._plantRetractVolume);
@@ -71,10 +72,16 @@ public class Plant : Mushroom
                     transform.DOKill();
                     _plantModel.transform.DOLocalMove(-_plantModel.transform.forward, _timeToRetract);
 					transform.DOMove(_retractedPos, _timeToRetract).OnComplete(RetractionEnd);
-				}
+                    _animator.SetBool("IsRetracting", true);
+                    _animator.SetBool("IsUnretracting", false);
+                    _plantLianeAnimator.SetBool("IsRetracting", true);
+                    _plantLianeAnimator.SetBool("IsUnretracting", false);
+                }
                 else
                 {
                     SoundManager.PlaySound(SoundManager._vineRetract, SoundManager._vineRetractVolume);
+                    _animator.SetBool("IsRetracting", false);
+                    _animator.SetBool("IsUnretracting", true);
                 }
 
                 _isRetracting = true;
@@ -98,18 +105,24 @@ public class Plant : Mushroom
                 {
                     GetComponentInParent<CapsuleCollider>().enabled = true;
                 }
-                _animator.SetBool("IsRetracting", true);
-                _animator.SetBool("IsUnretracting", false);
+
+
                 if (_canKillPlayer)
                 {
                     transform.DOKill();
 					_plantModel.transform.DOLocalMove(_basePlantPos, _timeToUnretract);
 					transform.DOLocalMove(_basePos, _timeToUnretract).OnComplete(UnretractionEnd);
                     SoundManager.PlaySound(SoundManager._plantUnretract, SoundManager._plantUnretractVolume);
+                    _animator.SetBool("IsRetracting", false);
+                    _animator.SetBool("IsUnretracting", true);
+                    _plantLianeAnimator.SetBool("IsRetracting", false);
+                    _plantLianeAnimator.SetBool("IsUnretracting", true);
                 }
                 else
                 {
                     SoundManager.PlaySound(SoundManager._vineUnretract, SoundManager._vineUnretractVolume);
+                    _animator.SetBool("IsRetracting", true);
+                    _animator.SetBool("IsUnretracting", false);
                 }
                     _isUnretracting = true;
                 _isFullyUnretracted = false;
@@ -153,8 +166,8 @@ public class Plant : Mushroom
     public void CollisionEnter()
     {
         print("collision");
-        _animator.SetBool("IsRetracting", false);
-        _animator.SetBool("IsUnretracting", true);
+
+
         _canUnretract = false;
         if (_canKillPlayer)
         {
@@ -162,10 +175,16 @@ public class Plant : Mushroom
             _plantModel.transform.DOLocalMove(-_plantModel.transform.forward, _fasterTimeToRetract);
             transform.DOMove(_retractedPos, _fasterTimeToRetract).OnComplete(RetractionEnd);
             SoundManager.PlaySound(SoundManager._plantRetract, SoundManager._plantRetractVolume);
+            _animator.SetBool("IsRetracting", true);
+            _animator.SetBool("IsUnretracting", false);
+            _plantLianeAnimator.SetBool("IsRetracting", true);
+            _plantLianeAnimator.SetBool("IsUnretracting", false);
         }
         else
         {
             SoundManager.PlaySound(SoundManager._vineRetract, SoundManager._vineRetractVolume);
+            _animator.SetBool("IsRetracting", false);
+            _animator.SetBool("IsUnretracting", true);
         }
             _isRetracting = true;
         _isFullyRetracted = false;
