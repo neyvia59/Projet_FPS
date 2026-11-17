@@ -51,8 +51,9 @@ public class PlayerCollisions : MonoBehaviour
             {
                 KillPlayer();
             }
-            if(other.GetComponent<Plant>()._canKillPlayer == false && other is BoxCollider)
+            if(other.GetComponent<Plant>()._canKillPlayer == false && other.GetComponent<Plant>()._isEnlightened == false && other is BoxCollider)
             {
+                print("plant cancel wallrun");
                 GetComponent<PlayerMovement>().StopWallRun();
             }
 
@@ -150,7 +151,9 @@ public class PlayerCollisions : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision collision)
-    {
+    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision coll    {
         
     }
 }
