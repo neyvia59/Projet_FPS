@@ -7,7 +7,7 @@ public class Plant : Mushroom
 {
 
     public bool _canKillPlayer;
-    [SerializeField]private float _retractedDistance ;
+    [SerializeField] private float _retractedDistance;
     private Vector3 _basePos;
 
     public bool _isFullyRetracted;
@@ -24,7 +24,7 @@ public class Plant : Mushroom
     [SerializeField] private float _retractAnimationSpeedDivider = 0.08f;
     [SerializeField] private float _unretractAnimationSpeedDivider = 0.2f;
     public bool _canUnretract = true;
-    [SerializeField]private GameObject _retractedRef;
+    [SerializeField] private GameObject _retractedRef;
     [SerializeField] private GameObject _plantModel;
     [SerializeField] private GameObject _plantLiane;
     private Vector3 _retractedPos;
@@ -37,13 +37,13 @@ public class Plant : Mushroom
         _animator = GetComponentInParent<Animator>();
         _plantLianeAnimator = _plantLiane.GetComponent<Animator>();
         _basePos = transform.localPosition;
-        
-        
+
+
         if (_canKillPlayer)
         {
             _retractedPos = _retractedRef.transform.position;
-			_basePlantPos = _plantModel.transform.localPosition;
-		}
+            _basePlantPos = _plantModel.transform.localPosition;
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -66,14 +66,15 @@ public class Plant : Mushroom
             }
             if (_isFullyRetracted == false && _isRetracting == false)
             {
-                
+
                 if (_canKillPlayer)
                 {
                     SoundManager.PlaySound(SoundManager._plantRetract, SoundManager._plantRetractVolume);
 
+                    _retractedPos = _retractedRef.transform.position;
                     transform.DOKill();
                     _plantModel.transform.DOLocalMove(-_plantModel.transform.forward, _timeToRetract);
-					transform.DOMove(_retractedPos, _timeToRetract).OnComplete(RetractionEnd);
+                    transform.DOMove(_retractedPos, _timeToRetract).OnComplete(RetractionEnd);
                     _animator.SetBool("IsRetracting", true);
                     _animator.SetBool("IsUnretracting", false);
                     _plantLianeAnimator.SetBool("IsRetracting", true);
@@ -88,7 +89,7 @@ public class Plant : Mushroom
 
                 _isRetracting = true;
                 _isFullyRetracted = false;
-                _isFullyUnretracted=false;
+                _isFullyUnretracted = false;
                 _isUnretracting = false;
                 _canUnretract = false;
                 _animator.speed = _timeToRetract * _retractAnimationSpeedDivider;
@@ -99,8 +100,8 @@ public class Plant : Mushroom
         }
         else
         {
-			
-			if (_isFullyUnretracted == false && _isUnretracting == false && _canUnretract)
+
+            if (_isFullyUnretracted == false && _isUnretracting == false && _canUnretract)
             {
                 GetComponent<BoxCollider>().enabled = true;
                 if (GetComponentInParent<CapsuleCollider>() != null)
@@ -112,8 +113,8 @@ public class Plant : Mushroom
                 if (_canKillPlayer)
                 {
                     transform.DOKill();
-					_plantModel.transform.DOLocalMove(_basePlantPos, _timeToUnretract);
-					transform.DOLocalMove(_basePos, _timeToUnretract).OnComplete(UnretractionEnd);
+                    _plantModel.transform.DOLocalMove(_basePlantPos, _timeToUnretract);
+                    transform.DOLocalMove(_basePos, _timeToUnretract).OnComplete(UnretractionEnd);
                     SoundManager.PlaySound(SoundManager._plantUnretract, SoundManager._plantUnretractVolume);
                     _animator.SetBool("IsRetracting", false);
                     _animator.SetBool("IsUnretracting", true);
@@ -126,13 +127,13 @@ public class Plant : Mushroom
                     _animator.SetBool("IsRetracting", true);
                     _animator.SetBool("IsUnretracting", false);
                 }
-                    _isUnretracting = true;
+                _isUnretracting = true;
                 _isFullyUnretracted = false;
                 _isRetracting = false;
                 _isFullyRetracted = false;
                 _animator.speed = _timeToUnretract * _unretractAnimationSpeedDivider;
             }
-           
+
         }
 
 
@@ -155,8 +156,8 @@ public class Plant : Mushroom
         GetComponent<BoxCollider>().enabled = false;
         _isFullyRetracted = true;
         _isRetracting = false;
-		_canUnretract = false;
-		StartCoroutine(TimeBeforeUnretract());
+        _canUnretract = false;
+        StartCoroutine(TimeBeforeUnretract());
     }
 
     private void UnretractionEnd()
@@ -188,7 +189,7 @@ public class Plant : Mushroom
             _animator.SetBool("IsRetracting", false);
             _animator.SetBool("IsUnretracting", true);
         }
-            _isRetracting = true;
+        _isRetracting = true;
         _isFullyRetracted = false;
         _isFullyUnretracted = false;
         _isUnretracting = false;
