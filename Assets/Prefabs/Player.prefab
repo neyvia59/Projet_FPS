@@ -120,7 +120,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7375654578469038265}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -270,6 +270,7 @@ MonoBehaviour:
   _weapons:
   - {fileID: 0}
   - {fileID: 0}
+  _weaponIndex: 0
   _currentWeapon: {fileID: 0}
   _shootingDelay: 0.77
   _aimingFOV: 35
@@ -281,10 +282,12 @@ MonoBehaviour:
   _muzzleAimRotation: {x: 0.00000041045666, y: 355.67038, z: -0.0000004427072}
   _aimingPosition: {x: -0.41, y: -1.26, z: 1.55}
   _aimingRotation: {x: 358.32095, y: 82.705536, z: 347.10703}
+  _isAiming: 0
   _canShoot: 1
   _ammoText: {fileID: 0}
   _dropDistance: 2
   _reloadingDuration: 2
+  _wasHoldingTrigger: 0
 --- !u!143 &8205438319308085767
 CharacterController:
   m_ObjectHideFlags: 0
@@ -357,6 +360,7 @@ MonoBehaviour:
   _sporeContamination: 0
   _careSporeContamination: 0.001
   _timeBetweenCoughs: 4
+  IsInSpore: 0
 --- !u!1001 &3835652311523625362
 PrefabInstance:
   m_ObjectHideFlags: 0

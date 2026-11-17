@@ -10,10 +10,7 @@ public class Spore : MonoBehaviour
     {
         if (other.name is "Player")
         {
-           if(PlayerStats.Instance.CoughingCoroutine == null)
-            {
-                PlayerStats.Instance.CoughingCoroutine = StartCoroutine(PlayerStats.Instance.CoughingDelay());
-            }
+            PlayerStats.Instance.IsInSpore = true;
         }
     }
 
@@ -21,11 +18,7 @@ public class Spore : MonoBehaviour
     {
         if (other.name is "Player")
         {
-            if (PlayerStats.Instance.CoughingCoroutine != null)
-            {
-                StopCoroutine(PlayerStats.Instance.CoughingDelay());
-                PlayerStats.Instance.CoughingCoroutine = null;
-            }
+            PlayerStats.Instance.IsInSpore = false;
         }
     }
     private void OnTriggerStay(Collider other)

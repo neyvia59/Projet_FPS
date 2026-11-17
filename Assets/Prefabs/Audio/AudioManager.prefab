@@ -154,7 +154,6 @@ MonoBehaviour:
   VineUnretract: {fileID: 8300000, guid: e7a5cf4bfc11a3d4b8c90e56e70ab7d5, type: 3}
   PlantRetract: {fileID: 8300000, guid: c615656c47b450547b96a6094dae488c, type: 3}
   PlantUnretract: {fileID: 8300000, guid: b7248d4c174db7c48b08e2b7bd266534, type: 3}
-  Cough: {fileID: 8300000, guid: bf15fb9afeaf6ec4bb99e6e36bdf57d3, type: 3}
   WalkingSoundsVolume: 1
   SlideVolume: 1
   ShootVolume: 1
@@ -178,4 +177,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 44f88c3d64ca41143878afffc27aa829, type: 3}
   - {fileID: 8300000, guid: 9ac3051a9f144d84598400819d9819b8, type: 3}
   - {fileID: 8300000, guid: a1c13b2160c87bc4792196171c388c62, type: 3}
-  MasterVolume: 0
+  CoughingSounds:
+  - {fileID: 8300000, guid: bf15fb9afeaf6ec4bb99e6e36bdf57d3, type: 3}
+  - {fileID: 8300000, guid: f5c1b36288060b140ba2108f4f0002f9, type: 3}
+  - {fileID: 8300000, guid: 5b861a90de9bcba4a86483051ea09b17, type: 3}
+  MasterVolume: 1
