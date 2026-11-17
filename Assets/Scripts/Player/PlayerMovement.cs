@@ -800,7 +800,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (!foundWall)
         {
-            StopWallRun();
+            //StopWallRun();
             return;
         }
 
@@ -918,7 +918,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void StopWallRun()
     {
-
+        print("stop");
         _isWallRunning = false;
         _wallRunTimer = 0f;
     }
