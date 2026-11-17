@@ -49,6 +49,7 @@ public class FlareAmmo : Ammo
             GetComponentInChildren<Light>().gameObject.transform.position = newPos;
 
             _isPlanted = true;
+            GetComponent<CapsuleCollider>().enabled = false;
             StartCoroutine(DestroyAfter());
         }
     }

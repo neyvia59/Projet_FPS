@@ -25,9 +25,11 @@ public class Plant : Mushroom
     [SerializeField] private float _unretractAnimationSpeedDivider = 0.2f;
     public bool _canUnretract = true;
     [SerializeField] private GameObject _retractedRef;
+    [SerializeField] private GameObject _retractedPlantRef;
     [SerializeField] private GameObject _plantModel;
     [SerializeField] private GameObject _plantLiane;
     private Vector3 _retractedPos;
+    private Vector3 _retractedPlantPos;
     private Vector3 _basePlantPos;
     private Animator _animator;
     private Animator _plantLianeAnimator;
@@ -41,6 +43,7 @@ public class Plant : Mushroom
 
         if (_canKillPlayer)
         {
+            _retractedPlantPos = _retractedPlantRef.transform.localPosition;
             _retractedPos = _retractedRef.transform.position;
             _basePlantPos = _plantModel.transform.localPosition;
         }
@@ -73,8 +76,8 @@ public class Plant : Mushroom
 
                     _retractedPos = _retractedRef.transform.position;
                     transform.DOKill();
-                    _plantModel.transform.DOLocalMove(-_plantModel.transform.forward, _timeToRetract);
-                    transform.DOMove(_retractedPos, _timeToRetract).OnComplete(RetractionEnd);
+                    _plantModel.transform.DOLocalMove(_retractedPlantPos, _timeToRetract);
+					transform.DOMove(_retractedPos, _timeToRetract).OnComplete(RetractionEnd);
                     _animator.SetBool("IsRetracting", true);
                     _animator.SetBool("IsUnretracting", false);
                     _plantLianeAnimator.SetBool("IsRetracting", true);
@@ -103,6 +106,7 @@ public class Plant : Mushroom
 
             if (_isFullyUnretracted == false && _isUnretracting == false && _canUnretract)
             {
+                if (_isEnlightened) return;
                 GetComponent<BoxCollider>().enabled = true;
                 if (GetComponentInParent<CapsuleCollider>() != null)
                 {
@@ -175,7 +179,7 @@ public class Plant : Mushroom
         if (_canKillPlayer)
         {
             transform.DOKill();
-            _plantModel.transform.DOLocalMove(-_plantModel.transform.forward, _fasterTimeToRetract);
+            _plantModel.transform.DOLocalMove(_retractedPlantPos, _timeToRetract);
             transform.DOMove(_retractedPos, _fasterTimeToRetract).OnComplete(RetractionEnd);
             SoundManager.PlaySound(SoundManager._plantRetract, SoundManager._plantRetractVolume);
             _animator.SetBool("IsRetracting", true);
