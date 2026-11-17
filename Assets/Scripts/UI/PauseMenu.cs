@@ -20,6 +20,8 @@ public class PauseMenu : MonoBehaviour
 
     public bool IsInPause = false;
 
+    [SerializeField] private PlayerCollisions _stats;
+
     private void Awake()
     {
         Instance = this;
@@ -94,6 +96,11 @@ Press {PauseKey} again to resume.";
         }
 
 
+    }
+
+    public void OnClickRestart()
+    {
+        _stats.KillPlayer();
     }
 
     public void OnClickBack()
