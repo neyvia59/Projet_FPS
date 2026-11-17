@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerCollisions : MonoBehaviour
 {
@@ -72,6 +73,24 @@ public class PlayerCollisions : MonoBehaviour
             }
             gameObject.GetComponent<WeaponManager>().PickupMushroom();
             Destroy(other.gameObject.GetComponentInParent<PickableMushroom>().gameObject);
+        }
+
+        if(Gamepad.current != null)
+        {
+            if (other.gameObject.GetComponentInParent<PickableMushroom>() != null && Gamepad.current.buttonWest.wasPressedThisFrame)
+            {
+                if (gameObject.GetComponent<WeaponManager>()._weaponIndex == 1)
+                {
+                    return;
+                }
+                gameObject.GetComponent<WeaponManager>().PickupMushroom();
+                Destroy(other.gameObject.GetComponentInParent<PickableMushroom>().gameObject);
+            }
+        }
+
+        if (other.GetComponent<AmmoBox>() != null && Gamepad.current.buttonWest.wasPressedThisFrame)
+        {
+            gameObject.GetComponent<WeaponManager>().RefillAmmo();
         }
     }
 

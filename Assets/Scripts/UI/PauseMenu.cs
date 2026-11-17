@@ -1,6 +1,7 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -60,6 +61,37 @@ Press {PauseKey} again to resume.";
                 PauseMenuImage.DOFade(0, 0).OnComplete(Hide);
             }
         }
+
+        if (Gamepad.current == null) return;
+
+        if (Gamepad.current.startButton.wasPressedThisFrame)
+        {
+            IsInPause = !IsInPause;
+
+            if (IsInPause)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                PauseMenuImage.gameObject.SetActive(true);
+                PauseText.text = $@"The game is pause.
+Press {PauseKey} again to resume.";
+                PauseMenuImage.DOFade(1, PauseFadeDuration);
+                Time.timeScale = 0;
+
+            }
+            else
+            {
+                Time.timeScale = 1;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                GetComponentInChildren<SettingsMenu>().SendValueToHolder();
+                _speedvfx.UpdateMatColor();
+                Camera.main.gameObject.GetComponent<PlayerCam>().UpdateSensiValues();
+                PauseMenuImage.DOFade(0, 0).OnComplete(Hide);
+            }
+        }
+
+
     }
 
     public void OnClickMenu()

@@ -47,7 +47,7 @@ public class WeaponManager : MonoBehaviour
 
     private string _state = "base";
 
-    private bool _isAiming = false;
+    public bool _isAiming = false;
     private float _baseFOV;
 
     private int _currentWeaponIndex = 0;
@@ -64,7 +64,7 @@ public class WeaponManager : MonoBehaviour
 
     private bool _isReloading;
     [SerializeField] private float _reloadingDuration = 3f;
-    private bool _wasHoldingTrigger = false;
+    public bool _wasHoldingTrigger = false;
 
 
     private float _currentThrowDistance, _maxThrowDistance, _minThrowDistance, _throwDistanceIncrement;
@@ -104,11 +104,6 @@ public class WeaponManager : MonoBehaviour
                 Shoot();
             }
 
-            if (Gamepad.current.rightShoulder.isPressed == false && Gamepad.current.leftShoulder.isPressed == false && _hasSwitched == true)
-            {
-                _hasSwitched = false;
-            }
-
 
             if (Input.GetMouseButton(1) && _canShoot )
             {
@@ -127,10 +122,41 @@ public class WeaponManager : MonoBehaviour
                 _isAiming = false;
                 _wasHoldingTrigger = false;
             }
-            if ((Keyboard.current.qKey.wasPressedThisFrame || Gamepad.current.yButton.isPressed == true) && _currentWeapon == _weapons[1])
+
+
+            if (_currentWeapon == _weapons[1])
             {
-                Drop();
+                if ((Keyboard.current.qKey.wasPressedThisFrame || Gamepad.current.buttonNorth.isPressed == true) && _currentWeapon == _weapons[1])
+                {
+                    Drop();
+                }
+                if (Input.mouseScrollDelta.y > 0 || Gamepad.current.dpad.up.isPressed == true)
+                {
+                    print("distup");
+                    if (_currentThrowDistance < _maxThrowDistance)
+                    {
+                        _currentThrowDistance += _throwDistanceIncrement;
+                    }
+
+                }
+                if (Input.mouseScrollDelta.y < 0 || Gamepad.current.dpad.down.isPressed == true)
+                {
+                    print("distup");
+                    if (_currentThrowDistance > _minThrowDistance)
+                    {
+                        _currentThrowDistance -= _throwDistanceIncrement;
+                    }
+
+                }
+
             }
+
+
+            if (_isAiming)
+            {
+                Aim();
+            }
+            else if (_isAiming == false && Camera.main.fieldOfView < _baseFOV) { Unaim(); }
         }
         else
         {
@@ -348,6 +374,7 @@ public class WeaponManager : MonoBehaviour
 
     public void RefillAmmo()
     {
+        if (_currentAmmo == _maxAmmo) return;
         _armsAnimator.speed = _reloadAnimSpeed;
         _armsAnimator.SetTrigger("Reload");
         _currentAmmo = _maxAmmo;

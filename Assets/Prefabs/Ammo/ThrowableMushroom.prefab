@@ -444,6 +444,10 @@ MonoBehaviour:
   _destroyDelay: 2
   _lightZonePrefab: {fileID: 3906177853176768774, guid: e5896130e20902f47b41eee67c4b2aa0, type: 3}
   _zoneRadius: 4
+  MinDistance: 2
+  CurrentDistance: 4
+  MaxDistance: 8
+  DistanceIncrement: 1
   _offsetPlacement: 2.5
 --- !u!1001 &2798725211137724980
 PrefabInstance:
