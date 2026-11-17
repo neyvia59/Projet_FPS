@@ -37,12 +37,13 @@ public class Plant : Mushroom
     private void Awake()
     {
         _animator = GetComponentInParent<Animator>();
-        _plantLianeAnimator = _plantLiane.GetComponent<Animator>();
+        
         _basePos = transform.localPosition;
 
 
         if (_canKillPlayer)
         {
+            _plantLianeAnimator = _plantLiane.GetComponent<Animator>();
             _retractedPlantPos = _retractedPlantRef.transform.localPosition;
             _retractedPos = _retractedRef.transform.position;
             _basePlantPos = _plantModel.transform.localPosition;
