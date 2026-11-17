@@ -6,7 +6,7 @@ public class SettingsHolder : MonoBehaviour
 
     public Vector2 CurrentSensiMouse;
     public Vector2 CurrentSensiController;
-    public float CurrentVFXOpacity;
+    public float CurrentMasterVolume =1;
     private void Awake()
     {
 
@@ -33,14 +33,15 @@ public class SettingsHolder : MonoBehaviour
         cam.sensiGamePadX = CurrentSensiController.x;
         cam.sensiGamePadY = CurrentSensiController.y;
 
+        CurrentMasterVolume = 1;
         
     }
 
-    public void StoreBeforeLoad(Vector2 newMouseSensi, Vector2 newGamepadSensi, float newVFXOpacity)
+    public void StoreBeforeLoad(Vector2 newMouseSensi, Vector2 newGamepadSensi, float newMaxVolume)
     {
         CurrentSensiMouse = newMouseSensi;
         CurrentSensiController = newGamepadSensi;
-        CurrentVFXOpacity = newVFXOpacity;
+        CurrentMasterVolume = newMaxVolume;
     }
 
     

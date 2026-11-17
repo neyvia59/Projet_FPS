@@ -56,7 +56,7 @@ Press {PauseKey} again to resume.";
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
                 GetComponentInChildren<SettingsMenu>().SendValueToHolder();
-                _speedvfx.UpdateMatColor();
+                SoundManager.ChangeMasterVolume(SettingsHolder.Instance.CurrentMasterVolume);
                 Camera.main.gameObject.GetComponent<PlayerCam>().UpdateSensiValues();
                 PauseMenuImage.DOFade(0, 0).OnComplete(Hide);
             }
@@ -85,8 +85,9 @@ Press {PauseKey} again to resume.";
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
                 GetComponentInChildren<SettingsMenu>().SendValueToHolder();
-                _speedvfx.UpdateMatColor();
+
                 Camera.main.gameObject.GetComponent<PlayerCam>().UpdateSensiValues();
+                SoundManager.ChangeMasterVolume(SettingsHolder.Instance.CurrentMasterVolume);
                 PauseMenuImage.DOFade(0, 0).OnComplete(Hide);
             }
         }

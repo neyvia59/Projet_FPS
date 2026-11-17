@@ -30,8 +30,8 @@ public class SoundManager : MonoBehaviour
     private AudioSource _slideAudioSource;
     private AudioSource _wallrunAudioSource;
 
-    public int MasterVolume;
-    public static int _masterVolume;
+    public float MasterVolume;
+    public static float _masterVolume;
     private void Awake()
     {
         Instance = this;
@@ -91,17 +91,32 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         AudioSource = GetComponent<AudioSource>();
+        if (SettingsHolder.Instance == null)
+        {
+            ChangeMasterVolume(1);
+        }
+        else
+        {
+            print(SettingsHolder.Instance.CurrentMasterVolume);
+            ChangeMasterVolume(SettingsHolder.Instance.CurrentMasterVolume);
+        }
+           
     }
 
-    public void ChangeMasterVolume()
+    public static void ChangeMasterVolume(float newVolume)
     {
-        _masterVolume = MasterVolume;
+        print(newVolume);
+        
+        _masterVolume = newVolume;
     }
 
     public static void PlaySound(AudioClip sound, float volume = 1)
     {
+        print(SettingsHolder.Instance.CurrentMasterVolume);
+        ChangeMasterVolume(SettingsHolder.Instance.CurrentMasterVolume);
         if(sound == _slide)
         {
+            Instance._slideAudioSource.volume = volume * _masterVolume;
             Instance._slideAudioSource.Play();
         }
         //else if (_wallrunSounds.Contains(sound))
@@ -111,7 +126,8 @@ public class SoundManager : MonoBehaviour
         else
         {
             
-            Instance.AudioSource.PlayOneShot(sound, volume);
+            Instance.AudioSource.PlayOneShot(sound, volume*_masterVolume);
+            print(_masterVolume);
         }
         
     }

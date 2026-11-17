@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 938daa17d33c9fe44a3369b2b3cefbaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  CurrentSensiMouse: 0
-  CurrentSensiController: 0
-  CurrentVFXOpacity: 1
-  VFXMaterial: {fileID: 2100000, guid: 37d5dd9297e16684fbcfa980beeac53a, type: 2}
+  CurrentSensiMouse: {x: 0, y: 0}
+  CurrentSensiController: {x: 0, y: 0}
+  CurrentMasterVolume: 1

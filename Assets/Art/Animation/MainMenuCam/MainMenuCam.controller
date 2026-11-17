@@ -87,7 +87,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.057821322
   m_TransitionOffset: 0
   m_ExitTime: 4.0415485e-10
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -338,7 +338,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.043034717
   m_TransitionOffset: 0.0162469
   m_ExitTime: 0.020763746
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1

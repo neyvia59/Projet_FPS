@@ -12,10 +12,8 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] private Slider _gamepadSensiXSlider;
     [SerializeField] private Slider _gamepadSensiYSlider;
 
-    [Header("VFX")]
-    
-    [SerializeField] private Slider _vfxOpacitySlider;
-    [SerializeField] private Material _vfxMaterial;
+    [SerializeField] private Slider _masterVolumeSlider;
+    public float MaxVolume =2;
 
 
     void Start()
@@ -30,8 +28,8 @@ public class SettingsMenu : MonoBehaviour
         _gamepadSensiXSlider.value = Camera.main.GetComponent<PlayerCam>().sensiGamePadX;
         _gamepadSensiYSlider.value = Camera.main.GetComponent<PlayerCam>().sensiGamePadY;
 
-        _vfxOpacitySlider.maxValue = 255;
-        _vfxOpacitySlider.value = _vfxMaterial.color.r;
+        _masterVolumeSlider.maxValue = MaxVolume;
+        _masterVolumeSlider.value = 1;
     }
 
 
@@ -40,7 +38,7 @@ public class SettingsMenu : MonoBehaviour
         if(SettingsHolder.Instance ==  null) return;
         SettingsHolder.Instance.StoreBeforeLoad(new Vector2(_mouseSensiXSlider.value,_mouseSensiYSlider.value), 
             new Vector2(_gamepadSensiXSlider.value, _gamepadSensiYSlider.value),
-            _vfxOpacitySlider.value);
+            _masterVolumeSlider.value);
     }
     // Update is called once per frame
     void Update()

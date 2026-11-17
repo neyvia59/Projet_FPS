@@ -744,7 +744,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Speed VFX Opacity
+  m_text: Master Volume
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4f6a3b96bdf840c41835228f1f0b07b0, type: 2}
   m_sharedMaterial: {fileID: 2442333684890548733, guid: 4f6a3b96bdf840c41835228f1f0b07b0, type: 2}
@@ -778,7 +778,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 16
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1666,7 +1666,7 @@ GameObject:
   - component: {fileID: 1059609686903044402}
   - component: {fileID: 5897804802219483471}
   m_Layer: 5
-  m_Name: VFXOpacitySlider
+  m_Name: MasterVolumeSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2260,8 +2260,7 @@ MonoBehaviour:
   _mouseSensiYSlider: {fileID: 7004701796370253316}
   _gamepadSensiXSlider: {fileID: 4907083147976555490}
   _gamepadSensiYSlider: {fileID: 7059443519281363767}
-  _vfxOpacitySlider: {fileID: 5897804802219483471}
-  _vfxMaterial: {fileID: 2100000, guid: 37d5dd9297e16684fbcfa980beeac53a, type: 2}
+  _masterVolumeSlider: {fileID: 5897804802219483471}
 --- !u!1 &4896871615464764643
 GameObject:
   m_ObjectHideFlags: 0
