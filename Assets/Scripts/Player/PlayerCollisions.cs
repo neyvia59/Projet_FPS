@@ -150,10 +150,6 @@ public class PlayerCollisions : MonoBehaviour
         print("Player has died");
     }
 
-    private void OnCollisionEnter(Collision collision)
-    private void OnCollisionEnter(Collision collision)
-    private void OnCollisionEnter(Collision collision)
-    private void OnCollisionEnter(Collision coll    {
         
-    }
+    
 }
