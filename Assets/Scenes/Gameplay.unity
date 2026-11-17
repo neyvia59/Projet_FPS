@@ -43470,7 +43470,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9092531636437687263, guid: 1306b9b52e8cda24aa1317fd316a690e, type: 3}
       propertyPath: BaseDensity
-      value: 0.35
+      value: 0.707
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
