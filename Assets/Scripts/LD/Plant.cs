@@ -38,6 +38,7 @@ public class Plant : Mushroom
         _plantLianeAnimator = _plantLiane.GetComponent<Animator>();
         _basePos = transform.localPosition;
         
+        
         if (_canKillPlayer)
         {
             _retractedPos = _retractedRef.transform.position;
@@ -54,6 +55,7 @@ public class Plant : Mushroom
     // Update is called once per frame
     void Update()
     {
+
         base.Update();
         if (_isEnlightened)
         {

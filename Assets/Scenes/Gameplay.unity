@@ -167663,16 +167663,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1696714053}
     - target: {fileID: 9041213604395267149, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
-      propertyPath: _wallCheckHeight
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 9041213604395267149, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
       propertyPath: _slideVisualHeight
       value: 0.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 9041213604395267149, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
-      propertyPath: _wallCheckDistance
-      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 9041213604395267149, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
       propertyPath: _wallJumpAwayForce
