@@ -131,12 +131,13 @@ public class PlayerCollisions : MonoBehaviour
                 gameObject.GetComponent<WeaponManager>().PickupMushroom();
                 Destroy(other.gameObject.GetComponentInParent<PickableMushroom>().gameObject);
             }
+            if (other.GetComponent<AmmoBox>() != null && Gamepad.current.buttonWest.wasPressedThisFrame)
+            {
+                gameObject.GetComponent<WeaponManager>().RefillAmmo();
+            }
         }
 
-        if (other.GetComponent<AmmoBox>() != null && Gamepad.current.buttonWest.wasPressedThisFrame)
-        {
-            gameObject.GetComponent<WeaponManager>().RefillAmmo();
-        }
+        
     }
 
     public void KillPlayer()
