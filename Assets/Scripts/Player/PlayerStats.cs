@@ -39,10 +39,12 @@ public class PlayerStats : MonoBehaviour
 
     public IEnumerator CoughingDelay()
     {
+        
         yield return new WaitForSeconds(_timeBetweenCoughs);
-        System.Random rand = new System.Random();
-        int index = rand.Next(0, SoundManager._coughingSounds.Count);
-        SoundManager.PlaySound(SoundManager._coughingSounds[index], SoundManager._coughVolume);
+
+        //System.Random rand = new System.Random();
+        //int index = rand.Next(0, SoundManager._walkingSounds.Count);
+        SoundManager.PlaySound(SoundManager._pick, SoundManager._coughVolume);
         CoughingCoroutine = StartCoroutine(CoughingDelay());
     }
 }

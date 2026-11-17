@@ -152,7 +152,7 @@ public class Plant : Mushroom
 
     public void CollisionEnter()
     {
-
+        print("collision");
         _animator.SetBool("IsRetracting", false);
         _animator.SetBool("IsUnretracting", true);
         _canUnretract = false;

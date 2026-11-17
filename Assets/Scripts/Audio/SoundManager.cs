@@ -7,8 +7,8 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour
 {
-    public static AudioClip _slide, _shoot, _jump, _land, _reload, _pick, _throw, _jumpPad, _vineRetract, _vineUnretract, _plantRetract, _plantUnretract;
-    public  AudioClip Slide, Shoot, Jump, Land, Reload, Pick, Throw, JumpPad, VineRetract, VineUnretract, PlantRetract, PlantUnretract;
+    public static AudioClip _slide, _shoot, _jump, _land, _reload, _pick, _throw, _jumpPad, _vineRetract, _vineUnretract, _plantRetract, _plantUnretract ,_cough;
+    public  AudioClip Slide, Shoot, Jump, Land, Reload, Pick, Throw, JumpPad, VineRetract, VineUnretract, PlantRetract, PlantUnretract, Cough;
 
     public static float _walkingSoundsVolume, _slideVolume, _shootVolume, _jumpVolume, _landVolume, _reloadVolume, _pickVolume,
         _throwVolume, _jumpPadVolume, _vineRetractVolume, _vineUnretractVolume, _plantRetractVolume, _plantUnretractVolume, _wallrunVolume, _coughVolume;
@@ -23,14 +23,15 @@ public class SoundManager : MonoBehaviour
     public List<AudioClip> WallrunSounds = new List<AudioClip>();
 
 
-    public static List<AudioClip> _coughingSounds = new List<AudioClip>();
-    public List<AudioClip> CoughingSounds = new List<AudioClip>();
 
 
     private static SoundManager Instance;
     private AudioSource AudioSource;
     private AudioSource _slideAudioSource;
     private AudioSource _wallrunAudioSource;
+
+    public int MasterVolume;
+    public static int _masterVolume;
     private void Awake()
     {
         Instance = this;
@@ -47,6 +48,7 @@ public class SoundManager : MonoBehaviour
         _plantRetract = PlantRetract;
         _vineUnretract = VineUnretract;
         _plantUnretract = PlantUnretract;
+        _cough = Cough;
 
         _walkingSoundsVolume = WalkingSoundsVolume;
         _wallrunVolume = WallRunVolume;
@@ -62,7 +64,7 @@ public class SoundManager : MonoBehaviour
         _vineUnretractVolume = VineUnretractVolume;
         _plantRetractVolume = PlantRetractVolume;
         _plantUnretractVolume = PlantUnretractVolume;
-
+        _masterVolume = MasterVolume;
 
         GameObject go = new GameObject();
 
@@ -83,15 +85,17 @@ public class SoundManager : MonoBehaviour
         {
             _walkingSounds.Add(WalkingSounds[i]);
         }
-        for (int i = 0; i < CoughingSounds.Count; i++)
-        {
-            _coughingSounds.Add(CoughingSounds[i]);
-        }
+
     }
 
     private void Start()
     {
         AudioSource = GetComponent<AudioSource>();
+    }
+
+    public void ChangeMasterVolume()
+    {
+        _masterVolume = MasterVolume;
     }
 
     public static void PlaySound(AudioClip sound, float volume = 1)
@@ -106,6 +110,7 @@ public class SoundManager : MonoBehaviour
         //}
         else
         {
+            
             Instance.AudioSource.PlayOneShot(sound, volume);
         }
         
