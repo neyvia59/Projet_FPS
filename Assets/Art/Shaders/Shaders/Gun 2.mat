@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Material
+  m_Name: Gun 2
   m_Shader: {fileID: -6465566751694194690, guid: b2e7bd5ffbe3eaf48999c88d5b42a96b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -20,7 +20,7 @@ Material:
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
-  m_LockedProperties: 
+  m_LockedProperties: _GradientStrength _WorldGradientStart
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -90,8 +90,8 @@ Material:
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _ColorSteps: 1
-    - _Constrast: 1.05
+    - _ColorSteps: 2.5
+    - _Constrast: 0.67
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
@@ -102,16 +102,18 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _GradientStrength: 0
+    - _GradientStrength: 0.36
     - _Metallic: 0
-    - _NoiseScale: 8
-    - _NoiseStrength: 0.15
+    - _NoiseScale: 2
+    - _NoiseStrength: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _QuantizationStrength: 0.15
+    - _QuantizationStrength: 0.4
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _RimPower: 3
+    - _RimStrength: 0.26
     - _Saturation: 0.85
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
@@ -121,22 +123,23 @@ Material:
     - _Surface: 0
     - _VariationStrength: 0.45
     - _WorkflowMode: 1
-    - _WorldGradientEnd: 2
-    - _WorldGradientStart: 0
-    - _WorldGradientStrength: 1
+    - _WorldGradientEnd: 100
+    - _WorldGradientStart: -100
+    - _WorldGradientStrength: 5
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
     - _brightness: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _BaseColorA: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 1}
-    - _BaseColorB: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color_height: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 1}
+    - _BaseColorA: {r: 0.6226415, g: 0.33264887, b: 0.18503025, a: 1}
+    - _BaseColorB: {r: 0.6226415, g: 0.43676096, b: 0.23789605, a: 1}
+    - _Color: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 1}
+    - _Color_height: {r: 0.46226418, g: 0.31214976, b: 0.11992704, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Global_Tint: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
+    - _Global_Tint: {r: 0.7075472, g: 0.36663407, b: 0.16353686, a: 1}
+    - _RimColor: {r: 0.6836674, g: 1, b: 0.5896226, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _VariationColor: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
+    - _VariationColor: {r: 0.6226415, g: 0.51397294, b: 0.51397294, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &4972501298853708543
