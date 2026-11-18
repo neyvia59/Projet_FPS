@@ -9,12 +9,15 @@ public class ThrowPreview : MonoBehaviour
     [SerializeField] private AOEPreview aoePreview;
     [SerializeField]private LineRenderer line;
 
+  
+
     [Header("Trajectory")]
     [SerializeField] private int resolution = 40;
     [SerializeField] private float projectileRadius = 0.15f;
     [SerializeField] private LayerMask collisionMask = ~0;
 
-    
+
+
 
     private void Awake()
     {
@@ -26,7 +29,8 @@ public class ThrowPreview : MonoBehaviour
         Vector3 start,
         Vector3 velocity,
         float timer,
-        float aoeRadius)
+        float aoeRadius
+        )
     {
         List<Vector3> points = new List<Vector3>();
 
@@ -62,18 +66,25 @@ public class ThrowPreview : MonoBehaviour
                 explosionPosition =
                     previousPoint + direction.normalized * hit.distance;
 
+
+
                 points.Add(explosionPosition);
                 collisionDetected = true;
                 break;
             }
+
+
 
             points.Add(currentPoint);
             previousPoint = currentPoint;
             explosionPosition = currentPoint;
         }
 
+        points[0] = start;
+
         line.positionCount = points.Count;
         line.SetPositions(points.ToArray());
+
 
         line.enabled = true;
 
