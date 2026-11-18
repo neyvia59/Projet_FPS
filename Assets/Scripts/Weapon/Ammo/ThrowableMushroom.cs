@@ -10,6 +10,10 @@ public class ThrowableMushroom : Ammo
     public float MaxDistance = 8f;
     public float DistanceIncrement = 0.01f;
     [SerializeField] private float _offsetPlacement = 2.5f;
+
+    [SerializeField] private float _destroyDistanceOffset;
+
+    private Vector3 _spawnPosition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
@@ -17,16 +21,25 @@ public class ThrowableMushroom : Ammo
     }
     void Start()
 	{
+        _spawnPosition = transform.position;
 		StartCoroutine(DestroyAfter());
 	}
 
 
-	private void OnCollisionEnter(Collision collision)
+    private void Update()
+    {
+        if (Vector3.Distance(_spawnPosition, transform.position) > CurrentDistance * _destroyDistanceOffset)
+        {
+            print("too far");
+            DestroySelf();
+        } 
+    }
+
+    private void OnCollisionEnter(Collision collision)
 	{
-		if (collision.gameObject.GetComponent<Wall>() != null || collision.gameObject.GetComponent<Floor>() != null)
+        print(collision.gameObject.name);
+		if ((collision.gameObject.GetComponent<Wall>() != null || collision.gameObject.GetComponent<Floor>() != null) && collision.gameObject.GetComponent<PlayerMovement>() == null)
 		{
-
-
             ContactPoint contact = collision.contacts[0];
 
             Vector3 pointCollision = contact.point;
@@ -36,16 +49,29 @@ public class ThrowableMushroom : Ammo
             Vector3 newPos = pointCollision + normale * _offsetPlacement;
 
             GetComponentInChildren<Light>().gameObject.transform.position = newPos;
-            Instantiate(_lightZonePrefab, newPos, Quaternion.identity);
 
-            Destroy(gameObject);
+            DestroySelf();
+            
 		}
 	}
 
 	private IEnumerator DestroyAfter()
 	{
 		yield return new WaitForSeconds(_destroyDelay);
+        print("time dstroy");
+        DestroySelf();
+    }
+
+
+    private void DestroySelf()
+    {
+
+        
+
         Instantiate(_lightZonePrefab, transform.position, Quaternion.identity);
+
+        print("current distance :" + Vector3.Distance(_spawnPosition, transform.position));
+        print("destroy Distance :" + Vector3.Distance(_spawnPosition, transform.position));
 
         Destroy(gameObject);
     }

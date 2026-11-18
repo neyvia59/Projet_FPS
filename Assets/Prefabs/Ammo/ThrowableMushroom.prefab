@@ -400,8 +400,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!54 &2497173806236104692
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -444,11 +444,12 @@ MonoBehaviour:
   _destroyDelay: 2
   _lightZonePrefab: {fileID: 3906177853176768774, guid: e5896130e20902f47b41eee67c4b2aa0, type: 3}
   _zoneRadius: 4
-  MinDistance: 2
+  MinDistance: 0
   CurrentDistance: 4
-  MaxDistance: 8
+  MaxDistance: 4000
   DistanceIncrement: 1
   _offsetPlacement: 2.5
+  _destroyDistanceOffset: 20
 --- !u!1001 &2798725211137724980
 PrefabInstance:
   m_ObjectHideFlags: 0

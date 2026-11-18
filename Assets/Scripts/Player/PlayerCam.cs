@@ -12,8 +12,13 @@ public class PlayerCam : MonoBehaviour
 
     public Transform Orientation;
 
+    public string WallSide;
+    public float WallrunLeaningDegree;
+    public float LeaningSpeed;
+
     float xrot;
     float yrot;
+    float zrot;
 
     public SettingsHolder settings;
 
@@ -73,8 +78,52 @@ public class PlayerCam : MonoBehaviour
 
         xrot = Mathf.Clamp(xrot, -90f, 90f);
 
-        transform.rotation = Quaternion.Euler(xrot, yrot, 0);
-        Orientation.rotation = Quaternion.Euler(0, yrot, 0);
+        if (Orientation.GetComponentInParent<PlayerMovement>()._isWallRunning)
+        {
+            print("leaning");
+            if(WallSide == "left")
+            {
+                if (zrot > -WallrunLeaningDegree)
+                {
+                    zrot -= LeaningSpeed;
+                }
+                else
+                {
+                    zrot = -WallrunLeaningDegree;
+                }
+            }
+            else
+            {
+                if (zrot < WallrunLeaningDegree)
+                {
+                    zrot += LeaningSpeed;
+                }
+                else
+                {
+                    zrot = WallrunLeaningDegree;
+                }
+            }
+        }
+        else
+        {
+            print("Unleaning");
+            if (zrot > 0)
+            {
+                zrot -= LeaningSpeed;
+            }
+            else if (zrot < 0)
+            {
+                zrot += LeaningSpeed;
+
+            }
+            else
+            {
+                zrot = 0;
+            }
+        }
+
+        transform.rotation = Quaternion.Euler(xrot, yrot, zrot);
+        Orientation.rotation = Quaternion.Euler(0, yrot, zrot);
 
     }
 }

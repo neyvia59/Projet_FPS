@@ -61,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _jumpBuffForce = 9f;
 
     [Header("Wall Ride")]
+    
     [SerializeField] private float _wallCheckDistance = 0.8f;
     [SerializeField] private float _wallCheckHeight = 1.0f;
     [SerializeField] private float _wallMinNormalY = 0.2f;
@@ -765,6 +766,7 @@ public class PlayerMovement : MonoBehaviour
                 if (hit.transform.gameObject.GetComponent<RunnableWall>() != null)
                 {
                     _side = "left";
+                    Camera.main.GetComponent<PlayerCam>().WallSide = "left";
                     _wallJumped = false;
                     _unallowedWallToRide = hit.transform.gameObject;
                     foundWall = true;
@@ -791,6 +793,7 @@ public class PlayerMovement : MonoBehaviour
                 if (hit.transform.gameObject.GetComponent<RunnableWall>() != null)
                 {
                     _side = "right";
+                    Camera.main.GetComponent<PlayerCam>().WallSide = "right";
                     _wallJumped = false;
                     _unallowedWallToRide = hit.transform.gameObject;
                     foundWall = true;
@@ -814,7 +817,6 @@ public class PlayerMovement : MonoBehaviour
 
             _canWallRun = false;
             _isWallRunning = true;
-            GetComponent<WeaponManager>().ChangeWallrunningState();
             _wallRunTimer = 0f;
 
             float currentSpeed = _horizontalVelocity.magnitude;
@@ -901,8 +903,6 @@ public class PlayerMovement : MonoBehaviour
         _wallJumped = true;
         _wallRunTimer = 0f;
 
-        GetComponent<WeaponManager>().ChangeWallrunningState();
-
         Vector3 jumpDirection =
             _wallNormal * _wallJumpAwayForce +
             Vector3.up * _wallJumpForce +
@@ -921,7 +921,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void StopWallRun()
     {
-        GetComponent<WeaponManager>().ChangeWallrunningState();
+        
         _isWallRunning = false;
         _wallRunTimer = 0f;
     }

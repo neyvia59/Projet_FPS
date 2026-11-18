@@ -67,7 +67,7 @@ public class WeaponManager : MonoBehaviour
     public bool _wasHoldingTrigger = false;
 
 
-    private float _currentThrowDistance, _maxThrowDistance, _minThrowDistance, _throwDistanceIncrement;
+    public float _currentThrowDistance, _maxThrowDistance, _minThrowDistance, _throwDistanceIncrement;
 
     private void Awake()
     {
@@ -254,6 +254,7 @@ public class WeaponManager : MonoBehaviour
         }
         else
         {
+            go.GetComponent<ThrowableMushroom>().CurrentDistance = _currentThrowDistance;
             _weaponIndex = 0;
             _currentWeapon = _weapons[_weaponIndex];
             SoundManager.PlaySound(SoundManager._throw, SoundManager._throwVolume);
@@ -291,10 +292,11 @@ public class WeaponManager : MonoBehaviour
         Vector3 velocity = direction * _currentWeapon._projectionForce;
 
         _throwPreview.ShowTrajectory(
-            _SpawnPosition[1].position,
+            _shroomGo.transform.position,
             velocity,
           _currentThrowDistance,
         _currentWeapon._projectilePrefab.GetComponent<ThrowableMushroom>()._zoneRadius
+
         );
     }
 
