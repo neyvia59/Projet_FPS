@@ -19,6 +19,8 @@ public class SpeedVFX : MonoBehaviour
     [SerializeField] private float _vfxFadeContrastMult;
     [SerializeField] private float _speedVFXFadeContrastDefault;
 
+    [SerializeField] private Color _speedVFXColor = new Color(120,120,120,1);
+
 
     [Header("FOV Slide")]
 
@@ -30,6 +32,8 @@ public class SpeedVFX : MonoBehaviour
     void Start()
     {
         _baseFOV = Camera.main.fieldOfView;
+
+        _speedVFXContrast.color = _speedVFXColor;
     }
 
     // Update is called once per frame

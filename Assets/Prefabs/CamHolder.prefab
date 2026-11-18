@@ -3837,6 +3837,9 @@ MonoBehaviour:
   sensiGamePadX: 400
   sensiGamePadY: 400
   Orientation: {fileID: 0}
+  WallSide: 
+  WallrunLeaningDegree: 10
+  LeaningSpeed: 0.2
   settings: {fileID: -1503103144682954435, guid: c809ecef49380e54b8f4b8b8560eed5d, type: 3}
 --- !u!1 &6629461109849149495
 GameObject:

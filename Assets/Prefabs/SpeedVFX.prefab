@@ -51,5 +51,6 @@ MonoBehaviour:
   _vfxIntensityDivider: 67
   _vfxFadeContrastMult: 6.7
   _speedVFXFadeContrastDefault: 4
+  _speedVFXColor: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 0.36862746}
   _slidingFOV: 80
   _FOVDuration: 0.67
