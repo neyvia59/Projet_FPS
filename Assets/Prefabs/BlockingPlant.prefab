@@ -566,6 +566,7 @@ MonoBehaviour:
   _retractedPlantRef: {fileID: 0}
   _plantModel: {fileID: 0}
   _plantLiane: {fileID: 0}
+  _timeBeforeEnablingCollider: 0.4
 --- !u!135 &5066603345030489107
 SphereCollider:
   m_ObjectHideFlags: 0

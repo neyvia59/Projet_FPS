@@ -239,9 +239,7 @@ public class WeaponManager : MonoBehaviour
 
     private void Shoot()
     {
-        print("shoot");
-        if (_canShoot == false || _inShootCD == true ||_isInAnim || _currentAmmo<=0 || _currentWeaponIndex == 1 && _isAiming == false || _isReloading) return;
-        print("shoot");
+        if (_canShoot == false || _inShootCD == true ||_isInAnim || _currentAmmo<=0 || _currentWeapon == _weapons[1] && _isAiming == false || _isReloading) return;
         GameObject go = Instantiate(_currentWeapon._projectilePrefab, _SpawnPosition[_weaponIndex].position,new Quaternion(Camera.main.transform.rotation.x, Camera.main.transform.rotation.y, Camera.main.transform.rotation.z, Camera.main.transform.rotation.w));
         go.GetComponent<Rigidbody>().AddForce(_SpawnPosition[_weaponIndex].forward.normalized * _currentWeapon._projectionForce, ForceMode.Impulse);
         _armsAnimator.SetTrigger("Shoot");

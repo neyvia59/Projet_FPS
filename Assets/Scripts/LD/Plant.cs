@@ -34,6 +34,8 @@ public class Plant : Mushroom
     private Animator _animator;
     private Animator _plantLianeAnimator;
 
+    [SerializeField] private float _timeBeforeEnablingCollider;
+
     private void Awake()
     {
         _animator = GetComponentInParent<Animator>();
@@ -64,6 +66,7 @@ public class Plant : Mushroom
         if (_isEnlightened)
         {
             GetComponent<BoxCollider>().enabled = false;
+            StopCoroutine(ColliderEnablingDelay());
             if (GetComponentInParent<CapsuleCollider>() != null)
             {
                 GetComponentInParent<CapsuleCollider>().enabled = false;
@@ -108,7 +111,17 @@ public class Plant : Mushroom
             if (_isFullyUnretracted == false && _isUnretracting == false && _canUnretract)
             {
                 if (_isEnlightened) return;
-                GetComponent<BoxCollider>().enabled = true;
+
+                if(_canKillPlayer == false)
+                {
+                    StartCoroutine(ColliderEnablingDelay());
+                }
+                else
+                {
+                    GetComponent<BoxCollider>().enabled = true;
+                }
+
+                
                 if (GetComponentInParent<CapsuleCollider>() != null)
                 {
                     GetComponentInParent<CapsuleCollider>().enabled = true;
@@ -154,6 +167,12 @@ public class Plant : Mushroom
                 RetractionEnd();
             }
         }
+    }
+
+    private IEnumerator ColliderEnablingDelay()
+    {
+        yield return new WaitForSeconds(_timeBeforeEnablingCollider);
+        GetComponent<BoxCollider>().enabled = true;
     }
 
     private void RetractionEnd()
