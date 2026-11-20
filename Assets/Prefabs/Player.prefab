@@ -222,7 +222,7 @@ MonoBehaviour:
   _wallCheckHeight: 1.89
   _wallMinNormalY: 0.2
   _wallRunSpeed: 10
-  _wallRunGravity: 4
+  _wallRunGravity: 1
   _wallRunDuration: 4.59
   _wallJumpForce: 14.49
   _wallJumpAwayForce: 15.81
@@ -288,6 +288,10 @@ MonoBehaviour:
   _dropDistance: 2
   _reloadingDuration: 2
   _wasHoldingTrigger: 0
+  _currentThrowDistance: 0
+  _maxThrowDistance: 0
+  _minThrowDistance: 0
+  _throwDistanceIncrement: 0
 --- !u!143 &8205438319308085767
 CharacterController:
   m_ObjectHideFlags: 0
