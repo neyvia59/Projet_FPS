@@ -1,4 +1,6 @@
 using DG.Tweening;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,7 +12,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private float _creditsFadeDuration = 0.3f;
     [SerializeField] private GameObject _creditsGo, _settingsGo, _bindingsGo;
 
-
+    public float PlayLength = 8;
     private bool _isInCredits = false;
     private bool _isInSettings = false;
     private bool _isInBindings = false;
@@ -37,18 +39,18 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnClickPlay()
     {
+        Camera.main.GetComponent<Animator>().SetTrigger("Play");
+        StartCoroutine(PlayDelay());
         _settingsGo.SetActive(true);
         _settingsGo.GetComponentInChildren<Image>().gameObject.SetActive(false);
         _settingsGo.GetComponent<SettingsMenu>().SendValueToHolder();
-        _fadeImage.gameObject.SetActive(true);
-        _fadeImage.DOFade(1, _fadeDuration).OnComplete(OnCompletePlay);
     }
 
-    private void OnCompletePlay()
+    private IEnumerator PlayDelay()
     {
+        yield return new WaitForSeconds(PlayLength);
         SceneManager.LoadScene("Gameplay");
     }
-
 
     public void OnClickCredits()
     {
@@ -106,5 +108,7 @@ public class MainMenuManager : MonoBehaviour
         Camera.main.GetComponent<Animator>().SetBool("IsInSettings", true);
         _settingsGo.gameObject.SetActive(true);
         _settingsGo.GetComponentInChildren<Image>().DOFade(1, _creditsFadeDuration);
+
+       
     }
 }

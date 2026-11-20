@@ -91,7 +91,7 @@ Material:
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _ColorSteps: 6
-    - _Constrast: 1.52
+    - _Constrast: 1.72
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
@@ -128,7 +128,7 @@ Material:
     - _WorldGradientStrength: 5
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
-    - _brightness: 18.61
+    - _brightness: 0.97
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorA: {r: 0.60997695, g: 0.19339621, b: 1, a: 1}
