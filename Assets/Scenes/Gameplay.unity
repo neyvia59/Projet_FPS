@@ -44480,6 +44480,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 482854432857082799, guid: 0f9c969eafacc624388c9ccfde7c6bba, type: 3}
   m_PrefabInstance: {fileID: 2046382312}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &555159226 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6558855137273879936, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
+  m_PrefabInstance: {fileID: 641327444}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1001 &555207831
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52269,6 +52280,14 @@ PrefabInstance:
     - target: {fileID: 4018794334043355139, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135459494261405899, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -2.215088
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135459494261405899, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -202.04163
       objectReference: {fileID: 0}
     - target: {fileID: 4383590559025878407, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
       propertyPath: m_fontColor.a
@@ -76818,6 +76837,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1879900250216117662, guid: 15ecc0ced85b6c642867d5844506ea71, type: 3}
+--- !u!1 &946497741 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8911948670841015802, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
+  m_PrefabInstance: {fileID: 641327444}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &947716875 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6011794656369961146, guid: f006490752f32f747ae966991371e735, type: 3}
@@ -88030,6 +88054,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7691150932959213912, guid: 99023de0eba2c6a4b9d34873c82b4605, type: 3}
   m_PrefabInstance: {fileID: 1509243801}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1083467943 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1648443202832052652, guid: 09eecb1bac36a15459a11c3685c935ab, type: 3}
+  m_PrefabInstance: {fileID: 641327444}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &1083518965
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -169840,9 +169875,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1547241362}
     - target: {fileID: 3892754030193957136, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
+      propertyPath: PageImage
+      value: 
+      objectReference: {fileID: 946497741}
+    - target: {fileID: 3892754030193957136, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
       propertyPath: VictoryText
       value: 
       objectReference: {fileID: 1770684742}
+    - target: {fileID: 3892754030193957136, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
+      propertyPath: InteractText
+      value: 
+      objectReference: {fileID: 1083467943}
+    - target: {fileID: 3892754030193957136, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
+      propertyPath: VictoryImage
+      value: 
+      objectReference: {fileID: 555159226}
+    - target: {fileID: 3892754030193957136, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
+      propertyPath: CheckpointsText
+      value: 
+      objectReference: {fileID: 1892049471}
     - target: {fileID: 3892754030193957136, guid: 5646dd8a5ede7eb4da9005b09f77f597, type: 3}
       propertyPath: _checkpointsText
       value: 
