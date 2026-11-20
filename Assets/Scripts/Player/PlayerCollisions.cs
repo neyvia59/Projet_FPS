@@ -11,13 +11,19 @@ public class PlayerCollisions : MonoBehaviour
 {
 
     public Transform _currentCheckpoint;
-    public TextMeshProUGUI _checkpointsText;
+    public TextMeshProUGUI CheckpointsText;
+    public TextMeshProUGUI InteractText;
+
+    public GameObject PageImage;
 
     public float CheckpointsDuration = 0.7f;
+    public float InteractDuration = 0.2f;
 
     public Image VictoryImage;
     public TextMeshProUGUI VictoryText;
     public float VictoryDuration = 10f;
+
+    private bool _isPageOnScreen = false;
 
     private void Awake()
     {
@@ -28,7 +34,7 @@ public class PlayerCollisions : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<Killzone>() != null)
+        if (other.GetComponent<Killzone>() != null)
         {
             KillPlayer();
         }
@@ -42,17 +48,17 @@ public class PlayerCollisions : MonoBehaviour
         {
             if (_currentCheckpoint == other.transform) return;
             _currentCheckpoint = other.transform;
-            _checkpointsText.DOFade(1, CheckpointsDuration).OnComplete(HideText);
+            CheckpointsText.DOFade(1, CheckpointsDuration).OnComplete(HideText);
         }
 
 
-        if (other.GetComponent<Plant>() != null) 
+        if (other.GetComponent<Plant>() != null)
         {
             if (other.GetComponent<Plant>()._isFullyRetracted == false && other.GetComponent<Plant>()._canKillPlayer && other is not SphereCollider)
             {
                 KillPlayer();
             }
-            if(other.GetComponent<Plant>()._canKillPlayer == false && other.GetComponent<Plant>()._isEnlightened == false && other is BoxCollider)
+            if (other.GetComponent<Plant>()._canKillPlayer == false && other.GetComponent<Plant>()._isEnlightened == false && other is BoxCollider)
             {
                 print("plant cancel wallrun");
                 GetComponent<PlayerMovement>().StopWallRun();
@@ -65,10 +71,17 @@ public class PlayerCollisions : MonoBehaviour
         }
 
 
-        if(other.gameObject.GetComponent<Victory>() != null)
+        if (other.gameObject.GetComponent<Victory>() != null)
         {
             Victory();
         }
+
+        if (other.GetComponent<AmmoBox>() != null || other.gameObject.GetComponentInParent<PickableMushroom>() != null || other.gameObject.GetComponentInParent<NotePage>() != null)
+        {
+            InteractText.DOFade(1, InteractDuration);
+        }
+
+
     }
 
     private void Victory()
@@ -92,8 +105,8 @@ public class PlayerCollisions : MonoBehaviour
 
     private void HideText()
     {
- 
-        _checkpointsText.DOFade(0, CheckpointsDuration);
+
+        CheckpointsText.DOFade(0, CheckpointsDuration);
     }
 
     private void OnTriggerExit(Collider other)
@@ -102,18 +115,33 @@ public class PlayerCollisions : MonoBehaviour
         {
             GetComponent<PlayerMovement>().CanStandUp = true;
         }
+
+        if (other.GetComponent<AmmoBox>() != null || other.gameObject.GetComponentInParent<PickableMushroom>() != null)
+        {
+            InteractText.DOFade(0, InteractDuration);
+        }
+
+        if (other.gameObject.GetComponentInParent<NotePage>() != null)
+        {
+            InteractText.DOFade(0, InteractDuration);
+
+            _isPageOnScreen = false;
+            PageImage.SetActive(false);
+
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.GetComponent<AmmoBox>() != null && ( Input.GetKeyDown(KeyCode.F)|| Input.GetKeyDown(KeyCode.E)))
+        
+        if (other.GetComponent<AmmoBox>() != null && (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.E)))
         {
             gameObject.GetComponent<WeaponManager>().RefillAmmo();
         }
-        
-        if(other.gameObject.GetComponentInParent<PickableMushroom>() != null && (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.E)))
+
+        if (other.gameObject.GetComponentInParent<PickableMushroom>() != null && (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.E)))
         {
-            if(gameObject.GetComponent<WeaponManager>()._weaponIndex == 1)
+            if (gameObject.GetComponent<WeaponManager>()._weaponIndex == 1)
             {
                 return;
             }
@@ -121,7 +149,22 @@ public class PlayerCollisions : MonoBehaviour
             Destroy(other.gameObject.GetComponentInParent<PickableMushroom>().gameObject);
         }
 
-        if(Gamepad.current != null)
+        if (other.gameObject.GetComponentInParent<NotePage>() != null && (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.E)))
+        {
+            if (_isPageOnScreen == false)
+            {
+                _isPageOnScreen = true;
+                PageImage.SetActive(true);
+                PageImage.GetComponentInChildren<TextMeshProUGUI>().text = other.gameObject.GetComponentInParent<NotePage>().TextToShow;
+            }
+            else
+            {
+                _isPageOnScreen = false;
+                PageImage.SetActive(false);
+            }
+        }
+
+        if (Gamepad.current != null)
         {
             if (other.gameObject.GetComponentInParent<PickableMushroom>() != null && Gamepad.current.buttonWest.wasPressedThisFrame)
             {
@@ -136,9 +179,24 @@ public class PlayerCollisions : MonoBehaviour
             {
                 gameObject.GetComponent<WeaponManager>().RefillAmmo();
             }
+
+            if (other.gameObject.GetComponent<NotePage>() != null && Gamepad.current.buttonWest.wasPressedThisFrame)
+            {
+                if (_isPageOnScreen == false)
+                {
+                    _isPageOnScreen = true;
+                    PageImage.SetActive(true);
+                    PageImage.GetComponentInChildren<TextMeshProUGUI>().text = other.gameObject.GetComponent<NotePage>().TextToShow;
+                }
+                else
+                {
+                    _isPageOnScreen = false;
+                    PageImage.SetActive(false);
+                }
+            }
         }
 
-        
+
     }
 
     public void KillPlayer()
@@ -152,6 +210,6 @@ public class PlayerCollisions : MonoBehaviour
         print("Player has died");
     }
 
-        
-    
+
+
 }
