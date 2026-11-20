@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 0ca99d5ea22d14045b4328b71e9bf6d3, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: f5f7d2abea67e9043a6b7b37da832027, type: 2}
+      objectReference: {fileID: 2100000, guid: 8fea86dcc81450c47a1af9213e681c94, type: 2}
     - target: {fileID: 919132149155446097, guid: 0ca99d5ea22d14045b4328b71e9bf6d3, type: 3}
       propertyPath: m_Name
       value: Lianne_WallRun
