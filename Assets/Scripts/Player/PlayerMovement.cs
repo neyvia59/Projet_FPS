@@ -29,6 +29,10 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float _directionChangeSpeed = 200f;
 
+    [Range(0, 1f)]
+    [SerializeField] private float _inputsInfluenceDuringLaunch;
+
+    private bool _isBeingLaunch;
     private float _currentAcceleration;
     [SerializeField] private float _timeBetweenStepsWalk = 1.2f;
     [SerializeField] private float _timeBetweenStepsRun = 0.4f;
@@ -234,7 +238,14 @@ public class PlayerMovement : MonoBehaviour
             _jumpPressed |= gamepad.buttonSouth.wasPressedThisFrame;
         }
 
+
+
         _moveInput = Vector2.ClampMagnitude(_moveInput, 1f);
+
+        if (_isBeingLaunch)
+        {
+            _moveInput *= _inputsInfluenceDuringLaunch;
+        }
 
         if (!_sprintHeld)
             _isSprintingInJump = false;
@@ -276,6 +287,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (_controller.isGrounded)
         {
+            _isBeingLaunch = false;
             _wallJumped = false;
             float targetSpeed = _sprintHeld
                 ? _sprintSpeed
@@ -552,6 +564,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Launch(float Force, Vector3 target)
     {
+        _isBeingLaunch = true;
         Vector3 launchVelocity = target.normalized * Force;
 
         _horizontalVelocity = new Vector3(
