@@ -90,7 +90,7 @@ Material:
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _ColorSteps: -6.3
+    - _ColorSteps: -2.26
     - _Constrast: 1.33
     - _Cull: 2
     - _Cutoff: 0.5
@@ -128,11 +128,11 @@ Material:
     - _WorldGradientStrength: 5
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
-    - _brightness: 0.7
+    - _brightness: 1.18
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorA: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 1}
-    - _BaseColorB: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
+    - _BaseColorB: {r: 0.25698647, g: 0.5188679, b: 0.37877572, a: 1}
     - _Color: {r: 0.42626378, g: 0.9716981, b: 0.8378173, a: 1}
     - _Color_height: {r: 0.36378607, g: 0.7075472, b: 0.46074435, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
