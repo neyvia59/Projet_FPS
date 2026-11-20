@@ -731,7 +731,7 @@ MonoBehaviour:
         scaleTransformMode: 0
         scaleMode: 0
         scaleUniformMin: 0.11
-        scaleUniformMax: 0.16
+        scaleUniformMax: 0.5
         scalePerAxisMin: {x: 1, y: 1, z: 1}
         scalePerAxisMax: {x: 1, y: 1, z: 1}
         pinFixedRotation: 0
@@ -1027,8 +1027,8 @@ MonoBehaviour:
       customPreviewImage: {fileID: 0}
     - name: champi2
       settings:
-        brushRadius: 20
-        brushSpacing: 5
+        brushRadius: 1.18
+        brushSpacing: 0.46
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
         brushOverlapCheckObjects: 1
@@ -1045,8 +1045,8 @@ MonoBehaviour:
         randomizeOrientationZ: 0
         scaleTransformMode: 0
         scaleMode: 0
-        scaleUniformMin: 0.94
-        scaleUniformMax: 1.8
+        scaleUniformMin: 0.09
+        scaleUniformMax: 0.36
         scalePerAxisMin: {x: 1, y: 1, z: 1}
         scalePerAxisMax: {x: 1, y: 1, z: 1}
         pinFixedRotation: 0
@@ -1342,8 +1342,8 @@ MonoBehaviour:
       customPreviewImage: {fileID: 0}
     - name: champi3
       settings:
-        brushRadius: 20
-        brushSpacing: 4.93
+        brushRadius: 0.55
+        brushSpacing: 0.5
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
         brushOverlapCheckObjects: 1
@@ -1355,13 +1355,13 @@ MonoBehaviour:
         orientationMode: 0
         alongBrushStroke: 0
         rotation: {x: 0, y: 0, z: 0}
-        randomizeOrientationX: 15.8
-        randomizeOrientationY: 14.4
-        randomizeOrientationZ: 15.3
+        randomizeOrientationX: 5
+        randomizeOrientationY: 4.1
+        randomizeOrientationZ: 5.4
         scaleTransformMode: 0
         scaleMode: 0
-        scaleUniformMin: 1
-        scaleUniformMax: 1
+        scaleUniformMin: 0.46
+        scaleUniformMax: 0.55
         scalePerAxisMin: {x: 1, y: 1, z: 1}
         scalePerAxisMax: {x: 1, y: 1, z: 1}
         pinFixedRotation: 0
@@ -1675,8 +1675,8 @@ MonoBehaviour:
         randomizeOrientationZ: 0
         scaleTransformMode: 0
         scaleMode: 0
-        scaleUniformMin: 0.15
-        scaleUniformMax: 0.99
+        scaleUniformMin: 0.16
+        scaleUniformMax: 0.43
         scalePerAxisMin: {x: 1, y: 1, z: 1}
         scalePerAxisMax: {x: 1, y: 1, z: 1}
         pinFixedRotation: 0
@@ -2282,13 +2282,13 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 1
+      selected: 0
       colorTag: 0
       customPreviewImage: {fileID: 0}
     - name: PointLightMushroom 2
       settings:
-        brushRadius: 20
-        brushSpacing: 5
+        brushRadius: 7.84
+        brushSpacing: 0.28
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
         brushOverlapCheckObjects: 1
@@ -2306,7 +2306,7 @@ MonoBehaviour:
         scaleTransformMode: 0
         scaleMode: 0
         scaleUniformMin: 4.24
-        scaleUniformMax: 12.94
+        scaleUniformMax: 8
         scalePerAxisMin: {x: 1, y: 1, z: 1}
         scalePerAxisMax: {x: 1, y: 1, z: 1}
         pinFixedRotation: 0
@@ -2597,7 +2597,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 0
+      selected: 1
       colorTag: 0
       customPreviewImage: {fileID: 0}
     levelsGamma: 1
