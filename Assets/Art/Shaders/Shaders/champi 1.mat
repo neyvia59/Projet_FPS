@@ -128,7 +128,7 @@ Material:
     - _WorldGradientStrength: 5
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
-    - _brightness: 0.88
+    - _brightness: 2.68
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorA: {r: 0.7311321, g: 0.89877915, b: 1, a: 1}
