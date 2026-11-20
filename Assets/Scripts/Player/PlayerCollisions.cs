@@ -145,6 +145,7 @@ public class PlayerCollisions : MonoBehaviour
             {
                 return;
             }
+            InteractText.DOFade(0, InteractDuration);
             gameObject.GetComponent<WeaponManager>().PickupMushroom();
             Destroy(other.gameObject.GetComponentInParent<PickableMushroom>().gameObject);
         }

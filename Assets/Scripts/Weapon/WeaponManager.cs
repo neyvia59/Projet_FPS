@@ -319,7 +319,6 @@ public class WeaponManager : MonoBehaviour
         if (_currentWeapon == _weapons[1]) return;
         if (_canShoot == false && gameObject.GetComponent<PlayerMovement>()._isSprinting && _state !="run" )
         {
-            print("toRUn");
             _state = "run";
             _armsAnimator.SetBool("IsRunning", true);
             _armsAnimator.SetBool("IsAiming", false);
@@ -337,7 +336,6 @@ public class WeaponManager : MonoBehaviour
 
         if (_isAiming && _state != "aim")
         {
-            print("toAIm");
             _state = "aim";
             _armsAnimator.SetBool("IsRunning", false);
             
@@ -353,8 +351,7 @@ public class WeaponManager : MonoBehaviour
             //_SpawnPosition[0].transform.localRotation = Quaternion.Euler(_muzzleAimRotation);
         }
         else if( _canShoot && _state != "base" && _isAiming == false)
-        {
-            print("toBase");    
+        {   
             _state = "base";
             _armsAnimator.SetBool("IsRunning", false);
             
