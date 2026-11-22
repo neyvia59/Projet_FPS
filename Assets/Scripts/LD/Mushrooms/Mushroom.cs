@@ -39,34 +39,6 @@ public class Mushroom : MonoBehaviour
         if (_isEnlightenedForever) { _isEnlightened = true; }
     }
 
-    private void UpdateQuantization()
-    {
-        if (_shaderMat == null) return;
-        _shaderMat.SetFloat("QuantizationStrength",1);
-        float _sporeContamination = PlayerStats.Instance._sporeContamination;
-
-        if (_sporeContamination < 0.2f)
-        {
-            _shaderMat.SetFloat("QuantizationStrength", _sporeContamination * _incrementBefore20);
-        }
-        else if (_sporeContamination < 0.4f)
-        {
-            _shaderMat.SetFloat("QuantizationStrength", _sporeContamination * _incrementBefore40);
-        }
-        else if (_sporeContamination < 0.6f)
-        {
-            _shaderMat.SetFloat("QuantizationStrength", _sporeContamination * _incrementBefore60);
-
-        }
-        else if (_sporeContamination < 0.8f)
-        {
-            _shaderMat.SetFloat("QuantizationStrength", _sporeContamination * _incrementBefore80);
-        }
-        else
-        {
-            _shaderMat.SetFloat("QuantizationStrength", _sporeContamination * _incrementBeforeMax);
-        }
-    }
 
     private void OnTriggerEnter(Collider other)
     {

@@ -1,5 +1,7 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -25,6 +27,15 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float _incrementBeforeMax;
 
     private float _currentTimer;
+
+   
+
+    [SerializeField] private List<Material> _quantizationMats = new List<Material>();
+    [SerializeField] private float _quantiIncrementBefore20;
+    [SerializeField] private float _quantiIncrementBefore40;
+    [SerializeField] private float _quantiIncrementBefore60;
+    [SerializeField] private float _quantiIncrementBefore80;
+    [SerializeField] private float _quantiIncrementBeforeMax;
 
     private void Awake()
     {
@@ -68,6 +79,7 @@ public class PlayerStats : MonoBehaviour
 
     private void UpdateChromatic()
     {
+        float newQuantization = 1 ;
         ChromaticAberration chro;
 
         if (_profile.TryGet(out chro))
@@ -75,25 +87,36 @@ public class PlayerStats : MonoBehaviour
             if (_sporeContamination < 0.2f)
             {
                 chro.intensity.value = _sporeContamination * _incrementBefore20;
+                newQuantization = _sporeContamination * _quantiIncrementBefore20;
             }
             else if (_sporeContamination < 0.4f)
             {
+                newQuantization = _sporeContamination * _quantiIncrementBefore40;
                 chro.intensity.value = _sporeContamination * _incrementBefore40;
             }
             else if (_sporeContamination < 0.6f)
             {
+                newQuantization = _sporeContamination * _quantiIncrementBefore60;
                 chro.intensity.value = _sporeContamination * _incrementBefore60;
 
             }
             else if (_sporeContamination < 0.8f)
             {
+                newQuantization = _sporeContamination * _quantiIncrementBefore80;
                 chro.intensity.value = _sporeContamination * _incrementBefore80;
             }
             else
             {
+                newQuantization = _sporeContamination * _quantiIncrementBeforeMax;
                 chro.intensity.value = _sporeContamination * _incrementBeforeMax;
             }
         }
+
+        foreach(Material mat in _quantizationMats)
+        {
+            mat.SetFloat("_QuantizationStrength", newQuantization);
+        }
+
     }
     public void ResetSporeTimer()
     {
