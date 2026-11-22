@@ -52,7 +52,7 @@ public class PlayerCam : MonoBehaviour
     private void Update()
     {
         if (SceneManager.GetActiveScene().name == "MainMenu") return;
-        if (PauseMenu.Instance.IsInPause) return;
+        if (PauseMenu.Instance.IsInPause || Notebook.Instance.IsBookOpen) return;
         var keyboard = Keyboard.current;
         var gamepad = Gamepad.current;
 

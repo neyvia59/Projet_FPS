@@ -51,6 +51,10 @@ public class PlayerStats : MonoBehaviour
         {
             chro.intensity.value = 0;
         }
+        foreach (Material mat in _quantizationMats)
+        {
+            mat.SetFloat("_QuantizationStrength", 1);
+        }
     }
 
     private void Update()

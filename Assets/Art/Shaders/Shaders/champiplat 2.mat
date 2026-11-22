@@ -108,7 +108,7 @@ Material:
     - _NoiseStrength: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _QuantizationStrength: 0.4
+    - _QuantizationStrength: 0.532796
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1

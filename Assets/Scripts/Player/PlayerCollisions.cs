@@ -14,16 +14,12 @@ public class PlayerCollisions : MonoBehaviour
     public TextMeshProUGUI CheckpointsText;
     public TextMeshProUGUI InteractText;
 
-    public GameObject PageImage;
-
     public float CheckpointsDuration = 0.7f;
     public float InteractDuration = 0.2f;
 
     public Image VictoryImage;
     public TextMeshProUGUI VictoryText;
     public float VictoryDuration = 10f;
-
-    private bool _isPageOnScreen = false;
 
     private void Awake()
     {
@@ -125,15 +121,12 @@ public class PlayerCollisions : MonoBehaviour
         {
             InteractText.DOFade(0, InteractDuration);
 
-            _isPageOnScreen = false;
-            PageImage.SetActive(false);
-
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        
+
         if (other.GetComponent<AmmoBox>() != null && (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.E)))
         {
             gameObject.GetComponent<WeaponManager>().RefillAmmo();
@@ -152,17 +145,12 @@ public class PlayerCollisions : MonoBehaviour
 
         if (other.gameObject.GetComponentInParent<NotePage>() != null && (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.E)))
         {
-            if (_isPageOnScreen == false)
-            {
-                _isPageOnScreen = true;
-                PageImage.SetActive(true);
-                PageImage.GetComponentInChildren<TextMeshProUGUI>().text = other.gameObject.GetComponentInParent<NotePage>().TextToShow;
-            }
-            else
-            {
-                _isPageOnScreen = false;
-                PageImage.SetActive(false);
-            }
+
+            Notebook.Instance.CollectPage(other.gameObject.GetComponentInParent<NotePage>().PageIndex);
+            //PageImage.SetActive(true);
+            //PageImage.GetComponentInChildren<TextMeshProUGUI>().text = ;
+
+
         }
 
         if (Gamepad.current != null)
@@ -183,17 +171,9 @@ public class PlayerCollisions : MonoBehaviour
 
             if (other.gameObject.GetComponent<NotePage>() != null && Gamepad.current.buttonWest.wasPressedThisFrame)
             {
-                if (_isPageOnScreen == false)
-                {
-                    _isPageOnScreen = true;
-                    PageImage.SetActive(true);
-                    PageImage.GetComponentInChildren<TextMeshProUGUI>().text = other.gameObject.GetComponent<NotePage>().TextToShow;
-                }
-                else
-                {
-                    _isPageOnScreen = false;
-                    PageImage.SetActive(false);
-                }
+
+                Notebook.Instance.CollectPage(other.gameObject.GetComponentInParent<NotePage>().PageIndex);
+
             }
         }
 

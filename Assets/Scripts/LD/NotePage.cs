@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NotePage : MonoBehaviour
 {
-    public string TextToShow;
+    public int PageIndex;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
