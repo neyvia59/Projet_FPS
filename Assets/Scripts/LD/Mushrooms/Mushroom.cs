@@ -34,7 +34,6 @@ public class Mushroom : MonoBehaviour
             }
         }
 
-        UpdateQuantization();
 
         if (_isEnlightenedForever) { _isEnlightened = true; }
     }
