@@ -145,8 +145,9 @@ public class PlayerCollisions : MonoBehaviour
 
         if (other.gameObject.GetComponentInParent<NotePage>() != null && (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.E)))
         {
-
+            
             Notebook.Instance.CollectPage(other.gameObject.GetComponentInParent<NotePage>().PageIndex);
+            Destroy(other.gameObject.transform.parent.gameObject);
             //PageImage.SetActive(true);
             //PageImage.GetComponentInChildren<TextMeshProUGUI>().text = ;
 

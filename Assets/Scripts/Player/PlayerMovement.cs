@@ -814,11 +814,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (!foundWall)
-        {
-            //StopWallRun();
-            return;
-        }
+
 
         if (!_isWallRunning && _canWallRun == true)
         {
@@ -842,6 +838,11 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            if (!foundWall)
+            {
+                StopWallRun();
+                return;
+            }
             _wallRunTimer += Time.deltaTime;
 
 

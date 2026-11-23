@@ -26,7 +26,7 @@ public class Notebook : MonoBehaviour
 
     private void Start()
     {
-
+        BookBack.gameObject.SetActive(false);
         _baseScale = Pages[0].gameObject.transform.localScale;
         _currentBookIndex = Pages.Count - 1;
 
@@ -57,6 +57,7 @@ public class Notebook : MonoBehaviour
             }
            
         }
+        
     }
 
     public void ShowCurrentPages()
@@ -72,7 +73,7 @@ public class Notebook : MonoBehaviour
         {
             Buttons[0].gameObject.SetActive(false);
         }
-        if (_currentBookIndex >= Pages.Count - 1) 
+        if (_currentBookIndex >= Pages.Count-2) 
         {
             Buttons[1].gameObject.SetActive(false);
         }
@@ -82,6 +83,7 @@ public class Notebook : MonoBehaviour
             Pages[i].gameObject.SetActive(false);
         }
 
+        if (_currentBookIndex == 7) _currentBookIndex--;
 
 
         BookBack.gameObject.SetActive(true);

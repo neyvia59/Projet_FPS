@@ -64,7 +64,8 @@ Press {PauseKey} again to resume.";
                 Cursor.visible = false;
                 GetComponentInChildren<SettingsMenu>().SendValueToHolder();
                 SoundManager.ChangeMasterVolume(SettingsHolder.Instance.CurrentMasterVolume);
-                AmbiantAudio.Instance.ChangeVolume();
+                if (AmbiantAudio.Instance != null) { AmbiantAudio.Instance.ChangeVolume(); }
+                
                 Camera.main.gameObject.GetComponent<PlayerCam>().UpdateSensiValues();
                 PauseMenuImage.DOFade(0, 0).OnComplete(Hide);
             }
@@ -93,7 +94,8 @@ Press {PauseKey} again to resume.";
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
                 GetComponentInChildren<SettingsMenu>().SendValueToHolder();
-                AmbiantAudio.Instance.ChangeVolume();
+                if (AmbiantAudio.Instance != null) { AmbiantAudio.Instance.ChangeVolume(); }
+
                 Camera.main.gameObject.GetComponent<PlayerCam>().UpdateSensiValues();
                 SoundManager.ChangeMasterVolume(SettingsHolder.Instance.CurrentMasterVolume);
                 PauseMenuImage.DOFade(0, 0).OnComplete(Hide);
