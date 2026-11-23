@@ -333,7 +333,6 @@ MonoBehaviour:
   _currentCheckpoint: {fileID: 0}
   CheckpointsText: {fileID: 0}
   InteractText: {fileID: 0}
-  PageImage: {fileID: 0}
   CheckpointsDuration: 0.7
   InteractDuration: 0.2
   VictoryImage: {fileID: 0}
@@ -382,6 +381,18 @@ MonoBehaviour:
   _incrementBefore60: 0.3
   _incrementBefore80: 0.6
   _incrementBeforeMax: 1
+  _quantizationMats:
+  - {fileID: 2100000, guid: c7283ff88eea7a34eb68412ddb8fcddd, type: 2}
+  - {fileID: 2100000, guid: 3fcf757844f7b1a48b5736c9f0a757e9, type: 2}
+  - {fileID: 2100000, guid: c87c0dc04ac98b74da4bdae2c3b8836c, type: 2}
+  - {fileID: 2100000, guid: 466deb31037b6bd4f8be9dec18979e81, type: 2}
+  - {fileID: 2100000, guid: f16d5584d7715a34683c2d02f2c9b57a, type: 2}
+  - {fileID: 2100000, guid: 004aa83697f647b468ea95b4e0489b09, type: 2}
+  _quantiIncrementBefore20: 3
+  _quantiIncrementBefore40: 5
+  _quantiIncrementBefore60: 8
+  _quantiIncrementBefore80: 13
+  _quantiIncrementBeforeMax: 20
 --- !u!1001 &3835652311523625362
 PrefabInstance:
   m_ObjectHideFlags: 0

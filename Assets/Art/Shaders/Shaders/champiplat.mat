@@ -90,7 +90,7 @@ Material:
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _ColorSteps: 2.5
+    - _ColorSteps: 5.09
     - _Constrast: 1.52
     - _Cull: 2
     - _Cutoff: 0.5
@@ -108,7 +108,7 @@ Material:
     - _NoiseStrength: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _QuantizationStrength: 12.17
+    - _QuantizationStrength: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
