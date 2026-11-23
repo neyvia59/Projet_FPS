@@ -292,6 +292,12 @@ MonoBehaviour:
   _isEnlightened: 0
   _canBeLightenedByPlayer: 1
   _detectionZoneRadius: 50
+  _shaderMat: {fileID: 0}
+  _incrementBefore20: 0
+  _incrementBefore40: 0
+  _incrementBefore60: 0
+  _incrementBefore80: 0
+  _incrementBeforeMax: 0
 --- !u!114 &9061654273307457669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,6 +313,12 @@ MonoBehaviour:
   _isEnlightened: 0
   _canBeLightenedByPlayer: 1
   _detectionZoneRadius: 50
+  _shaderMat: {fileID: 0}
+  _incrementBefore20: 0
+  _incrementBefore40: 0
+  _incrementBefore60: 0
+  _incrementBefore80: 0
+  _incrementBeforeMax: 0
   Force: 15
 --- !u!65 &4937012103079006836
 BoxCollider:
@@ -394,8 +406,8 @@ Light:
   serializedVersion: 13
   m_Type: 2
   m_Color: {r: 1, g: 0.80170727, b: 0.0039215684, a: 1}
-  m_Intensity: 94.7
-  m_Range: 20.6
+  m_Intensity: 0.9
+  m_Range: 6.6
   m_SpotAngle: 127.79859
   m_InnerSpotAngle: 105.34895
   m_CookieSize2D: {x: 0.5, y: 0.5}
@@ -521,7 +533,7 @@ Light:
   serializedVersion: 13
   m_Type: 0
   m_Color: {r: 1, g: 0.60602665, b: 0.0039215684, a: 1}
-  m_Intensity: 45.8
+  m_Intensity: 4.2
   m_Range: 20.6
   m_SpotAngle: 127.79859
   m_InnerSpotAngle: 105.34895
