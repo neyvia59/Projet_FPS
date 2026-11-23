@@ -2083,7 +2083,7 @@ Transform:
   m_GameObject: {fileID: 8341717337504154477}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.408, y: -0.57, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2098,7 +2098,7 @@ ParticleSystem:
   m_GameObject: {fileID: 8341717337504154477}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 0.3
+  simulationSpeed: 0.46
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -2225,7 +2225,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 4
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -2282,7 +2282,7 @@ ParticleSystem:
       maxColor: {r: 0.25943398, g: 0.8334255, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.5613208, g: 0.97713166, b: 1, a: 1}
+        key0: {r: 1, g: 0, b: 0.10283661, a: 1}
         key1: {r: 1, g: 1, b: 1, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
@@ -2660,14 +2660,14 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 100
+    maxNumParticles: 200
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.03
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -2726,9 +2726,9 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 0, y: 10, z: 0}
-    m_Rotation: {x: 359.75, y: 0, z: 0}
-    m_Scale: {x: 0.21, y: 0.47851244, z: 0.47851244}
+    m_Position: {x: 15.850641, y: -0.3792687, z: 0.044697195}
+    m_Rotation: {x: 353.3, y: -0.0014437729, z: 271.63257}
+    m_Scale: {x: 0.02, y: 1, z: 0.03}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -2926,7 +2926,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 40
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -6838,7 +6838,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 38a83eaf504b4f14fabecf8192efddb2, type: 2}
+  - {fileID: 2100000, guid: 6459a05203d828b4098aa01aebff5759, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6865,7 +6865,7 @@ ParticleSystemRenderer:
   m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
-  m_MaxParticleSize: 0.5
+  m_MaxParticleSize: 2
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
@@ -6922,7 +6922,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 51.629993, y: 64.37871, z: 51.639793}
   m_Center: {x: 0, y: 3.8687503, z: 0}
