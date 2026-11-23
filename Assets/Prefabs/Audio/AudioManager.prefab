@@ -154,6 +154,8 @@ MonoBehaviour:
   VineUnretract: {fileID: 8300000, guid: e7a5cf4bfc11a3d4b8c90e56e70ab7d5, type: 3}
   PlantRetract: {fileID: 8300000, guid: c615656c47b450547b96a6094dae488c, type: 3}
   PlantUnretract: {fileID: 8300000, guid: b7248d4c174db7c48b08e2b7bd266534, type: 3}
+  EmptyMagazine: {fileID: 8300000, guid: d7c5788f6f0426442b342852a43df9ce, type: 3}
+  PageSound: {fileID: 8300000, guid: 4ce5d55ad0fc96f4ba3459d660f35771, type: 3}
   WalkingSoundsVolume: 0.12
   SlideVolume: 0.16
   ShootVolume: 1
@@ -169,6 +171,8 @@ MonoBehaviour:
   PlantUnretractVolume: 0.17
   WallRunVolume: 0.4
   CoughVolume: 0.19
+  EmptyVolume: 0.7
+  PageVolume: 0.8
   WalkingSounds:
   - {fileID: 8300000, guid: b1335f4be5bf10847b8e7d2bcff3e723, type: 3}
   - {fileID: 8300000, guid: 3a5a0eef1cc13894cb3613b03fd6df1a, type: 3}

@@ -185,6 +185,7 @@ public class Notebook : MonoBehaviour
     }
     public void OnClickLeftPage()
     {
+        SoundManager.PlaySound(SoundManager._pageSound, SoundManager._pageVolume);
         Buttons[1].gameObject.SetActive(true);
         Pages[_currentBookIndex].gameObject.SetActive(false);
         if (_currentBookIndex<Pages.Count-1)
@@ -205,6 +206,7 @@ public class Notebook : MonoBehaviour
 
     public void OnClickRightPage()
     {
+        SoundManager.PlaySound(SoundManager._pageSound, SoundManager._pageVolume);
         Buttons[0].gameObject.SetActive(true);
         Pages[_currentBookIndex].gameObject.SetActive(false);
         Pages[_currentBookIndex + 1].gameObject.SetActive(false);
