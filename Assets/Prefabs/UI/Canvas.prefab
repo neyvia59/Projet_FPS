@@ -492,7 +492,7 @@ MonoBehaviour:
   PauseFadeDuration: 0.4
   PauseMenuImage: {fileID: 2759761953523449778}
   PauseText: {fileID: 3886546705486087708}
-  PauseKey: 9
+  PauseKey: 27
   IsInPause: 0
   _stats: {fileID: 0}
 --- !u!1 &2038996950625026190

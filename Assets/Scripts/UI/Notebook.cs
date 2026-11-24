@@ -3,6 +3,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Notebook : MonoBehaviour
@@ -18,6 +19,8 @@ public class Notebook : MonoBehaviour
     public Button[] Buttons;
 
     private Vector3 _baseScale;
+
+    private bool _pressedGamepad = false;
 
     private void Awake()
     {
@@ -43,7 +46,7 @@ public class Notebook : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.N))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (IsBookOpen == false)
             {
@@ -58,6 +61,28 @@ public class Notebook : MonoBehaviour
            
         }
         
+        if(Gamepad.current != null)
+        {
+            if (Gamepad.current.selectButton.wasPressedThisFrame && _pressedGamepad == false)
+            {
+                _pressedGamepad = true;
+                if (IsBookOpen == false)
+                {
+                    IsBookOpen = true;
+                    ShowCurrentPages();
+                }
+                else
+                {
+                    IsBookOpen = false;
+                    HideBook();
+                }
+            }
+
+            if (Gamepad.current.selectButton.wasReleasedThisFrame) 
+            {
+                _pressedGamepad = false;
+            }
+        }
     }
 
     public void ShowCurrentPages()
