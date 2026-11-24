@@ -814,6 +814,11 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        if (!foundWall)
+        {
+            StopWallRun();
+            return;
+        }
 
 
         if (!_isWallRunning && _canWallRun == true)
@@ -836,15 +841,10 @@ public class PlayerMovement : MonoBehaviour
             //_horizontalVelocity = wallDirection * targetSpeed;
 
         }
-        else
+        else 
         {
-            if (!foundWall)
-            {
-                StopWallRun();
-                return;
-            }
-            _wallRunTimer += Time.deltaTime;
 
+            _wallRunTimer += Time.deltaTime;
 
             if (_wallRunTimer >= _wallRunDuration ||
                 Mathf.Abs(Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up)) < 90 + _maxCamRotationOffset && _side == "left" ||
@@ -882,6 +882,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
+
     }
 
     private bool IsValidWall(Vector3 normal)
