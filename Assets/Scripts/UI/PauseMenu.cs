@@ -31,6 +31,7 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         PauseMenuImage.gameObject.SetActive(false);
+        FadeImage.gameObject.SetActive(false);
         if (_stats != null)
         {
             _stats.VictoryImage = FadeImage;

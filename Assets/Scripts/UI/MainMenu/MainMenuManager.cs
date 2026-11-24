@@ -26,6 +26,8 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         _fadeImage.DOFade(0, _fadeDuration).OnComplete(DisableFade);
     }
 

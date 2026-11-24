@@ -28,7 +28,10 @@ public class PlayerCollisions : MonoBehaviour
         _currentCheckpoint = transform;
     }
 
-
+    private void Start()
+    {
+      
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -186,6 +189,7 @@ public class PlayerCollisions : MonoBehaviour
 
     public void KillPlayer()
     {
+        VictoryImage.gameObject.SetActive(true);
         VictoryImage.DOFade(1, 0.2f).OnComplete(GetUp);
         IsInDeathAnim = true;
 
@@ -211,7 +215,7 @@ public class PlayerCollisions : MonoBehaviour
 
     private IEnumerator EnableAfterDelay()
     {
-        
+        VictoryImage.gameObject.SetActive(false);
         yield return new WaitForSeconds(_deathDelay);
         IsInDeathAnim = false;
         gameObject.GetComponent<PlayerMovement>().enabled = true;

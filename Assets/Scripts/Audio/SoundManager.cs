@@ -123,6 +123,8 @@ public class SoundManager : MonoBehaviour
 
     public static void PlaySound(AudioClip sound, float volume = 1)
     {
+        print(sound);
+        print(volume);
         ChangeMasterVolume(SettingsHolder.Instance.CurrentMasterVolume);
         if(sound == _slide)
         {
