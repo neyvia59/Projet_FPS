@@ -698,6 +698,12 @@ MonoBehaviour:
   _isEnlightened: 0
   _canBeLightenedByPlayer: 1
   _detectionZoneRadius: 50
+  _shaderMat: {fileID: 0}
+  _incrementBefore20: 0
+  _incrementBefore40: 0
+  _incrementBefore60: 0
+  _incrementBefore80: 0
+  _incrementBeforeMax: 0
 --- !u!135 &-4016840853365902671
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -986,7 +992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6caf18329f7475a4780ac19dcbaf10ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FogLightSource
-  clearingRadius: 15.97
+  clearingRadius: 5.49
   clearingStrength: 1
   isActive: 1
 --- !u!1001 &2668685874462151283

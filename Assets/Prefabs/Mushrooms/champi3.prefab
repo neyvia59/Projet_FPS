@@ -750,7 +750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6caf18329f7475a4780ac19dcbaf10ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FogLightSource
-  clearingRadius: 12.79
+  clearingRadius: 8.79
   clearingStrength: 1
   isActive: 1
 --- !u!1 &7723883749585854451
