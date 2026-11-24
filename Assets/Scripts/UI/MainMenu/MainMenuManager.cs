@@ -29,6 +29,9 @@ public class MainMenuManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         _fadeImage.DOFade(0, _fadeDuration).OnComplete(DisableFade);
+
+        _creditsGo.SetActive(false);
+        _bindingsGo.SetActive(false);
     }
 
 
@@ -83,6 +86,10 @@ public class MainMenuManager : MonoBehaviour
             Image[] _bindingsImage = _bindingsGo.GetComponentsInChildren<Image>();
 
         }
+
+        _creditsGo.SetActive(false);
+        _bindingsGo.SetActive(false);
+
     }
 
 
