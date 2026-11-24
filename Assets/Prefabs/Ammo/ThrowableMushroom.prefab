@@ -443,11 +443,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FlashAmmo
   _destroyDelay: 2
   _lightZonePrefab: {fileID: 3906177853176768774, guid: e5896130e20902f47b41eee67c4b2aa0, type: 3}
-  _zoneRadius: 4
-  MinDistance: 0
-  CurrentDistance: 4
-  MaxDistance: 4000
-  DistanceIncrement: 1
+  _zoneRadius: 2
+  MinDistance: 1
+  CurrentDistance: 2.2
+  MaxDistance: 5
+  DistanceIncrement: 0.4
   _offsetPlacement: 2.5
   _destroyDistanceOffset: 20
 --- !u!1001 &2798725211137724980

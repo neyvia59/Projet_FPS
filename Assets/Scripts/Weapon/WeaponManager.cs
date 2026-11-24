@@ -82,7 +82,7 @@ public class WeaponManager : MonoBehaviour
     void Start()
     {
         _currentWeapon = _weapons[_weaponIndex];
-        _currentAmmo = _maxAmmo;
+        _currentAmmo = 0;
         _baseFOV = Camera.main.fieldOfView;
     }
 
