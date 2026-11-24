@@ -87,11 +87,16 @@ public class MainMenuManager : MonoBehaviour
 
         }
 
+        StartCoroutine(HideDelay());
+    }
+
+    private IEnumerator HideDelay()
+    {
+        yield return new WaitForSeconds(0.7f);
         _creditsGo.SetActive(false);
         _bindingsGo.SetActive(false);
 
     }
-
 
     public void OnClickQuit()
     {
