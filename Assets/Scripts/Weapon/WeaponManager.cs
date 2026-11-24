@@ -228,6 +228,11 @@ public class WeaponManager : MonoBehaviour
         go.AddComponent<PickableMushroom>();
         go.AddComponent<Rigidbody>();
         go.GetComponent<BoxCollider>().enabled = true;
+        go.SetActive(true);
+        go.GetComponent<MeshRenderer>().enabled = false;
+        go.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+
+        _armsAnimator.SetTrigger("Drop");
     }
 
     private IEnumerator ShootingCooldown()
@@ -243,7 +248,7 @@ public class WeaponManager : MonoBehaviour
 
         if (_canShoot == false || _inShootCD == true ||_isInAnim || _currentWeapon == _weapons[1] && _isAiming == false || _isReloading || Notebook.Instance.IsBookOpen) return;
 
-        if ( _currentAmmo <= 0)
+        if ( _currentAmmo <= 0 && _currentWeapon != _weapons[1])
         {
             SoundManager.PlaySound(SoundManager._emptyMagazine, SoundManager._emptyVolume);
             return;

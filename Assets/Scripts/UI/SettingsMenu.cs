@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour
@@ -30,6 +31,10 @@ public class SettingsMenu : MonoBehaviour
 
         _masterVolumeSlider.maxValue = MaxVolume;
         _masterVolumeSlider.value = 1;
+        if(SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            gameObject.SetActive(true);
+        }
     }
 
 

@@ -15,7 +15,7 @@ public class PauseMenu : MonoBehaviour
     public float PauseFadeDuration = 0.4f;
 
     public Image PauseMenuImage;
-    public TextMeshProUGUI PauseText;
+
     public KeyCode PauseKey = KeyCode.Tab;
 
     public bool IsInPause = false;
@@ -51,8 +51,7 @@ public class PauseMenu : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 PauseMenuImage.gameObject.SetActive(true);
-                PauseText.text = $@"The game is pause.
-Press {PauseKey} again to resume.";
+
                 PauseMenuImage.DOFade(1,PauseFadeDuration);
                 Time.timeScale = 0;
 
@@ -82,8 +81,7 @@ Press {PauseKey} again to resume.";
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 PauseMenuImage.gameObject.SetActive(true);
-                PauseText.text = $@"The game is pause.
-Press {PauseKey} again to resume.";
+
                 PauseMenuImage.DOFade(1, PauseFadeDuration);
                 Time.timeScale = 0;
 

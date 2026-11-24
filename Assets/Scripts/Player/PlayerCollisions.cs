@@ -149,6 +149,7 @@ public class PlayerCollisions : MonoBehaviour
         {
             
             Notebook.Instance.CollectPage(other.gameObject.GetComponentInParent<NotePage>().PageIndex);
+            InteractText.DOFade(0, InteractDuration);
             Destroy(other.gameObject.transform.parent.gameObject);
             //PageImage.SetActive(true);
             //PageImage.GetComponentInChildren<TextMeshProUGUI>().text = ;
@@ -174,7 +175,7 @@ public class PlayerCollisions : MonoBehaviour
 
             if (other.gameObject.GetComponent<NotePage>() != null && Gamepad.current.buttonWest.wasPressedThisFrame)
             {
-
+                InteractText.DOFade(0, InteractDuration);
                 Notebook.Instance.CollectPage(other.gameObject.GetComponentInParent<NotePage>().PageIndex);
 
             }

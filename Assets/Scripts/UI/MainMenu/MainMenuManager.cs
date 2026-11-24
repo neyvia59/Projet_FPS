@@ -19,9 +19,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Awake()
     {
-        _creditsGo.SetActive(false);
-        _settingsGo.SetActive(false);
-        _bindingsGo.SetActive(false);
+
         _fadeImage.gameObject.SetActive(true);
         _fadeImage.DOFade(1, 0);
     }
@@ -85,12 +83,6 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
-    private void Hide()
-    {
-        _creditsGo.gameObject.SetActive(false);
-        _settingsGo.gameObject.SetActive(false);
-        _bindingsGo.gameObject.SetActive(false);
-    }
 
     public void OnClickQuit()
     {
