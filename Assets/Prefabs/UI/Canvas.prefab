@@ -362,12 +362,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Je suis arriv\xE9 dans cette grotte il y a peu, je ne sais pas comment
-    mais j\u2019\xE9tais ici, dans le noir avec cette arme \xE0 la main. Gr\xE2ce
-    \xE0 elle j\u2019ai r\xE9ussi \xE0 me frayer un chemin jusqu\u2019ici, je compte
-    continuer plus profond\xE9ment pour trouver une sortie ou n\u2019importe quoi
-    d\u2019autre pour comprendre ce que je fais ici. Si vous lisez ceci, continuez
-    votre chemin pour me trouver."
+  m_text: "I just got in this cave earlier, I don\u2019t know how but i was here,
+    in the dark and this gun in my hand. Thanks to it I could make my way up there,
+    i plan on going deeper to search for a way out or anything to understand what
+    I am doing here. If you\u2019re reading this, keep going forward to find me.
+    \n7"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ccf0e26e5f7ea049a272ab97e70e0c9, type: 2}
   m_sharedMaterial: {fileID: 7860781554680187506, guid: 9ccf0e26e5f7ea049a272ab97e70e0c9, type: 2}
@@ -376,8 +375,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 0
-  m_fontColor: {r: 0, g: 0, b: 0, a: 0}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -638,12 +637,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Sortez-moi d\u2019ici je vous en supplie, cette grotte a l\u2019air de
-    se nourrir de la lumi\xE8re, je viens de survivre \xE0 des plantes mangeuses
-    d\u2019hommes ! Si j\u2019ai surv\xE9cu c\u2019est uniquement gr\xE2ce \xE0 ma
-    lumi\xE8re, elles ont l\u2019air d\u2019en avoir peur, faites attention \xE0
-    o\xF9 vous allez et \xE9clairez bien vos environs ou je ne donne pas cher de
-    votre peau.\r\n"
+  m_text: "Somebody get me out of here I beg you, this cave seems to feed on lights,
+    i just survived man-eating plants ! If i survived it\u2019s just thanks to my
+    light, they seem scared of it, be careful where you step and light up your surroundings
+    or you probably won\u2019t last long.\n\n\n\n   2"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ccf0e26e5f7ea049a272ab97e70e0c9, type: 2}
   m_sharedMaterial: {fileID: 7860781554680187506, guid: 9ccf0e26e5f7ea049a272ab97e70e0c9, type: 2}
@@ -653,7 +650,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 0}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -890,13 +887,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Je viens d\u2019entrer dans la grotte, beaucoup d\u2019aventuriers disent
-    qu\u2019un champignon extr\xEAmement recherch\xE9 se trouve au plus profond de
-    celle-ci, cependant on dit aussi qu\u2019elle abrite de nombreux autres sp\xE9cimens
-    dangereux qui feraient perdre la m\xE9moire, je vais donc \xE9crire ce que j\u2019y
-    trouve et laisser mes notes o\xF9 elles ne risquent rien pour pouvoir m\u2019en
-    souvenir en repassant. Si mon moi du futur lit ceci, j\u2019esp\xE8re que t\u2019as
-    trouv\xE9 ce champignon et que t\u2019as encore tes deux jambes !\r\n"
+  m_text: "\nI just entered the cave, a lot of adventurers look after a mushroom
+    that is said to lay at its right bottom, however it is also said that it shelters
+    many dangerous specimens that do something with memory, that\u2019s why I will
+    write here what I find and leave my notes where they are safe so I can remember
+    on my way back. If my future self is reading this, I hope you found that shroom
+    and you still got both your legs !                             1\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ccf0e26e5f7ea049a272ab97e70e0c9, type: 2}
   m_sharedMaterial: {fileID: 7860781554680187506, guid: 9ccf0e26e5f7ea049a272ab97e70e0c9, type: 2}
@@ -1136,7 +1132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1518826682056368944
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2052,12 +2048,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Je viens de me r\xE9veiller ici, on m\u2019aurait kidnapp\xE9 ? Mais pourquoi
-    je vois personne autour, j\u2019ai aucun souvenir autre que ces champignons chelous,
-    je pensais que les champignons c\u2019\xE9tait de la drogue mais l\xE0 je me
-    sens tout sauf bien, je vais continuer mon chemin au cas o\xF9 un fou me cherche.
-    Si vous \xEAtes un kidnappeur alors allez dans le sens oppos\xE9, sinon je serai
-    tout droit si vous \xEAtes un beau prince charmant cherchant \xE0 me sauver."
+  m_text: "I just woke up here, did someone kidnap me ? But why isn\u2019t there
+    anyone around, I don\u2019t remember anything else than these awkward shrooms,
+    I thought shrooms were drugs but this is definitely not a good high, I\u2019m
+    gonna keep going forward just in case a crazy guy is looking after. If you\u2019re
+    a kidnapper then go the opposite way, otherwise I\u2019ll be ahead if you\u2019re
+    a handsome charming prince trying to save me.\n 4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ccf0e26e5f7ea049a272ab97e70e0c9, type: 2}
   m_sharedMaterial: {fileID: 7860781554680187506, guid: 9ccf0e26e5f7ea049a272ab97e70e0c9, type: 2}
@@ -2066,7 +2062,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 0
   m_fontColor: {r: 0, g: 0, b: 0, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2423,7 +2419,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: '
 
-    Carnet d''exploration
+    Exploration Notebook
 
 '
   m_isRightToLeft: 0
@@ -2562,13 +2558,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Cette grotte me rend fou, j\u2019ai l\u2019impression d\u2019entendre
-    d\u2019autres pas, d\u2019autres choses qui bougent tout autour de moi dans l\u2019obscurit\xE9.
-    Je sais pas si les t\xE9n\xE8bres me rendent fou ou c\u2019est les champignons
-    mais je suis presque sur d\u2019avoir entendu des bruits de bouche, mais qu\u2019est
-    ce qui peut bien faire un tel bruit \xE0 un volume pareil ? Si vous cherchez
-    le champignon rebroussez chemin je l\u2019ai s\xFBrement d\xE9j\xE0 trouv\xE9
-    mais si vous cherchez \xE0 m\u2019aider faites vite je commence \xE0 avoir peur.\n\r\n"
+  m_text: "This cave is making me crazy, I think I just heard other steps, other
+    things moving all around me in the dark. I don\u2019t know if it\u2019s the darkness
+    or the mushrooms that are playing with me but I\u2019m sure i just heard mouth
+    like noises, mais what in the world can make this kind of sound this loud ? If
+    you\u2019re looking for the golden mushroom go back because I most definitely
+    already found it but if you\u2019re looking forward to help me then come quickly
+    because I\u2019m getting scared. \n                                                      
+    3"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ccf0e26e5f7ea049a272ab97e70e0c9, type: 2}
   m_sharedMaterial: {fileID: 7860781554680187506, guid: 9ccf0e26e5f7ea049a272ab97e70e0c9, type: 2}
@@ -2846,12 +2843,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "La grotte r\xE9serve d\xE9cid\xE9ment beaucoup de surprises aux aventuriers
-    comme moi, j\u2019ai trouv\xE9 des champignons verts plus t\xF4t, ils contiennent
-    un mat\xE9riau fluorescent que je n\u2019avais jamais vu jusque l\xE0, le lancer
-    m\u2019a permit de m\u2019\xE9clairer un zone assez \xE9tendue. Cependant je
-    ne me suis pas \xE9ternis\xE9 dans cette zone, un malaise m\u2019a rapidement
-    envahi apr\xE8s quelques secondes dans sa lumi\xE8re."
+  m_text: "The cave definetly keeps a lot of surprises for my fellow adventurers,
+    i found green mushrooms earlier, they seem to contain a fluorescent material
+    that i had never seen before, throwing it let me light up a quite large zone.
+    However, I didn\u2019t stay in there long, I quickly started feeling dizzy after
+    a few seconds in its light.\n\n 6"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ccf0e26e5f7ea049a272ab97e70e0c9, type: 2}
   m_sharedMaterial: {fileID: 7860781554680187506, guid: 9ccf0e26e5f7ea049a272ab97e70e0c9, type: 2}
@@ -3063,12 +3059,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "J\u2019AI SURV\xC9CU ! J\u2019ai chut\xE9 et je pensais que c\u2019\xE9tait
-    la fin mais j\u2019ai pu m'agripper aux li\xE8res qui ornaient les murs, gr\xE2ce
-    \xE0 elles j\u2019ai pu avancer beaucoup plus que je ne le pensais. N\u2019emp\xEAche
-    que chaque saut me terrifie, j\u2019esp\xE8re que cette page ne sera pas la derni\xE8re,
-    si vous lisez ceci je ne dirais pas non \xE0 un peu de compagnie, alors rejoignez
-    moi devant !\r\n"
+  m_text: "I SURVIVED ! I fell and thought it was my end but i managed to grab some
+    leaves on the walls, thanks to them i could keep going forward, way more than
+    i thought i could. Even though i survived I\u2019m still terrified with each
+    new hole, i hope this page won\u2019t be the last, if you read this i can\u2019t
+    refuse some company, so join me ahead !       \n                                                  
+    5\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ccf0e26e5f7ea049a272ab97e70e0c9, type: 2}
   m_sharedMaterial: {fileID: 7860781554680187506, guid: 9ccf0e26e5f7ea049a272ab97e70e0c9, type: 2}
