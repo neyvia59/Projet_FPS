@@ -28,7 +28,7 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private float _shootingDelay;
     [SerializeField] private float _aimingFOV;
     [SerializeField] private float _aimingSpeed;
-    
+
 
 
     [SerializeField] private float _animSpeed;
@@ -65,7 +65,7 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private float _reloadingDuration = 3f;
     private bool _wasHoldingLeftTrigger = false;
     private bool _wasHoldingRightTrigger = false;
-
+    private bool _wasHoldingNorth = false;
 
     public float _currentThrowDistance, _maxThrowDistance, _minThrowDistance, _throwDistanceIncrement;
 
@@ -97,7 +97,7 @@ public class WeaponManager : MonoBehaviour
 
     public void ChangeWallrunningState()
     {
-        _armsAnimator.SetBool("IsWallrunning" ,GetComponent<PlayerMovement>()._isWallRunning);
+        _armsAnimator.SetBool("IsWallrunning", GetComponent<PlayerMovement>()._isWallRunning);
     }
 
     private void CheckInputs()
@@ -117,12 +117,12 @@ public class WeaponManager : MonoBehaviour
                 _wasHoldingRightTrigger = false;
             }
 
-            if (Input.GetMouseButton(1) && _canShoot )
+            if (Input.GetMouseButton(1) && _canShoot)
             {
                 _isAiming = true;
             }
 
-            if( Gamepad.current.leftTrigger.isPressed && _canShoot)
+            if (Gamepad.current.leftTrigger.isPressed && _canShoot)
             {
                 _isAiming = true;
                 _wasHoldingLeftTrigger = true;
@@ -136,9 +136,10 @@ public class WeaponManager : MonoBehaviour
             }
 
 
+
             if (_currentWeapon == _weapons[1])
             {
-                if ((Keyboard.current.qKey.wasPressedThisFrame || Gamepad.current.buttonNorth.isPressed == true) && _currentWeapon == _weapons[1])
+                if ((Keyboard.current.qKey.wasPressedThisFrame || Gamepad.current.buttonNorth.isPressed == true) && _currentWeapon == _weapons[1] && _wasHoldingNorth == false)
                 {
                     Drop();
                 }
@@ -162,7 +163,14 @@ public class WeaponManager : MonoBehaviour
                 }
 
             }
-
+            if ((Keyboard.current.qKey.wasPressedThisFrame || Gamepad.current.yButton.wasPressedThisFrame == true))
+            {
+                _wasHoldingNorth = true;
+            }
+            if ((Keyboard.current.qKey.wasReleasedThisFrame || Gamepad.current.yButton.wasReleasedThisFrame == true))
+            {
+                _wasHoldingNorth = false;
+            }
 
             if (_isAiming)
             {
@@ -188,16 +196,16 @@ public class WeaponManager : MonoBehaviour
                 _isAiming = false;
             }
 
-            if(_currentWeapon == _weapons[1])
+            if (_currentWeapon == _weapons[1])
             {
-                if (Keyboard.current.qKey.wasPressedThisFrame )
+                if (Keyboard.current.qKey.wasPressedThisFrame)
                 {
                     Drop();
                 }
 
                 if (Input.mouseScrollDelta.y > 0)
                 {
-                    if(_currentThrowDistance< _maxThrowDistance)
+                    if (_currentThrowDistance < _maxThrowDistance)
                     {
                         _currentThrowDistance += _throwDistanceIncrement;
                     }
@@ -230,7 +238,7 @@ public class WeaponManager : MonoBehaviour
         _currentWeapon = _weapons[_weaponIndex];
         _throwPreview.Hide();
         HigherGun();
-        GameObject go = Instantiate(_shroomGo,transform.position + transform.forward * _dropDistance, Quaternion.identity);
+        GameObject go = Instantiate(_shroomGo, transform.position + transform.forward * _dropDistance, Quaternion.identity);
         go.AddComponent<PickableMushroom>();
         go.AddComponent<Rigidbody>();
         go.GetComponent<BoxCollider>().enabled = true;
@@ -252,9 +260,9 @@ public class WeaponManager : MonoBehaviour
     private void Shoot()
     {
 
-        if (_canShoot == false || _inShootCD == true ||_isInAnim || _currentWeapon == _weapons[1] && _isAiming == false || _isReloading || Notebook.Instance.IsBookOpen) return;
+        if (_canShoot == false || _inShootCD == true || _isInAnim || _currentWeapon == _weapons[1] && _isAiming == false || _isReloading || Notebook.Instance.IsBookOpen) return;
 
-        if ( _currentAmmo <= 0 && _currentWeapon != _weapons[1])
+        if (_currentAmmo <= 0 && _currentWeapon != _weapons[1])
         {
 
             if (_wasHoldingRightTrigger)
@@ -266,21 +274,21 @@ public class WeaponManager : MonoBehaviour
             if (Gamepad.current.rightTrigger.wasPressedThisFrame)
             {
 
-                    _wasHoldingRightTrigger = true;
-                
+                _wasHoldingRightTrigger = true;
+
             }
 
 
 
-            
+
             return;
         }
-        GameObject go = Instantiate(_currentWeapon._projectilePrefab, _SpawnPosition[_weaponIndex].position,new Quaternion(Camera.main.transform.rotation.x, Camera.main.transform.rotation.y, Camera.main.transform.rotation.z, Camera.main.transform.rotation.w));
+        GameObject go = Instantiate(_currentWeapon._projectilePrefab, _SpawnPosition[_weaponIndex].position, new Quaternion(Camera.main.transform.rotation.x, Camera.main.transform.rotation.y, Camera.main.transform.rotation.z, Camera.main.transform.rotation.w));
         go.GetComponent<Rigidbody>().AddForce(_SpawnPosition[_weaponIndex].forward.normalized * _currentWeapon._projectionForce, ForceMode.Impulse);
         _armsAnimator.SetTrigger("Shoot");
-        if(_currentWeapon == _weapons[0])
+        if (_currentWeapon == _weapons[0])
         {
-           
+
             _currentAmmo--;
             _ammoText.text = $@"{_currentAmmo} / {_maxAmmo}";
             SoundManager.PlaySound(SoundManager._shoot, SoundManager._shootVolume);
@@ -294,7 +302,7 @@ public class WeaponManager : MonoBehaviour
             _throwPreview.Hide();
             HigherGun();
         }
-            _inShootCD = true;
+        _inShootCD = true;
         StartCoroutine(ShootingCooldown());
     }
 
@@ -306,7 +314,7 @@ public class WeaponManager : MonoBehaviour
             _armsAnimator.SetBool("IsAiming", true);
         }
 
-        if(_weaponIndex == 1)
+        if (_weaponIndex == 1)
         {
             UpdatePreview();
         }
@@ -352,7 +360,7 @@ public class WeaponManager : MonoBehaviour
     private void UpdateWeaponPos()
     {
         if (_currentWeapon == _weapons[1]) return;
-        if (_canShoot == false && gameObject.GetComponent<PlayerMovement>()._isSprinting && _state !="run" )
+        if (_canShoot == false && gameObject.GetComponent<PlayerMovement>()._isSprinting && _state != "run")
         {
             _state = "run";
             _armsAnimator.SetBool("IsRunning", true);
@@ -373,7 +381,7 @@ public class WeaponManager : MonoBehaviour
         {
             _state = "aim";
             _armsAnimator.SetBool("IsRunning", false);
-            
+
             //_isInAnim = true;
             //_armsAnimator.gameObject.transform.DOLocalMove(_aimingPosition, _animSpeed).SetEase(Ease.InOutSine).OnComplete(ResetAnimBool);
             //_armsAnimator.gameObject.transform.DOLocalRotate(_aimingRotation, _animSpeed);
@@ -385,11 +393,11 @@ public class WeaponManager : MonoBehaviour
             //_SpawnPosition[0].transform.localPosition = _muzzleAimPosition;
             //_SpawnPosition[0].transform.localRotation = Quaternion.Euler(_muzzleAimRotation);
         }
-        else if( _canShoot && _state != "base" && _isAiming == false)
-        {   
+        else if (_canShoot && _state != "base" && _isAiming == false)
+        {
             _state = "base";
             _armsAnimator.SetBool("IsRunning", false);
-            
+
             //_isInAnim = true;
             //_armsAnimator.gameObject.transform.DOLocalMove(_basePosition, _animSpeed).SetEase(Ease.InOutSine).OnComplete(ResetAnimBool);
             //_armsAnimator.gameObject.transform.DOLocalRotate(_baseRotation, _animSpeed);
@@ -418,7 +426,7 @@ public class WeaponManager : MonoBehaviour
 
         _isReloading = true;
         StartCoroutine(ReloadingDelay());
-        
+
         SoundManager.PlaySound(SoundManager._reload, SoundManager._reloadVolume);
 
         _ammoText.text = $@"{_currentAmmo} / {_maxAmmo}";
