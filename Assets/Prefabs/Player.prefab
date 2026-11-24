@@ -338,6 +338,8 @@ MonoBehaviour:
   VictoryImage: {fileID: 0}
   VictoryText: {fileID: 0}
   VictoryDuration: 10
+  IsInDeathAnim: 0
+  _deathDelay: 0.95
 --- !u!114 &7127479342174119498
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -37,6 +37,9 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float _quantiIncrementBefore80;
     [SerializeField] private float _quantiIncrementBeforeMax;
 
+
+
+
     private void Awake()
     {
 

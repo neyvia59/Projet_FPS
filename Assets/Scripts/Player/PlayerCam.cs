@@ -22,6 +22,8 @@ public class PlayerCam : MonoBehaviour
 
     public SettingsHolder settings;
 
+    
+
     private void Start()
     {
         if(SceneManager.GetActiveScene().name != "MainMenu")

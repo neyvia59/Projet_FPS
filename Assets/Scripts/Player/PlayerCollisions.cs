@@ -19,7 +19,9 @@ public class PlayerCollisions : MonoBehaviour
 
     public Image VictoryImage;
     public TextMeshProUGUI VictoryText;
-    public float VictoryDuration = 10f;
+    public float VictoryDuration = 10f; 
+    public bool IsInDeathAnim;
+    [SerializeField] private float _deathDelay = 0.5f;
 
     private void Awake()
     {
@@ -183,15 +185,40 @@ public class PlayerCollisions : MonoBehaviour
 
     public void KillPlayer()
     {
-        gameObject.GetComponent<PlayerStats>()._sporeContamination = 0;
-        gameObject.GetComponent<PlayerStats>().AddSporeContamination(0);
-        gameObject.GetComponent<CharacterController>().enabled = false;
-        gameObject.transform.position = _currentCheckpoint.position;
-        gameObject.GetComponent<CharacterController>().enabled = true;
-        gameObject.GetComponent<WeaponManager>().RefillNoAnim();
-        print("Player has died");
+        VictoryImage.DOFade(1, 0.2f).OnComplete(GetUp);
+        IsInDeathAnim = true;
+
     }
 
 
+    private void GetUp()
+    {
+        gameObject.GetComponent<PlayerStats>()._sporeContamination = 0;
+        gameObject.GetComponent<PlayerStats>().AddSporeContamination(0);
+        gameObject.GetComponent<PlayerMovement>().enabled = false;
+        gameObject.transform.position = _currentCheckpoint.position;
 
+        gameObject.GetComponent<WeaponManager>().RefillNoAnim();
+        Camera.main.GetComponent<PlayerCam>().enabled = false;
+        
+        Camera.main.GetComponent<Animator>().enabled = true;
+        Camera.main.GetComponent<Animator>().SetTrigger("Death");
+        VictoryImage.DOFade(0, _deathDelay * 0.8f).SetEase(Ease.InCirc);
+
+        StartCoroutine(EnableAfterDelay());
+    }
+
+    private IEnumerator EnableAfterDelay()
+    {
+        
+        yield return new WaitForSeconds(_deathDelay);
+        IsInDeathAnim = false;
+        gameObject.GetComponent<PlayerMovement>().enabled = true;
+        Camera.main.GetComponent<Animator>().SetTrigger("DeathEnd");
+        
+        Camera.main.GetComponent<PlayerCam>().enabled = true;
+        Camera.main.GetComponent<Animator>().enabled = false;
+        
+
+    }
 }

@@ -158,7 +158,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-
+        
+       
 
         ReadInput();
 
@@ -974,6 +975,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ApplyMovement()
     {
+        if (GetComponent<PlayerCollisions>().IsInDeathAnim) _horizontalVelocity = Vector2.zero;
         Vector3 velocity =
             _horizontalVelocity +
             Vector3.up *
