@@ -78,6 +78,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _wallRunTimeBetweenSteps = 0.6f;
 
     [SerializeField] private float _maxCamRotationOffset = 5f;
+    private float _currentGraceTime = 0;
+    private float _maxGraceTime = 0.1f;
 
     private GameObject _unallowedWallToRide;
     private bool _wallJumped;
@@ -264,6 +266,7 @@ public class PlayerMovement : MonoBehaviour
 
         _canWallRun = true;
         _isSprintingInJump = false;
+        _currentGraceTime = 0;
 
         if (_verticalVelocity < 0f)
         {
@@ -817,8 +820,30 @@ public class PlayerMovement : MonoBehaviour
 
         if (!foundWall)
         {
-            StopWallRun();
-            return;
+            if (_isWallRunning)
+            {
+                if (_currentGraceTime >= _maxGraceTime)
+                {
+                    StopWallRun();
+                    return;
+                }
+                else
+                {
+                    _currentGraceTime += Time.deltaTime;
+                }
+            }
+            else
+            {
+                StopWallRun();
+                return;
+            }
+       
+
+            
+        }
+        else
+        {
+            _currentGraceTime = 0;
         }
 
 
@@ -918,6 +943,7 @@ public class PlayerMovement : MonoBehaviour
         _canWallRun = true;
         _wallJumped = true;
         _wallRunTimer = 0f;
+        _currentGraceTime = 0;
 
         Vector3 jumpDirection =
             _wallNormal * _wallJumpAwayForce +
@@ -939,6 +965,7 @@ public class PlayerMovement : MonoBehaviour
     {
         
         _isWallRunning = false;
+        _currentGraceTime = 0;
         _wallRunTimer = 0f;
     }
 
