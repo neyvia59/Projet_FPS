@@ -1114,8 +1114,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4289901234
+  m_fontColor: {r: 0.6981132, g: 0.6981132, b: 0.6981132, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3132,7 +3132,7 @@ MonoBehaviour:
     i found green mushrooms earlier, they seem to contain a fluorescent material
     that i had never seen before, throwing it let me light up a quite large zone.
     However, I didn\u2019t stay in there long, I quickly started feeling dizzy after
-    a few seconds in its light.\n\n 6"
+    a few seconds in its light.\n 6"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ccf0e26e5f7ea049a272ab97e70e0c9, type: 2}
   m_sharedMaterial: {fileID: 7860781554680187506, guid: 9ccf0e26e5f7ea049a272ab97e70e0c9, type: 2}

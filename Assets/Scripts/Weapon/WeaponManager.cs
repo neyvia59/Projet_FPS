@@ -50,7 +50,6 @@ public class WeaponManager : MonoBehaviour
     public bool _isAiming = false;
     private float _baseFOV;
 
-    private int _currentWeaponIndex = 0;
     public bool _canShoot = true;
     private bool _inShootCD = false;
     private bool _hasSwitched = false;
@@ -64,7 +63,8 @@ public class WeaponManager : MonoBehaviour
 
     private bool _isReloading;
     [SerializeField] private float _reloadingDuration = 3f;
-    public bool _wasHoldingTrigger = false;
+    private bool _wasHoldingLeftTrigger = false;
+    private bool _wasHoldingRightTrigger = false;
 
 
     public float _currentThrowDistance, _maxThrowDistance, _minThrowDistance, _throwDistanceIncrement;
@@ -111,6 +111,12 @@ public class WeaponManager : MonoBehaviour
             }
 
 
+
+            if (Gamepad.current.rightTrigger.wasReleasedThisFrame)
+            {
+                _wasHoldingRightTrigger = false;
+            }
+
             if (Input.GetMouseButton(1) && _canShoot )
             {
                 _isAiming = true;
@@ -119,14 +125,14 @@ public class WeaponManager : MonoBehaviour
             if( Gamepad.current.leftTrigger.isPressed && _canShoot)
             {
                 _isAiming = true;
-                _wasHoldingTrigger = true;
+                _wasHoldingLeftTrigger = true;
             }
 
 
-            if (Input.GetMouseButtonUp(1) || Gamepad.current.leftTrigger.isPressed == false && _wasHoldingTrigger)
+            if (Input.GetMouseButtonUp(1) || Gamepad.current.leftTrigger.isPressed == false && _wasHoldingLeftTrigger)
             {
                 _isAiming = false;
-                _wasHoldingTrigger = false;
+                _wasHoldingLeftTrigger = false;
             }
 
 
@@ -220,7 +226,7 @@ public class WeaponManager : MonoBehaviour
 
     private void Drop()
     {
-        _currentWeaponIndex = 0;
+        _weaponIndex = 0;
         _currentWeapon = _weapons[_weaponIndex];
         _throwPreview.Hide();
         HigherGun();
@@ -250,7 +256,23 @@ public class WeaponManager : MonoBehaviour
 
         if ( _currentAmmo <= 0 && _currentWeapon != _weapons[1])
         {
+
+            if (_wasHoldingRightTrigger)
+            {
+                return;
+            }
             SoundManager.PlaySound(SoundManager._emptyMagazine, SoundManager._emptyVolume);
+
+            if (Gamepad.current.rightTrigger.wasPressedThisFrame)
+            {
+
+                    _wasHoldingRightTrigger = true;
+                
+            }
+
+
+
+            
             return;
         }
         GameObject go = Instantiate(_currentWeapon._projectilePrefab, _SpawnPosition[_weaponIndex].position,new Quaternion(Camera.main.transform.rotation.x, Camera.main.transform.rotation.y, Camera.main.transform.rotation.z, Camera.main.transform.rotation.w));

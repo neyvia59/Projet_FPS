@@ -61,7 +61,6 @@ public class PlayerCollisions : MonoBehaviour
             }
             if (other.GetComponent<Plant>()._canKillPlayer == false && other.GetComponent<Plant>()._isEnlightened == false && other is BoxCollider)
             {
-                print("plant cancel wallrun");
                 GetComponent<PlayerMovement>().StopWallRun();
             }
 
@@ -139,10 +138,12 @@ public class PlayerCollisions : MonoBehaviour
 
         if (other.gameObject.GetComponentInParent<PickableMushroom>() != null && (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.E)))
         {
+
             if (gameObject.GetComponent<WeaponManager>()._weaponIndex == 1)
             {
                 return;
             }
+
             InteractText.DOFade(0, InteractDuration);
             gameObject.GetComponent<WeaponManager>().PickupMushroom();
             Destroy(other.gameObject.GetComponentInParent<PickableMushroom>().gameObject);
@@ -176,11 +177,14 @@ public class PlayerCollisions : MonoBehaviour
                 gameObject.GetComponent<WeaponManager>().RefillAmmo();
             }
 
-            if (other.gameObject.GetComponent<NotePage>() != null && Gamepad.current.buttonWest.wasPressedThisFrame)
+
+
+            if (other.gameObject.GetComponentInParent<NotePage>() != null && Gamepad.current.buttonWest.wasPressedThisFrame)
             {
+               
                 InteractText.DOFade(0, InteractDuration);
                 Notebook.Instance.CollectPage(other.gameObject.GetComponentInParent<NotePage>().PageIndex);
-
+                Destroy(other.gameObject.transform.parent.gameObject);
             }
         }
 

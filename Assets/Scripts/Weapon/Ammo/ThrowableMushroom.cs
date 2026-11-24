@@ -30,7 +30,7 @@ public class ThrowableMushroom : Ammo
     {
         if (Vector3.Distance(_spawnPosition, transform.position) > CurrentDistance * _destroyDistanceOffset)
         {
-            print("too far");
+
             DestroySelf();
         } 
     }
@@ -58,7 +58,6 @@ public class ThrowableMushroom : Ammo
 	private IEnumerator DestroyAfter()
 	{
 		yield return new WaitForSeconds(_destroyDelay);
-        print("time dstroy");
         DestroySelf();
     }
 
@@ -69,9 +68,6 @@ public class ThrowableMushroom : Ammo
         
 
         Instantiate(_lightZonePrefab, transform.position, Quaternion.identity);
-
-        print("current distance :" + Vector3.Distance(_spawnPosition, transform.position));
-        print("destroy Distance :" + Vector3.Distance(_spawnPosition, transform.position));
 
         Destroy(gameObject);
     }

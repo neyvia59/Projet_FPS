@@ -106,6 +106,16 @@ public class PauseMenu : MonoBehaviour
 
     public void OnClickRestart()
     {
+        IsInPause = false;
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        GetComponentInChildren<SettingsMenu>().SendValueToHolder();
+        if (AmbiantAudio.Instance != null) { AmbiantAudio.Instance.ChangeVolume(); }
+
+        Camera.main.gameObject.GetComponent<PlayerCam>().UpdateSensiValues();
+        SoundManager.ChangeMasterVolume(SettingsHolder.Instance.CurrentMasterVolume);
+        PauseMenuImage.DOFade(0, 0).OnComplete(Hide);
         _stats.KillPlayer();
     }
 
@@ -123,6 +133,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OnClickMenu()
     {
+        Time.timeScale = 1;
         GetComponentInChildren<SettingsMenu>().SendValueToHolder();
         FadeImage.gameObject.SetActive(true);
         FadeImage.DOFade(1, PauseFadeDuration).OnComplete(OnCompleteMenu);
