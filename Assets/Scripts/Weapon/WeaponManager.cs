@@ -83,6 +83,7 @@ public class WeaponManager : MonoBehaviour
     {
         _currentWeapon = _weapons[_weaponIndex];
         _currentAmmo = 0;
+        _ammoText.text = $@"{_currentAmmo} / {_maxAmmo}";
         _baseFOV = Camera.main.fieldOfView;
     }
 

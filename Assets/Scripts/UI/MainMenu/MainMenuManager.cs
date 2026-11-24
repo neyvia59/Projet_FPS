@@ -44,6 +44,10 @@ public class MainMenuManager : MonoBehaviour
         _settingsGo.SetActive(true);
         _settingsGo.GetComponentInChildren<Image>().gameObject.SetActive(false);
         _settingsGo.GetComponent<SettingsMenu>().SendValueToHolder();
+
+        _settingsGo.SetActive(false);
+        _creditsGo.SetActive(false);
+        _bindingsGo.SetActive(false);
     }
 
     private IEnumerator PlayDelay()
@@ -57,7 +61,6 @@ public class MainMenuManager : MonoBehaviour
         _isInCredits = true;
         Camera.main.GetComponent<Animator>().SetBool("IsInCredits", true);
         _creditsGo.gameObject.SetActive(true);
-        _creditsGo.GetComponentInChildren<Image>().DOFade(1, _creditsFadeDuration);
     }
 
     public void OnClickBack()
@@ -65,20 +68,20 @@ public class MainMenuManager : MonoBehaviour
         if (_isInCredits)
         {
             Camera.main.GetComponent<Animator>().SetBool("IsInCredits", false);
-            _creditsGo.GetComponentInChildren<Image>().DOFade(0, _creditsFadeDuration).OnComplete(Hide);
+
         }
 
         if (_isInSettings)
         {
             Camera.main.GetComponent<Animator>().SetBool("IsInSettings", false);
-            _settingsGo.GetComponentInChildren<Image>().DOFade(0, _creditsFadeDuration).OnComplete(Hide);
+
         }
 
         if (_isInBindings)
         {
             Camera.main.GetComponent<Animator>().SetBool("IsInBindings", false);
             Image[] _bindingsImage = _bindingsGo.GetComponentsInChildren<Image>();
-            _bindingsGo.GetComponentInChildren<Image>().DOFade(0, _creditsFadeDuration).OnComplete(Hide);
+
         }
     }
 
@@ -99,7 +102,7 @@ public class MainMenuManager : MonoBehaviour
         _isInBindings = true;
         Camera.main.GetComponent<Animator>().SetBool("IsInBindings", true);
         _bindingsGo.gameObject.SetActive(true);
-        _bindingsGo.GetComponentInChildren<Image>().DOFade(1, _creditsFadeDuration);
+
     }
 
     public void OnClickSettings()
@@ -107,7 +110,6 @@ public class MainMenuManager : MonoBehaviour
         _isInSettings = true;
         Camera.main.GetComponent<Animator>().SetBool("IsInSettings", true);
         _settingsGo.gameObject.SetActive(true);
-        _settingsGo.GetComponentInChildren<Image>().DOFade(1, _creditsFadeDuration);
 
        
     }
