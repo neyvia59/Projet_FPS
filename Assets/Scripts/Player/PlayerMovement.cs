@@ -872,6 +872,8 @@ public class PlayerMovement : MonoBehaviour
 
             _wallRunTimer += Time.deltaTime;
 
+            if (hit.transform == null) return;
+
             if (_wallRunTimer >= _wallRunDuration ||
                 Mathf.Abs(Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up)) < 90 + _maxCamRotationOffset && _side == "left" ||
                 Mathf.Abs(Vector3.SignedAngle(hit.transform.right, Camera.main.transform.forward, Vector3.up)) > 90 - _maxCamRotationOffset && _side == "right")
