@@ -22,6 +22,9 @@ public class Notebook : MonoBehaviour
 
     private bool _pressedGamepad = false;
 
+    private bool _isHoldingRightShoulder = false;
+    private bool _isHoldingLeftShoulder = false;
+
     private void Awake()
     {
         Instance = this;
@@ -82,6 +85,34 @@ public class Notebook : MonoBehaviour
             {
                 _pressedGamepad = false;
             }
+
+            if (IsBookOpen == false) return;
+
+            if (Gamepad.current.rightShoulder.wasPressedThisFrame && _isHoldingRightShoulder == false) 
+            { 
+                OnClickRightPage();
+                _isHoldingRightShoulder = true;
+            }
+
+
+            if (Gamepad.current.leftShoulder.wasPressedThisFrame && _isHoldingLeftShoulder == false)
+            {
+                OnClickLeftPage();
+                _isHoldingLeftShoulder = true;
+            }
+
+            if (Gamepad.current.rightShoulder.wasReleasedThisFrame)
+            {
+                _isHoldingRightShoulder = false;
+            }
+
+            if (Gamepad.current.leftShoulder.wasReleasedThisFrame)
+            {
+                _isHoldingLeftShoulder = false;
+            }
+
+
+
         }
     }
 
